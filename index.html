@@ -134,70 +134,13 @@ C0 &lt;&#8211; C1 &lt;&#8211; C2 &lt;&#8211; C3 &lt;&#8211; C4 <br />
 
 <h3 id="section">合并冲突</h3>
 
-<p>合并产生冲突时，git会提示产生冲突的文件，只有冲突解决之后，merge才能完成，实际上是用户手动处理冲突之后提交冲突文件。</p>
-
-<h2 id="section-1">分支的管理</h2>
-
-<h3 id="git-branch">git branch</h3>
-
-<p>不加任何参数，列出当前所有分支</p>
-
-<h3 id="git-branch--v">git branch -v</h3>
-
-<p>加参数 -v 列出所有分支，并且显示每一个分支最后一次commit的信息</p>
-
-<h3 id="git-branch---merge">git branch –merge</h3>
-
-<p>查看哪些分支已经被并入当前分支</p>
-
-<h3 id="git-branch---no-merge">git branch –no-merge</h3>
-
-<p>查看哪些分支没有并入当前分支</p>
-
-<h3 id="git-branch--d-branch-name">git branch -d &lt;branch-name&gt;</h3>
-
-<p>删除分支,但是当分支包含未被并入的工作时删除分支将导致失败，不过如果你坚信要删除该分支可以使用:<br />
-git branch -D &lt;branch-name&gt;</p>
-
-<h2 id="remote-branch">远程分支(Remote Branch)</h2>
-
-<p>远程分支(remote branch)是对远程仓库状态的索引。它们是一些无法移动的本地分支;只有在进行 Git的网络活动时才会更新。远程分支就像是书签,提醒着你上次连接远程仓库时上面各分支的位置。 <br />
-远程分支使用<strong>&lt;remote-repos-name&gt;/&lt;remote-branch-name&gt;</strong>来表示，例如常见的远程分支：<strong>origin/master</strong><br />
-如果你没有和网络中远程分支进行通讯，本地的远程分支始终指向上一次通讯时的位置，并不能得到更新。进一步，当你的同事更新了远程分支，服务器中的远程分支将是你同事的版本，而你本地的远程分支并没有得到更新！当你需要推送(将在后面讲到)你的工作到服务器时，注意这是服务器中的版本已经发生了改变，你必须先拉取远程分支中的更新到你的本地分支，再进行推送操作。拉取操作我们前面讲过是git fetch &lt;remote-name&gt;。  </p>
-
-<h3 id="push">推送(push)</h3>
-
-<p>要想和其他人分享某个分支,你需要把它推送到一个你拥有写权限的远程仓库。<br />
-git push &lt;remote-repos-name&gt; &lt;branch-name&gt;<br />
-如果你有个叫funstaff的分支需要和他人一起开发,可以运行：<br />
-git push origin funstaff  </p>
-
-<p>这样当你的同伴想要合并你的funstaff分支到当前分支的话，可以使用：<br />
-git merge origin/funstaff
-或者新建一个分支，独立继续开发： <br />
-git checkout -b myFunStaff origin/funstaff</p>
-
-<h3 id="section-2">跟踪分支</h3>
-<p>从远程分支检出的本地分支,称为跟踪分支(tracking branch)。在跟踪分支里输入这些分支里运行git push, Git会自行推断应该向哪个服务器的哪个分支推送数据。
-上面的列子我们可以使用下面的命令：
-git checkout –track origin/funstaff</p>
-
-<h2 id="rebase">衍合(rebase)</h2>
-
-<p>git checkout myBranch<br />
-git rebase master<br />
-<em>rebase命令,可以把在一个分支里提交的改变在另一个分支里重放一遍。</em><br />
-衍合的金科玉律：</p>
-
-<blockquote><p>永远不要衍合那些已经推送到公共仓库的更新。</p></blockquote>
-
-<h2 id="references">References</h2>
-<p><a href="http://git-scm.com/2010/06/09/pro-git-zh.html">Pro Git 简体中文版</a>  </p>
-
-<p><a href="http://git-scm.com/book">Pro Git Enlish Edition</a></p>
-
+<p>合并产生冲突时，git会提示产生冲突的文件，只有冲突解决之后，merge才能完成，实际上是用户手动处理冲突之后提交冲突文件。
 </div>
   
+  
+    <footer>
+      <a rel="full-article" href="/blog/2012/08/11/git-fundamentals-learning-notes-of-pro-git-part2/">Read on &rarr;</a>
+    </footer>
   
 
 
@@ -269,12 +212,12 @@ status的形式:未跟踪，未修改，修改，暂存<br />
 运行了git add之后又作了修订的文件,需要重新运行git add把最新版本重新暂存起来。</p>
 
 <h4 id="git-4">演示git仓库中文件状态的例子</h4>
-<pre><code>1.vim \&lt;file\&gt; -- untracked v0  
-2.git add \&lt;file\&gt; -- tracked &amp; staged v0  
+<pre><code>1.vim &lt;file&gt; -- untracked v0  
+2.git add &lt;file&gt; -- tracked &amp; staged v0  
 3.git commit -m '' -- version v0  
-4.vim \&lt;file\&gt; -- tracked &amp; modified &amp; staged v0  
-5.git add \&lt;file\&gt; -- tracked &amp; staged v1  
-6.vim \&lt;file\&gt; -- tracked &amp; modified &amp; staged v1  
+4.vim &lt;file&gt; -- tracked &amp; modified &amp; staged v0  
+5.git add &lt;file&gt; -- tracked &amp; staged v1  
+6.vim &lt;file&gt; -- tracked &amp; modified &amp; staged v1  
 7.git commit -m '' -- version v1  
 </code></pre>
 
@@ -296,7 +239,7 @@ status的形式:未跟踪，未修改，修改，暂存<br />
 <h3 id="git-mv-filefrom-fileto">git mv file_from file_to</h3>
 <p>Move file in git repos, equals to:</p>
 
-<pre><code>1 mv file\_from file\_to  
+<pre><code>1 mv file_from file_to  
 2 git rm file_from  
 3 git add file_to  
 </code></pre>
@@ -329,7 +272,7 @@ etc. 更多选项请使用 git log –help</p>
 <h2 id="git-5">git远程仓库</h2>
 
 <h3 id="git-remote--v">git remote -v</h3>
-<p>查看远程库信息 -v选项显示远程库地址
+<p>查看远程库信息 -v选项显示远程库地址<br />
 </div>
   
   

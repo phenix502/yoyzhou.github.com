@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Notes | Yoyzhou's Personal Blog]]></title>
   <link href="http://yoyzhou.github.com/categories/notes/atom.xml" rel="self"/>
   <link href="http://yoyzhou.github.com/"/>
-  <updated>2012-08-11T16:52:39+08:00</updated>
+  <updated>2012-08-11T17:06:56+08:00</updated>
   <id>http://yoyzhou.github.com/</id>
   <author>
     <name><![CDATA[yoyzhou]]></name>
@@ -53,9 +53,9 @@ C0 &lt;-- C1 &lt;-- C2 &lt;-- C3 &lt;-- C4 <br />
 
 <h3 id="section">合并冲突</h3>
 
-<p>合并产生冲突时，git会提示产生冲突的文件，只有冲突解决之后，merge才能完成，实际上是用户手动处理冲突之后提交冲突文件。</p>
-
-<h2 id="section-1">分支的管理</h2>
+<p>合并产生冲突时，git会提示产生冲突的文件，只有冲突解决之后，merge才能完成，实际上是用户手动处理冲突之后提交冲突文件。
+<!-- more -->
+##分支的管理</p>
 
 <h3 id="git-branch">git branch</h3>
 
@@ -96,7 +96,7 @@ git merge origin/funstaff
 或者新建一个分支，独立继续开发： <br />
 git checkout -b myFunStaff origin/funstaff</p>
 
-<h3 id="section-2">跟踪分支</h3>
+<h3 id="section-1">跟踪分支</h3>
 <p>从远程分支检出的本地分支,称为跟踪分支(tracking branch)。在跟踪分支里输入这些分支里运行git push, Git会自行推断应该向哪个服务器的哪个分支推送数据。
 上面的列子我们可以使用下面的命令：
 git checkout –track origin/funstaff</p>
@@ -159,12 +159,12 @@ status的形式:未跟踪，未修改，修改，暂存<br />
 运行了git add之后又作了修订的文件,需要重新运行git add把最新版本重新暂存起来。</p>
 
 <h4 id="git-4">演示git仓库中文件状态的例子</h4>
-<pre><code>1.vim \&lt;file\&gt; -- untracked v0  
-2.git add \&lt;file\&gt; -- tracked &amp; staged v0  
+<pre><code>1.vim &lt;file&gt; -- untracked v0  
+2.git add &lt;file&gt; -- tracked &amp; staged v0  
 3.git commit -m '' -- version v0  
-4.vim \&lt;file\&gt; -- tracked &amp; modified &amp; staged v0  
-5.git add \&lt;file\&gt; -- tracked &amp; staged v1  
-6.vim \&lt;file\&gt; -- tracked &amp; modified &amp; staged v1  
+4.vim &lt;file&gt; -- tracked &amp; modified &amp; staged v0  
+5.git add &lt;file&gt; -- tracked &amp; staged v1  
+6.vim &lt;file&gt; -- tracked &amp; modified &amp; staged v1  
 7.git commit -m '' -- version v1  
 </code></pre>
 
@@ -186,7 +186,7 @@ status的形式:未跟踪，未修改，修改，暂存<br />
 <h3 id="git-mv-filefrom-fileto">git mv file_from file_to</h3>
 <p>Move file in git repos, equals to:</p>
 
-<pre><code>1 mv file\_from file\_to  
+<pre><code>1 mv file_from file_to  
 2 git rm file_from  
 3 git add file_to  
 </code></pre>
@@ -219,28 +219,29 @@ etc. 更多选项请使用 git log –help</p>
 <h2 id="git-5">git远程仓库</h2>
 
 <h3 id="git-remote--v">git remote -v</h3>
-<p>查看远程库信息 -v选项显示远程库地址
-<!-- MORE -->
-###git remote add [&lt;options&gt;] &lt;short name&gt; &lt;git url&gt; 
-添加一个远程库, &lt;short name&gt; 可以为远程库选一个简短的名字; &lt;git url&gt;远程库的git项目URL, e.g.:
-	git remote add pb git://github.com/paulboone/ticgit.git</p>
+<p>查看远程库信息 -v选项显示远程库地址<br />
+<!-- MORE --></p>
+
+<h3 id="git-remote-add-options-short-name-git-url">git remote add [&lt;options&gt;] &lt;short name&gt; &lt;git url&gt;</h3>
+
+<p>添加一个远程库, &lt;short name&gt; 可以为远程库选一个简短的名字; &lt;git url&gt;远程库的git项目URL, e.g. <br />
+	git remote add pb git://github.com/paulboone/ticgit.git    </p>
 
 <h3 id="git-fetch-remote-name">git fetch [remote-name]</h3>
 <p>从远程仓库抓取数据，e.g.:
-	 git fetch pb #命令会到远程仓库pb中拉取所有你本地仓库中还没有的数据。</p>
-
-<p>注：当你使用 git clone命令克隆一个远程库时，默认会创建一个origin的remote repository，当使用 git fetch origin 实际上是拉取从你上一次clone以来别人传到此远程仓库的所有更新<br />
+	 git fetch pb #命令会到远程仓库pb中拉取所有你本地仓库中还没有的数据。<br />
+注：当你使用 git clone命令克隆一个远程库时，默认会创建一个origin的remote repository，当使用 git fetch origin 实际上是拉取从你上一次clone以来别人传到此远程仓库的所有更新<br />
 NOTE：fetch 命令只是将远端的数据拉到本地仓库,并不自动合并到当前工作分支,只有当你确实准备好了,才能手工合并。  </p>
 
 <h3 id="git-push-remote-name-branch-name">git push [remote-name] [branch-name]</h3>
 <p>推送数据到远程仓库<br />
 [remote-name] 为远程仓库名称，origin或者你使用git remote add 命令添加的远程仓库<br />
-[branch-name] 本地分支名称, e.g. 
-	git push origin master #将本地的master分支推送到origin服务器上</p>
+[branch-name] 本地分支名称, e.g. <br />
+	git push origin master #将本地的master分支推送到origin服务器上  </p>
 
 <h3 id="git-remote-show-remote-name">git remote show &lt;remote-name&gt;</h3>
 <p>查看远程仓库的信息, e.g.<br />
-	git remote show origin</p>
+	git remote show origin  </p>
 
 <h3 id="git-remote-rename-old-remote-name-new-remote-name">git remote rename &lt;old-remote-name&gt; &lt;new-remote-name&gt;</h3>
 <p>重命名远程仓库名称</p>
@@ -273,18 +274,25 @@ git show v1.0.1</p>
 git push origin v1.0.1  </p>
 
 <h2 id="git-">git 使用技巧</h2>
-<p>###添加tab自动补全功能   <br />
-	1 clone git源码库<br />
-		git clone git://github.com/git/git.git<br />
-	2 cp contrib/completion/git-completion.bash ~/.git-completion.bash<br />
-	3 source ~/.git-completion.bash #添加.git-completion.bash到你的.bashrc文件中。<br />
-如果你不想克隆git源码库可以直接从git源码库中下载单个<a href="https://raw.github.com/git/git/master/contrib/completion/git-completion.bash">git-completion.bash</a>文件,再进行复制和source操作  </p>
+
+<h3 id="tab">添加tab自动补全功能</h3>
+<pre><code>1 clone git源码库  
+	git clone git://github.com/git/git.git  
+2 cp contrib/completion/git-completion.bash ~/.git-completion.bash  
+3 source ~/.git-completion.bash #添加.git-completion.bash到你的.bashrc文件中。   如果你不想克隆git源码库可以直接从git源码库中下载单个[git-completion.bash](https://raw.github.com/git/git/master/contrib/completion/git-completion.bash)文件,再进行复制和source操作  
+</code></pre>
 
 <h3 id="git-7">添加git命令别名</h3>
-<p>e.g.<br />
-	git config –global alias.co checkout<br />
-	git config –global alias.st status<br />
-etc.</p>
+<p>e.g.</p>
+
+<pre><code>git config --global alias.co checkout 
+git config --global alias.st status  etc.
+</code></pre>
+
+<h2 id="references">References</h2>
+<p><a href="http://git-scm.com/2010/06/09/pro-git-zh.html">Pro Git 简体中文版</a>  </p>
+
+<p><a href="http://git-scm.com/book">Pro Git Enlish Edition</a></p>
 
 <p>&lt;To be continued…&gt;</p>
 
