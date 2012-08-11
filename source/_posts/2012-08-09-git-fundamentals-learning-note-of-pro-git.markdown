@@ -42,12 +42,12 @@ status的形式:未跟踪，未修改，修改，暂存
 
 
 ####演示git仓库中文件状态的例子
-	1.vim \<file\> -- untracked v0  
-	2.git add \<file\> -- tracked & staged v0  
+	1.vim <file> -- untracked v0  
+	2.git add <file> -- tracked & staged v0  
 	3.git commit -m '' -- version v0  
-	4.vim \<file\> -- tracked & modified & staged v0  
-	5.git add \<file\> -- tracked & staged v1  
-	6.vim \<file\> -- tracked & modified & staged v1  
+	4.vim <file> -- tracked & modified & staged v0  
+	5.git add <file> -- tracked & staged v1  
+	6.vim <file> -- tracked & modified & staged v1  
 	7.git commit -m '' -- version v1  
 
 
@@ -69,7 +69,7 @@ Remove file(s) from git's tracking list, but keep file(s) as cached, file(s) wil
 ###git mv file_from file_to 
 Move file in git repos, equals to:
 
-	1 mv file\_from file\_to  
+	1 mv file_from file_to  
 	2 git rm file_from  
 	3 git add file_to  
 
@@ -101,28 +101,29 @@ etc. 更多选项请使用 git log --help
 ##git远程仓库
 
 ###git remote -v
-查看远程库信息 -v选项显示远程库地址
+查看远程库信息 -v选项显示远程库地址  
 <!-- MORE -->
-###git remote add [\<options\>] \<short name\> \<git url\> 
-添加一个远程库, \<short name\> 可以为远程库选一个简短的名字; \<git url\>远程库的git项目URL, e.g.:
-	git remote add pb git://github.com/paulboone/ticgit.git
+
+###git remote add [\<options\>] \<short name\> \<git url\>     
+
+添加一个远程库, \<short name\> 可以为远程库选一个简短的名字; \<git url\>远程库的git项目URL, e.g.   
+	git remote add pb git://github.com/paulboone/ticgit.git    
 
 ###git fetch [remote-name]
 从远程仓库抓取数据，e.g.:
-	 git fetch pb #命令会到远程仓库pb中拉取所有你本地仓库中还没有的数据。
-
+	 git fetch pb #命令会到远程仓库pb中拉取所有你本地仓库中还没有的数据。  
 注：当你使用 git clone命令克隆一个远程库时，默认会创建一个origin的remote repository，当使用 git fetch origin 实际上是拉取从你上一次clone以来别人传到此远程仓库的所有更新  
 NOTE：fetch 命令只是将远端的数据拉到本地仓库,并不自动合并到当前工作分支,只有当你确实准备好了,才能手工合并。  
 
 ###git push [remote-name] [branch-name]
 推送数据到远程仓库  
 [remote-name] 为远程仓库名称，origin或者你使用git remote add 命令添加的远程仓库  
-[branch-name] 本地分支名称, e.g. 
-	git push origin master #将本地的master分支推送到origin服务器上
+[branch-name] 本地分支名称, e.g.   
+	git push origin master #将本地的master分支推送到origin服务器上  
 
 ###git remote show \<remote-name\>
 查看远程仓库的信息, e.g.  
-	git remote show origin
+	git remote show origin  
 
 ###git remote rename \<old-remote-name\> \<new-remote-name\>
 重命名远程仓库名称
@@ -155,7 +156,8 @@ git show v1.0.1
 git push origin v1.0.1  
 
 
-##git 使用技巧
+##git 使用技巧    
+
 ###添加tab自动补全功能     
 	1 clone git源码库  
 		git clone git://github.com/git/git.git  
@@ -164,10 +166,17 @@ git push origin v1.0.1
 如果你不想克隆git源码库可以直接从git源码库中下载单个[git-completion.bash](https://raw.github.com/git/git/master/contrib/completion/git-completion.bash)文件,再进行复制和source操作  
 
 ###添加git命令别名
-e.g.  
-	git config --global alias.co checkout  
-	git config --global alias.st status  
+e.g.
+
+	git config --global alias.co checkout 
+	git config --global alias.st status 
 etc.
+
+
+##References
+[Pro Git 简体中文版](http://git-scm.com/2010/06/09/pro-git-zh.html)  
+
+[Pro Git Enlish Edition](http://git-scm.com/book)
 
 \<To be continued...\>
 
