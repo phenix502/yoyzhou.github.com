@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Yoyzhou's Personal Blog</title>
+  <title>git fundamentals - Branch: learning notes of pro git - Yoyzhou's Personal Blog</title>
   <meta name="author" content="yoyzhou">
 
   
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://yoyzhou.github.com/">
+  <link rel="canonical" href="http://yoyzhou.github.com/blog/2012/08/11/git-fundamentals-learning-notes-of-pro-git-part2/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -64,15 +64,12 @@
 </nav>
   <div id="main">
     <div id="content">
-      <div class="blog-index">
+      <div>
+<article class="hentry" role="article">
   
-  
-  
-    <article>
-      
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2012/08/11/git-fundamentals-learning-notes-of-pro-git-part2/">Git Fundamentals - Branch: Learning Notes of Pro Git</a></h1>
+      <h1 class="entry-title">Git Fundamentals - Branch: Learning Notes of Pro Git</h1>
     
     
       <p class="meta">
@@ -90,14 +87,14 @@
 
 <time datetime="2012-08-11T16:15:00+08:00" pubdate data-updated="true">Aug 11<span>th</span>, 2012</time>
         
-         | <a href="/blog/2012/08/11/git-fundamentals-learning-notes-of-pro-git-part2/#disqus_thread">Comments</a>
+         | <a href="#disqus_thread">Comments</a>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><h2 id="branch">分支(BRANCH)</h2>
+<div class="entry-content"><h2 id="branch">分支(BRANCH)</h2>
 
 <p><span class="pullquote-right" data-pullquote="git中创建分支的操作就像移动指针那么简单，因为git分支的本质是指向commit对象的可变指针。"><br />
 理解分支之前再来回顾一下前面所讲到的git与其他版本控制系统的区别<strong>“Git 保存的不是文件差异或者变化量,而只是一系列文件快照”</strong>。就是这个差别使得git分支的实现要比其他版本控制系统要轻松的多，git的分支是<em>“难以置信的轻量级”</em>，分支操作几乎在瞬间完成，而不像其他版本控制系统需要创建一个完整的源代码目录副本，对于大型项目来说需要耗费大量的项目时间。git中创建分支的操作就像移动指针那么简单，因为git分支的本质是指向commit对象的可变指针。      <br />
@@ -197,160 +194,16 @@ git rebase master<br />
 <p><a href="http://git-scm.com/book">Pro Git Enlish Edition</a></p>
 
 </div>
-  
-  
 
 
-    </article>
-  
-  
-    <article>
+  <footer>
+    <p class="meta">
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/08/09/git-fundamentals-learning-note-of-pro-git/">Git Fundamentals: Learning Note of Pro Git</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
   
 
+<span class="byline author vcard">Posted by <span class="fn">yoyzhou</span></span>
 
-<time datetime="2012-08-09T22:30:00+08:00" pubdate data-updated="true">Aug 9<span>th</span>, 2012</time>
-        
-         | <a href="/blog/2012/08/09/git-fundamentals-learning-note-of-pro-git/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2 id="git">git基础</h2>
-
-<h3 id="git-1">git优点</h3>
-<pre><code>1 直接快照,而非比较差异
-不像集中式版本管理系统那样只记录不同版本之间的Deta, 而是直接快照整个项目文件，这使得Git更像是一个文件系统
-
-2 近乎所有操作都可本地执行
-
-3 时刻保持数据完整性
-通过数据内容校验和计算(checksum)
-
-4 多数操作仅添加数据
-</code></pre>
-
-<h3 id="git-2">git配置文件的类型和位置</h3>
-
-<pre><code>/etc/gitconfig 系统级别的git的配置文件 通过 git config --system 选项指定进行配置
-
-
-～/.gitconfig 用户级别的配置文件 通过 git config --global 选项指定进行配置
-
-
-.git/config(当前工作项目目录下) 项目级别的配置文件
-</code></pre>
-
-<h2 id="git-3">git命令</h2>
-
-<h3 id="git-init">git init</h3>
-<p>初始化git仓库</p>
-
-<h3 id="git-status">git status</h3>
-<p>查看git repos库状态<br />
-status的形式:未跟踪，未修改，修改，暂存<br />
-运行了git add之后又作了修订的文件,需要重新运行git add把最新版本重新暂存起来。</p>
-
-<h4 id="git-4">演示git仓库中文件状态的例子</h4>
-<pre><code>1.vim \&lt;file\&gt; -- untracked v0  
-2.git add \&lt;file\&gt; -- tracked &amp; staged v0  
-3.git commit -m '' -- version v0  
-4.vim \&lt;file\&gt; -- tracked &amp; modified &amp; staged v0  
-5.git add \&lt;file\&gt; -- tracked &amp; staged v1  
-6.vim \&lt;file\&gt; -- tracked &amp; modified &amp; staged v1  
-7.git commit -m '' -- version v1  
-</code></pre>
-
-<h3 id="git-diff">git diff</h3>
-<p>–查看尚未暂存文件更新了什么，即查看工作目录中当前文件与暂存区快照之间的差异。用上面的例子来说，假设我们在第4步后面执行git diff, 这个命令查看的将是文件&lt;file&gt;在第4步[修改过但是还未暂存]与第3步[Staged v0]的差异  </p>
-
-<h3 id="git-diff---cached--staged">git diff –cached/–staged</h3>
-<p>查看已经暂存起来的文件和上次提交时的快照之间的差异。还是用上面的例子，假设我们在第7步后面执行命令git diff –staged，将查看文件&lt;file&gt;在第5步[Staged v1]和第3步[Version v0]之间的变化</p>
-
-<h3 id="git-commit--m-message-for-commit">git commit -m ‘message for commit…’</h3>
-<p>在之进行commit之前,一定要确认还有什么修改过的或新建的文件还没有git add过,否则提交的时候不会记录这些还没暂存起来的变化。所以,每次准备提交前,先用下,是不是都已暂存起来了,然后再运行提交命令git status看是不是都已经暂存起来了，然后再执行命令git commit。</p>
-
-<h3 id="git-rm-file">git rm &lt;file&gt;</h3>
-<p>Remove file(s) from git’s tracking list, meanwhile delete the file(s)</p>
-
-<h3 id="git-rm---cached-file">git rm –cached &lt;file&gt;</h3>
-<p>Remove file(s) from git’s tracking list, but keep file(s) as cached, file(s) will not be removed.</p>
-
-<h3 id="git-mv-filefrom-fileto">git mv file_from file_to</h3>
-<p>Move file in git repos, equals to:</p>
-
-<pre><code>1 mv file\_from file\_to  
-2 git rm file_from  
-3 git add file_to  
-</code></pre>
-
-<h3 id="git-log--options">git log [-options]</h3>
-<p>View commit history<br />
--p 展开每一次提交的diffs<br />
--n 仅显示最近n次提交<br />
-–stat 显示每次提交的文件修改统计信息<br />
-–pretty 指定显示格式，oneline、short、full、fuller和format(后面指定格式)<br />
-–since 从什么时间开始<br />
-etc. 更多选项请使用 git log –help</p>
-
-<h3 id="git-commit---amend">git commit –amend</h3>
-<p>进行重新提交操作，可修改上一次提交的commit comment或者添加忘记staged的更新</p>
-
-<h3 id="git-reset-head-file">git reset HEAD &lt;file&gt;</h3>
-<p>撤销对文件&lt;file&gt;的暂存操作，比如你需要对某一个文件进行单独提交时，可以：<br />
-	git add . #将所有的文件暂存<br />
-	git reset HEAD &lt;file&gt; #撤销对某文件的暂存<br />
-	git commit -m ‘commit message’<br />
-	git add &lt;file&gt;<br />
-	[可能的文件&lt;file&gt;的修改]<br />
-	git commit &lt;file&gt; -m ‘commit &lt;file&gt; seperately’  </p>
-
-<h3 id="git-checkout---file">git checkout –&lt;file&gt;</h3>
-<p>取消对文件的修改，慎用。此命令将文件恢复到文件修改前的版本/暂存区内容，工作目录中所有对该文件的修改都将丢失。<br />
-在git 1.7.9.5中测试可省略“–”直接使用git checkout &lt;file&gt;</p>
-
-<h2 id="git-5">git远程仓库</h2>
-
-<h3 id="git-remote--v">git remote -v</h3>
-<p>查看远程库信息 -v选项显示远程库地址
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2012/08/09/git-fundamentals-learning-note-of-pro-git/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/08/05/add-latex-support-for-octopress/">Add Latex Support for Octopress With Kramdown and MathJax</a></h1>
-    
-    
-      <p class="meta">
-        
 
 
 
@@ -362,106 +215,48 @@ etc. 更多选项请使用 git log –help</p>
   
 
 
-<time datetime="2012-08-05T15:24:00+08:00" pubdate data-updated="true">Aug 5<span>th</span>, 2012</time>
-        
-         | <a href="/blog/2012/08/05/add-latex-support-for-octopress/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><blockquote><p>kramdown (sic, not Kramdown or KramDown, just kramdown) is a free GPL-licensed Ruby library for parsing and converting a superset of Markdown.  It is completely written in Ruby, supports standard Markdown.</p><footer><strong>@kramdown</strong> <cite><a href="http://kramdown.rubyforge.org/index.html">kramdown.rubyforge.org/&hellip;</a></cite></footer></blockquote>
-
-<h2 id="install-kramdown">Install kramdown</h2>
-<p>First of all make sure you have ruby installed on your box:</p>
-
-<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">$ ruby --version # or
-</span><span class="line">$ which ruby</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-<p>If command &ldquo;which ruby&rdquo; returns nothing, then you should install it first.</p>
-
-<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">$ sudo apt-cache search ruby # to chech out the available ruby package
-</span><span class="line">$ sudo apt-get install ruby[*.*] # to install *.* version of ruby</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-<p>Also you can use <a href="https://rvm.io/">RVM</a>, aka Ruby Version Manager, to install/manage your ruby entries, but actually I am not able to install ruby 1.9.2 approperately following the instruction from Octopress site on my PC which is <em>ubuntu 12.04</em>.</p>
-
-<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Install kramdown  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-</pre></td><td class="code"><pre><code class="sh"><span class="line"><span class="nv">$ </span>sudo gem install kramdown
-</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-<h2 id="change-configyml-and-gemfile-to-include-kramdown">Change _config.yml and Gemfile to include kramdown</h2>
-<p>Change markdown engine to kramdown</p>
-
-<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Change markdown engine to kramdown _config.yml </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-</pre></td><td class="code"><pre><code class="yaml"><span class="line"><span class="p-Indicator">[</span><span class="nv">...</span><span class="p-Indicator">]</span>
-</span><span class="line"><span class="l-Scalar-Plain">markdown</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">kramdown</span>
-</span><span class="line"><span class="p-Indicator">[</span><span class="nv">...</span><span class="p-Indicator">]</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2012/08/05/add-latex-support-for-octopress/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
+<time datetime="2012-08-11T16:15:00+08:00" pubdate data-updated="true">Aug 11<span>th</span>, 2012</time>
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/08/02/welcome/">Welcome</a></h1>
-    
-    
-      <p class="meta">
-        
 
-
-
-
-
-
-
-
+<span class="categories">
   
+    <a class='category' href='//git/'>Git</a>, <a class='category' href='//github/'>Github</a>, <a class='category' href='//notes/'>Notes</a>
+  
+</span>
 
 
-<time datetime="2012-08-02T22:44:00+08:00" pubdate data-updated="true">Aug 2<span>nd</span>, 2012</time>
-        
-         | <a href="/blog/2012/08/02/welcome/#disqus_thread">Comments</a>
-        
-      </p>
+    </p>
     
-  </header>
-
-
-  <div class="entry-content">
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://yoyzhou.github.com/blog/2012/08/11/git-fundamentals-learning-notes-of-pro-git-part2/" data-via="yoyoyoyozhou" data-counturl="http://yoyzhou.github.com/blog/2012/08/11/git-fundamentals-learning-notes-of-pro-git-part2/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
 </div>
-  
-  
 
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/08/09/git-fundamentals-learning-note-of-pro-git/" title="Previous Post: git Fundamentals: Learning Note of Pro Git">&laquo; git Fundamentals: Learning Note of Pro Git</a>
+      
+      
+    </p>
+  </footer>
+</article>
 
-    </article>
-  
-  <div class="pagination">
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-  </div>
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 </div>
+  </section>
+
+</div>
+
 <aside class="sidebar">
   
     <section>
@@ -490,7 +285,7 @@ etc. 更多选项请使用 git log –help</p>
 <section>
   <h1>GitHub Repos</h1>
   <ul id="gh_repos">
-    <li class="loading">Status updating&#8230;</li>
+    <li class="loading">Status updating...</li>
   </ul>
   
   <a href="https://github.com/yoyzhou">@yoyzhou</a> on GitHub
@@ -520,7 +315,7 @@ etc. 更多选项请使用 git log –help</p>
 <section>
   <h1>Latest Tweets</h1>
   <ul id="tweets">
-    <li class="loading">Status updating&#8230;</li>
+    <li class="loading">Status updating...</li>
   </ul>
   <script type="text/javascript">
     $.domReady(function(){
@@ -549,6 +344,7 @@ etc. 更多选项请使用 git log –help</p>
   
 </aside>
 
+
     </div>
   </div>
   <footer role="contentinfo"><p>
@@ -563,7 +359,10 @@ etc. 更多选项请使用 git log –help</p>
       var disqus_shortname = 'yoyzhou';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://yoyzhou.github.com/blog/2012/08/11/git-fundamentals-learning-notes-of-pro-git-part2/';
+        var disqus_url = 'http://yoyzhou.github.com/blog/2012/08/11/git-fundamentals-learning-notes-of-pro-git-part2/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
