@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Add Latex Support for Octopress with kramdown and MathJax - Yoyzhou's Blog</title>
+  <title>Install Python Setuptools/Distribute for Python2 and Python3 - Yoyzhou's Blog</title>
   <meta name="author" content="yoyzhou">
 
   
-  <meta name="description" content="kramdown (sic, not Kramdown or KramDown, just kramdown) is a free GPL-licensed Ruby library for parsing and converting a superset of Markdown. It is &hellip;">
+  <meta name="description" content="Since Setuptools doesn’t support Python3.* so far, for Python3.* we choose Distribute, it is a fork of the Setuptools project. Distribute is intended &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://yoyzhou.github.com/blog/2012/08/05/add-latex-support-for-octopress/">
+  <link rel="canonical" href="http://yoyzhou.github.com/blog/2012/08/12/install-python-setuptools-slash-distribute-for-both-python2-and-python3/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -81,7 +81,7 @@
   
   <header>
     
-      <h1 class="entry-title">Add Latex Support for Octopress With Kramdown and MathJax</h1>
+      <h1 class="entry-title">Install Python Setuptools/Distribute for Python2 and Python3</h1>
     
     
       <p class="meta">
@@ -97,7 +97,7 @@
   
 
 
-<time datetime="2012-08-05T15:24:00+08:00" pubdate data-updated="true">Aug 5<span>th</span>, 2012</time>
+<time datetime="2012-08-12T20:23:00+08:00" pubdate data-updated="true">Aug 12<span>th</span>, 2012</time>
         
          | <a href="#disqus_thread">Comments</a>
         
@@ -106,115 +106,73 @@
   </header>
 
 
-<div class="entry-content"><blockquote><p>kramdown (sic, not Kramdown or KramDown, just kramdown) is a free GPL-licensed Ruby library for parsing and converting a superset of Markdown.  It is completely written in Ruby, supports standard Markdown.</p><footer><strong>@kramdown</strong> <cite><a href="http://kramdown.rubyforge.org/index.html">kramdown.rubyforge.org/&hellip;</a></cite></footer></blockquote>
+<div class="entry-content"><p>Since <a href="http://pypi.python.org/pypi/setuptools/">Setuptools</a> doesn’t support Python3.* so far, for Python3.* we choose <a href="http://pypi.python.org/pypi/distribute/">Distribute</a>, <em><strong>it is a fork of the Setuptools project.</strong></em></p>
 
-<h2 id="install-kramdown">Install kramdown</h2>
-<p>First of all make sure you have ruby installed on your box:</p>
+<blockquote><p>Distribute is intended to replace Setuptools as the standard method for working with Python module distributions.</p><footer><strong>@PyPI Distribute</strong> <cite><a href="http://pypi.python.org/pypi/distribute/#disclaimers">pypi.python.org/pypi/distribute/&hellip;</a></cite></footer></blockquote>
 
-<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">$ ruby --version # or
-</span><span class="line">$ which ruby</span></code></pre></td></tr></table></div></figure></notextile></div>
+<h2 id="install-python-setuptools-with-easyinstall-for-python2">Install python Setuptools with easy_install for Python2.*</h2>
 
-<p>If command &ldquo;which ruby&rdquo; returns nothing, then you should install it first.</p>
+<p>1 Download setuptools from http://pypi.python.org/pypi/setuptools/, select the appropriate OS/version you want.</p>
 
-<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">$ sudo apt-cache search ruby # to chech out the available ruby package
-</span><span class="line">$ sudo apt-get install ruby[*.*] # to install *.* version of ruby</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-<p>Also you can use <a href="https://rvm.io/">RVM</a>, aka Ruby Version Manager, to install/manage your ruby entries, but actually I am not able to install ruby 1.9.2 approperately following the instruction from Octopress site on my PC which is <em>ubuntu 12.04</em>.</p>
-
-<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Install kramdown  </span></figcaption>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Install Setuptools(v2.7) install_setuptools.sh</span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-</pre></td><td class="code"><pre><code class="sh"><span class="line"><span class="nv">$ </span>sudo gem install kramdown
+</pre></td><td class="code"><pre><code class="sh"><span class="line">sudo sh Downloads/setuptools-0.6c11-py2.7.egg
 </span></code></pre></td></tr></table></div></figure></notextile></div>
 
-<h2 id="change-configyml-and-gemfile-to-include-kramdown">Change _config.yml and Gemfile to include kramdown</h2>
-<p>Change markdown engine to kramdown</p>
+<p>Output:</p>
 
-<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Change markdown engine to kramdown _config.yml </span></figcaption>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Output install_setuptools.sh</span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-</pre></td><td class="code"><pre><code class="yaml"><span class="line"><span class="p-Indicator">[</span><span class="nv">...</span><span class="p-Indicator">]</span>
-</span><span class="line"><span class="l-Scalar-Plain">markdown</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">kramdown</span>
-</span><span class="line"><span class="p-Indicator">[</span><span class="nv">...</span><span class="p-Indicator">]</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-<!-- more -->
-<p>Add kramdown to Gemfile</p>
-
-<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Add kramdown to Gemfile </span></figcaption>
-<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
 <span class="line-number">2</span>
 <span class="line-number">3</span>
 <span class="line-number">4</span>
 <span class="line-number">5</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">[...]
-</span><span class="line">gem 'pygments.rb', '~&gt; 0.2.12'
-</span><span class="line">gem 'kramdown', '~&gt; 0.13'
-</span><span class="line">gem 'RedCloth', '~&gt; 4.2.9'
-</span><span class="line">[...]</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-<p>Next, install gem dependencies</p>
-
-<div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-</pre></td><td class="code"><pre><code class="sh"><span class="line">gem install bundler
-</span><span class="line">bundle install
+</pre></td><td class="code"><pre><code class="sh"><span class="line">Processing setuptools-0.6c11-py2.7.egg
+</span><span class="line">Copying setuptools-0.6c11-py2.7.egg to /usr/local/lib/python2.7/dist-packages
+</span><span class="line">Adding setuptools 0.6c11 to easy-install.pth file
+</span><span class="line">Installing easy_install script to /usr/local/bin
+</span><span class="line">Installing easy_install-2.7 script to /usr/local/bin
 </span></code></pre></td></tr></table></div></figure></notextile></div>
 
-<h2 id="add-mathjaxjs-to-headhtml">Add MathJax.js to head.html</h2>
-<p>So far, we have installed kramdown, and attach the dependency of kramdown to project, the last thing we have to do is including MathJax.js to your html head, since by default MathJax.js is not included in html head.</p>
+<h2 id="install-python-distribute-with-easyinstall-for-python3">Install python Distribute with easy_install for Python3.*</h2>
 
-<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Add MathJax  </span></figcaption>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Install Distribute install_distribute.sh</span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
 <span class="line-number">2</span>
-</pre></td><td class="code"><pre><code class="sh"><span class="line">	<span class="nv">$ </span>vim <span class="o">[</span>repo-root<span class="o">]</span>/source/_includes/head.html <span class="c">#where repo-root is the repository root, optional. </span>
-</span><span class="line">	<span class="nv">$ </span><span class="c">#add &quot;&lt;script src=&quot;http://kramdown.rubyforge.org/MathJax/MathJax.js&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;&quot; (without quote) to head.html </span>
+</pre></td><td class="code"><pre><code class="sh"><span class="line">curl -O http://python-distribute.org/distribute_setup.py
+</span><span class="line">sudo &lt;python-cmd&gt; distribute_setup.py
 </span></code></pre></td></tr></table></div></figure></notextile></div>
 
-<h2 id="show-cases">Show Cases</h2>
-<p>$$
-\begin{align}
-E &amp; = mc^2 
-\end{align}
-$$</p>
+<p>Output:</p>
 
-<script type="math/tex; mode=display">% <![CDATA[
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Output install_distribute.sh</span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+</pre></td><td class="code"><pre><code class="sh"><span class="line">Adding distribute 0.6.28 to easy-install.pth file
+</span><span class="line">Installing easy_install script to /usr/local/bin
+</span><span class="line">Installing easy_install-3.2 script to /usr/local/bin
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
-\begin{align}
-F & = ma 
-\end{align}
- %]]></script>
+<p><strong>Note:</strong> Make sure &lt;python-cmd&gt; is a python3.* command, in my PC, Python2.* command is python, while the Python3.* command is python3,  use &lt;python-cmd&gt; –version to check out version of &lt;python-cmd&gt;. </p>
 
-<script type="math/tex; mode=display">% <![CDATA[
+<p>Now per installing 2.* package, using:</p>
 
-\begin{align}
-e^{i \pi} & = -1
-\end{align}
- %]]></script>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Install 2.* Package install_package2.sh</span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="sh"><span class="line">easy_install-2.7  &lt;package-name&gt;
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
-<p>And,</p>
+<p>while using</p>
 
-<script type="math/tex; mode=display">% <![CDATA[
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Install 3.* Package install_package3.sh</span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="sh"><span class="line">easy_install-3.2  &lt;package-name&gt;
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
-\begin{align*}
-  & \phi(x,y) = \phi \left(\sum_{i=1}^n x_ie_i, \sum_{j=1}^n y_je_j \right)
-  = \sum_{i=1}^n \sum_{j=1}^n x_i y_j \phi(e_i, e_j) = \\
-  & (x_1, \ldots, x_n) \left( \begin{array}{ccc}
-      \phi(e_1, e_1) & \cdots & \phi(e_1, e_n) \\
-      \vdots & \ddots & \vdots \\
-      \phi(e_n, e_1) & \cdots & \phi(e_n, e_n)
-    \end{array} \right)
-  \left( \begin{array}{c}
-      y_1 \\
-      \vdots \\
-      y_n
-    \end{array} \right)
-\end{align*}
- %]]></script>
+<p>to install version 3.* package.</p>
+
+<p>(End)</p>
 
 </div>
 
@@ -238,12 +196,12 @@ e^{i \pi} & = -1
   
 
 
-<time datetime="2012-08-05T15:24:00+08:00" pubdate data-updated="true">Aug 5<span>th</span>, 2012</time>
+<time datetime="2012-08-12T20:23:00+08:00" pubdate data-updated="true">Aug 12<span>th</span>, 2012</time>
       
 
 <span class="categories">
   
-    <a class='category' href='//latex/'>Latex</a>, <a class='category' href='//octopress/'>Octopress</a>
+    <a class='category' href='//distribute/'>Distribute</a>, <a class='category' href='//python/'>Python</a>, <a class='category' href='//setuptools/'>Setuptools</a>
   
 </span>
 
@@ -252,7 +210,7 @@ e^{i \pi} & = -1
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://yoyzhou.github.com/blog/2012/08/05/add-latex-support-for-octopress/" data-via="yoyoyoyozhou" data-counturl="http://yoyzhou.github.com/blog/2012/08/05/add-latex-support-for-octopress/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://yoyzhou.github.com/blog/2012/08/12/install-python-setuptools-slash-distribute-for-both-python2-and-python3/" data-via="yoyoyoyozhou" data-counturl="http://yoyzhou.github.com/blog/2012/08/12/install-python-setuptools-slash-distribute-for-both-python2-and-python3/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -265,10 +223,8 @@ e^{i \pi} & = -1
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2012/08/02/welcome/" title="Previous Post: Welcome">&laquo; Welcome</a>
+        <a class="basic-alignment left" href="/blog/2012/08/11/git-fundamentals-learning-notes-of-pro-git-part2/" title="Previous Post: Git Fundamentals - Branch: Learning Notes of Pro Git">&laquo; Git Fundamentals - Branch: Learning Notes of Pro Git</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2012/08/09/git-fundamentals-learning-note-of-pro-git/" title="Next Post: Git Fundamentals: Learning Note of Pro Git">Git Fundamentals: Learning Note of Pro Git &raquo;</a>
       
     </p>
   </footer>
@@ -389,8 +345,8 @@ e^{i \pi} & = -1
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://yoyzhou.github.com/blog/2012/08/05/add-latex-support-for-octopress/';
-        var disqus_url = 'http://yoyzhou.github.com/blog/2012/08/05/add-latex-support-for-octopress/';
+        var disqus_identifier = 'http://yoyzhou.github.com/blog/2012/08/12/install-python-setuptools-slash-distribute-for-both-python2-and-python3/';
+        var disqus_url = 'http://yoyzhou.github.com/blog/2012/08/12/install-python-setuptools-slash-distribute-for-both-python2-and-python3/';
         var disqus_script = 'embed.js';
       
     (function () {

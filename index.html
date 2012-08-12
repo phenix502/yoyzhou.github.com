@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Yoyzhou's Personal Blog</title>
+  <title>Yoyzhou's Blog</title>
   <meta name="author" content="yoyzhou">
 
   
-  <meta name="description" content="分支(BRANCH) 理解分支之前再来回顾一下前面所讲到的git与其他版本控制系统的区别“Git 保存的不是文件差异或者变化量,而只是一系列文件快照”。就是这个差别使得git分支的实现要比其他版本控制系统要轻松的多，git的分支是“难以置信的轻量级”，分支操作几乎在瞬间完成， &hellip;">
+  <meta name="description" content="Since Setuptools doesn’t support Python3.* so far, for Python3.* we choose Distribute, it is a fork of the Setuptools project. Distribute is intended &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -25,18 +25,30 @@
   <script src="/javascripts/ender.js"></script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
 <script src="http://kramdown.rubyforge.org/MathJax/MathJax.js" type="text/javascript"></script>  
-<link href="/atom.xml" rel="alternate" title="Yoyzhou's Personal Blog" type="application/atom+xml">
+<link href="/atom.xml" rel="alternate" title="Yoyzhou's Blog" type="application/atom+xml">
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
   
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-34034666-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
 
 </head>
 
 <body   >
   <header role="banner"><hgroup>
-  <h1><a href="/">Yoyzhou's Personal Blog</a></h1>
+  <h1><a href="/">Yoyzhou's Blog</a></h1>
   
     <h2>There is no truth as such, there is only truth from a point of view [Nietzsche]</h2>
   
@@ -66,6 +78,111 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/08/12/install-python-setuptools-slash-distribute-for-both-python2-and-python3/">Install Python Setuptools/Distribute for Python2 and Python3</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-08-12T20:23:00+08:00" pubdate data-updated="true">Aug 12<span>th</span>, 2012</time>
+        
+         | <a href="/blog/2012/08/12/install-python-setuptools-slash-distribute-for-both-python2-and-python3/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Since <a href="http://pypi.python.org/pypi/setuptools/">Setuptools</a> doesn’t support Python3.* so far, for Python3.* we choose <a href="http://pypi.python.org/pypi/distribute/">Distribute</a>, <em><strong>it is a fork of the Setuptools project.</strong></em></p>
+
+<blockquote><p>Distribute is intended to replace Setuptools as the standard method for working with Python module distributions.</p><footer><strong>@PyPI Distribute</strong> <cite><a href="http://pypi.python.org/pypi/distribute/#disclaimers">pypi.python.org/pypi/distribute/&hellip;</a></cite></footer></blockquote>
+
+<h2 id="install-python-setuptools-with-easyinstall-for-python2">Install python Setuptools with easy_install for Python2.*</h2>
+
+<p>1 Download setuptools from http://pypi.python.org/pypi/setuptools/, select the appropriate OS/version you want.</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Install Setuptools(v2.7) install_setuptools.sh</span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="sh"><span class="line">sudo sh Downloads/setuptools-0.6c11-py2.7.egg
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>Output:</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Output install_setuptools.sh</span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+</pre></td><td class="code"><pre><code class="sh"><span class="line">Processing setuptools-0.6c11-py2.7.egg
+</span><span class="line">Copying setuptools-0.6c11-py2.7.egg to /usr/local/lib/python2.7/dist-packages
+</span><span class="line">Adding setuptools 0.6c11 to easy-install.pth file
+</span><span class="line">Installing easy_install script to /usr/local/bin
+</span><span class="line">Installing easy_install-2.7 script to /usr/local/bin
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<h2 id="install-python-distribute-with-easyinstall-for-python3">Install python Distribute with easy_install for Python3.*</h2>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Install Distribute install_distribute.sh</span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+</pre></td><td class="code"><pre><code class="sh"><span class="line">curl -O http://python-distribute.org/distribute_setup.py
+</span><span class="line">sudo &lt;python-cmd&gt; distribute_setup.py
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>Output:</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Output install_distribute.sh</span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+</pre></td><td class="code"><pre><code class="sh"><span class="line">Adding distribute 0.6.28 to easy-install.pth file
+</span><span class="line">Installing easy_install script to /usr/local/bin
+</span><span class="line">Installing easy_install-3.2 script to /usr/local/bin
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p><strong>Note:</strong> Make sure &lt;python-cmd&gt; is a python3.* command, in my PC, Python2.* command is python, while the Python3.* command is python3,  use &lt;python-cmd&gt; –version to check out version of &lt;python-cmd&gt;. </p>
+
+<p>Now per installing 2.* package, using:</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Install 2.* Package install_package2.sh</span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="sh"><span class="line">easy_install-2.7  &lt;package-name&gt;
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>while using</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Install 3.* Package install_package3.sh</span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="sh"><span class="line">easy_install-3.2  &lt;package-name&gt;
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>to install version 3.* package.</p>
+
+<p>(End)</p>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -412,11 +529,15 @@ etc. 更多选项请使用 git log –help</p>
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2012/08/11/git-fundamentals-learning-notes-of-pro-git-part2/">git fundamentals - Branch: learning notes of pro git</a>
+        <a href="/blog/2012/08/12/install-python-setuptools-slash-distribute-for-both-python2-and-python3/">Install Python Setuptools/Distribute for Python2 and Python3</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2012/08/09/git-fundamentals-learning-note-of-pro-git/">git Fundamentals: Learning Note of Pro Git</a>
+        <a href="/blog/2012/08/11/git-fundamentals-learning-notes-of-pro-git-part2/">Git Fundamentals - Branch: Learning Notes of Pro Git</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/08/09/git-fundamentals-learning-note-of-pro-git/">Git Fundamentals: Learning Note of Pro Git</a>
       </li>
     
       <li class="post">

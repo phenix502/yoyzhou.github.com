@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>git Fundamentals: Learning Note of Pro Git - Yoyzhou's Personal Blog</title>
+  <title>Git Fundamentals: Learning Note of Pro Git - Yoyzhou's Blog</title>
   <meta name="author" content="yoyzhou">
 
   
@@ -28,18 +28,30 @@
   <script src="/javascripts/ender.js"></script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
 <script src="http://kramdown.rubyforge.org/MathJax/MathJax.js" type="text/javascript"></script>  
-<link href="/atom.xml" rel="alternate" title="Yoyzhou's Personal Blog" type="application/atom+xml">
+<link href="/atom.xml" rel="alternate" title="Yoyzhou's Blog" type="application/atom+xml">
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
   
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-34034666-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
 
 </head>
 
 <body   >
   <header role="banner"><hgroup>
-  <h1><a href="/">Yoyzhou's Personal Blog</a></h1>
+  <h1><a href="/">Yoyzhou's Blog</a></h1>
   
     <h2>There is no truth as such, there is only truth from a point of view [Nietzsche]</h2>
   
@@ -253,8 +265,10 @@ git push origin v1.0.1  </p>
 <pre><code>1 clone git源码库  
 	git clone git://github.com/git/git.git  
 2 cp contrib/completion/git-completion.bash ~/.git-completion.bash  
-3 source ~/.git-completion.bash #添加.git-completion.bash到你的.bashrc文件中。   如果你不想克隆git源码库可以直接从git源码库中下载单个[git-completion.bash](https://raw.github.com/git/git/master/contrib/completion/git-completion.bash)文件,再进行复制和source操作  
+3 source ~/.git-completion.bash #添加.git-completion.bash到你的.bashrc文件中。
 </code></pre>
+
+<p>如果你不想克隆git源码库可以直接从git源码库中下载单个<a href="https://raw.github.com/git/git/master/contrib/completion/git-completion.bash">git-completion.bash</a>文件,再进行复制和source操作。</p>
 
 <h3 id="git-7">添加git命令别名</h3>
 <p>e.g.</p>
@@ -322,7 +336,7 @@ git config --global alias.st status  etc.
         <a class="basic-alignment left" href="/blog/2012/08/05/add-latex-support-for-octopress/" title="Previous Post: Add Latex Support for Octopress with kramdown and MathJax">&laquo; Add Latex Support for Octopress with kramdown and MathJax</a>
       
       
-        <a class="basic-alignment right" href="/blog/2012/08/11/git-fundamentals-learning-notes-of-pro-git-part2/" title="Next Post: git fundamentals - Branch: learning notes of pro git">git fundamentals - Branch: learning notes of pro git &raquo;</a>
+        <a class="basic-alignment right" href="/blog/2012/08/11/git-fundamentals-learning-notes-of-pro-git-part2/" title="Next Post: Git Fundamentals - Branch: Learning Notes of Pro Git">Git Fundamentals - Branch: Learning Notes of Pro Git &raquo;</a>
       
     </p>
   </footer>
@@ -343,11 +357,15 @@ git config --global alias.st status  etc.
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2012/08/11/git-fundamentals-learning-notes-of-pro-git-part2/">git fundamentals - Branch: learning notes of pro git</a>
+        <a href="/blog/2012/08/12/install-python-setuptools-slash-distribute-for-both-python2-and-python3/">Install Python Setuptools/Distribute for Python2 and Python3</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2012/08/09/git-fundamentals-learning-note-of-pro-git/">git Fundamentals: Learning Note of Pro Git</a>
+        <a href="/blog/2012/08/11/git-fundamentals-learning-notes-of-pro-git-part2/">Git Fundamentals - Branch: Learning Notes of Pro Git</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/08/09/git-fundamentals-learning-note-of-pro-git/">Git Fundamentals: Learning Note of Pro Git</a>
       </li>
     
       <li class="post">
