@@ -3,7 +3,7 @@
 # ----------------------- #
 
 url: http://yoyzhou.github.com
-title: Yoyzhou's Personal Blog
+title: Yoyzhou's Blog
 subtitle: There is no truth as such, there is only truth from a point of view [Nietzsche] 
 author: yoyzhou
 simple_search: http://google.com/search
@@ -107,7 +107,7 @@ disqus_short_name: yoyzhou
 disqus_show_comment_count: true
 
 # Google Analytics
-google_analytics_tracking_id:
+google_analytics_tracking_id: UA-34034666-1
 
 # Facebook Like
 facebook_like: true

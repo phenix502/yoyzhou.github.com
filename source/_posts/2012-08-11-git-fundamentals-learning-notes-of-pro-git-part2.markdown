@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "git fundamentals - Branch: learning notes of pro git"
+title: "Git Fundamentals - Branch: Learning Notes of Pro Git"
 date: 2012-08-11 16:15
 comments: true
 categories: [Git, Github, Notes]

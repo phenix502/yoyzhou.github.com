@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "git Fundamentals: Learning Note of Pro Git"
+title: "Git Fundamentals: Learning Note of Pro Git"
 date: 2012-08-09 22:30
 comments: true
 categories: [Git, Github, Notes]
@@ -162,8 +162,10 @@ git push origin v1.0.1
 	1 clone git源码库  
 		git clone git://github.com/git/git.git  
 	2 cp contrib/completion/git-completion.bash ~/.git-completion.bash  
-	3 source ~/.git-completion.bash #添加.git-completion.bash到你的.bashrc文件中。  
-如果你不想克隆git源码库可以直接从git源码库中下载单个[git-completion.bash](https://raw.github.com/git/git/master/contrib/completion/git-completion.bash)文件,再进行复制和source操作  
+	3 source ~/.git-completion.bash #添加.git-completion.bash到你的.bashrc文件中。
+
+如果你不想克隆git源码库可以直接从git源码库中下载单个[git-completion.bash](https://raw.github.com/git/git/master/contrib/completion/git-completion.bash)文件,再进行复制和source操作。
+  
 
 ###添加git命令别名
 e.g.
