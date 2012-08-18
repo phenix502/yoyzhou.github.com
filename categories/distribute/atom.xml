@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: Setuptools | Yoyzhou's Blog]]></title>
-  <link href="http://yoyzhou.github.com/blog/categories/setuptools/atom.xml" rel="self"/>
+  <title><![CDATA[Category: Distribute | Yoyzhou's Blog]]></title>
+  <link href="http://yoyzhou.github.com/categories/distribute/atom.xml" rel="self"/>
   <link href="http://yoyzhou.github.com/"/>
-  <updated>2012-08-18T19:31:43+08:00</updated>
+  <updated>2012-08-18T19:47:32+08:00</updated>
   <id>http://yoyzhou.github.com/</id>
   <author>
     <name><![CDATA[yoyzhou]]></name>
