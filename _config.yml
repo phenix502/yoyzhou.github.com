@@ -32,7 +32,8 @@ source: source
 destination: public
 plugins: plugins
 code_dir: downloads/code
-category_air: blog/categories
+category_dir: blog/categories
+category_title_prefix: "Category: "
 markdown: kramdown 
 kramdown:
   auto_ids: true,
