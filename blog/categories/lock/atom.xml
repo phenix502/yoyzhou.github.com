@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Lock | Tony Chou's Blog]]></title>
   <link href="http://yoyzhou.github.com/blog/categories/lock/atom.xml" rel="self"/>
   <link href="http://yoyzhou.github.com/"/>
-  <updated>2013-03-01T00:25:42+08:00</updated>
+  <updated>2013-03-01T00:32:32+08:00</updated>
   <id>http://yoyzhou.github.com/</id>
   <author>
     <name><![CDATA[yoyzhou]]></name>
@@ -25,7 +25,7 @@
 </blockquote>
 
 <p>本文详细地阐述了Python线程同步机制。你将学习到以下有关Python线程同步机制：Lock，RLock，Semaphore，Condition，Event和Queue，还有Python的内部是如何实现这些机制的。
-本文给出的程序的源代码可以在<a href="github.com/laurentluce/python-tutorials under threads/">github</a>上找到。</p>
+本文给出的程序的源代码可以在<a href="https://github.com/laurentluce/python-tutorials/tree/master/threads">github</a>上找到。</p>
 
 <p>首先让我们来看一个没有使用线程同步的简单程序。</p>
 <h2>线程（Threading）</h2>
