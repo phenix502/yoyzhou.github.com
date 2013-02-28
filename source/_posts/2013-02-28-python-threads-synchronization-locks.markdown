@@ -12,7 +12,7 @@ categories: [Python, Threading, Lock, Queue]
 
 
 本文详细地阐述了Python线程同步机制。你将学习到以下有关Python线程同步机制：Lock，RLock，Semaphore，Condition，Event和Queue，还有Python的内部是如何实现这些机制的。
-本文给出的程序的源代码可以在[github](github.com/laurentluce/python-tutorials under threads/)上找到。
+本文给出的程序的源代码可以在[github](https://github.com/laurentluce/python-tutorials/tree/master/threads)上找到。
   
 首先让我们来看一个没有使用线程同步的简单程序。
 <h2>线程（Threading）</h2>
