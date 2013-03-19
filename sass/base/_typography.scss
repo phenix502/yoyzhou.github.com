@@ -6,6 +6,13 @@ $heading-font-family: "PT Serif", "Georgia", "Helvetica Neue", Arial, sans-serif
 $header-title-font-family: $heading-font-family !default;
 $header-subtitle-font-family: $heading-font-family !default;
 
+
+$sans: Palatino, "Palatino Linotype", Georgia， "Hiragino Sans GB", "文泉驿微米黑", "Microsoft YaHei","SimSun", sans-serif !default;
+$serif: "Baskerville", "文泉驿微米黑", serif !default;
+//$mono:"PT mono", "Courier", "文泉驿微米黑", "Microsoft YaHei", monospace !default;
+$heading-font-family: "Verdana", 楷体_GB2312, sans-serif !default;
+$header-title-font-family: "Futura", sans-serif !default;
+
 // Fonts
 .heading {
   font-family: $heading-font-family;
@@ -109,10 +116,11 @@ blockquote {
   $bq-margin: 1.2em;
   font-style: italic;
   position: relative;
-  font-size: 1.2em;
+  font-size: 1.0em;
+  color:#43BFC7;
   line-height: 1.5em;
   padding-left: 1em;
-  border-left: 4px solid rgba($text-color-light, .5);
+  border-left: 4px solid rgba(0,170,170,0.4);
   cite {
     font-style: italic;
     a { color: $text-color-light !important; word-wrap: break-word; }
