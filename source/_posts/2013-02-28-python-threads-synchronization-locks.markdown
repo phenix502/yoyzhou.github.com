@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Python线程同步机制：Locks，RLocks，Semaphores，Conditions，Events和Queues"
+title: "Python线程同步机制: Locks, RLocks, Semaphores, Conditions, Events和Queues"
 date: 2013-02-28 23:24
 comments: true
 categories: [Python, Threading, Lock, Queue]
@@ -8,8 +8,8 @@ keywords: Python, Threading, Threads, Locks, RLocks, Semaphores, Conditions, Eve
 description: 本文详细地阐述了Python线程同步机制。你将学习到以下有关Python线程同步机制：Lock，RLock，Semaphore，Condition，Event和Queue，还有Python的内部是如何实现这些机制。
 ---
 
-> 翻译自<a href="http://www.laurentluce.com/">Laurent Luce</a>的博客<br \>
-> 原文名称：Python threads synchronization: Locks, RLocks, Semaphores, Conditions, Events and Queues<br \>
+> 翻译自<a href="http://www.laurentluce.com/">Laurent Luce</a>的博客<br />
+> 原文名称：Python threads synchronization: Locks, RLocks, Semaphores, Conditions, Events and Queues<br />
 > 原文连接：<a href="http://www.laurentluce.com/posts/python-threads-synchronization-locks-rlocks-semaphores-conditions-events-and-queues/">http://www.laurentluce.com/posts/python-threads-synchronization-locks-rlocks-semaphores-conditions-events-and-queues/</a>
 
 
