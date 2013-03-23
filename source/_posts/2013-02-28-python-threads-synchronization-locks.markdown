@@ -4,10 +4,12 @@ title: "Python线程同步机制：Locks，RLocks，Semaphores，Conditions，Ev
 date: 2013-02-28 23:24
 comments: true
 categories: [Python, Threading, Lock, Queue]
+keywords: Python, Threading, Threads, Locks, RLocks, Semaphores, Conditions, Events, Synchronization
+description: 本文详细地阐述了Python线程同步机制。你将学习到以下有关Python线程同步机制：Lock，RLock，Semaphore，Condition，Event和Queue，还有Python的内部是如何实现这些机制。
 ---
 
-> 翻译自<a href="http://www.laurentluce.com/">Laurent Luce</a>的博客
-> 原文名称：Python threads synchronization: Locks, RLocks, Semaphores, Conditions, Events and Queues
+> 翻译自<a href="http://www.laurentluce.com/">Laurent Luce</a>的博客<br \>
+> 原文名称：Python threads synchronization: Locks, RLocks, Semaphores, Conditions, Events and Queues<br \>
 > 原文连接：<a href="http://www.laurentluce.com/posts/python-threads-synchronization-locks-rlocks-semaphores-conditions-events-and-queues/">http://www.laurentluce.com/posts/python-threads-synchronization-locks-rlocks-semaphores-conditions-events-and-queues/</a>
 
 
@@ -148,7 +150,7 @@ threading模块的Lock()方法就是thread.allocate_lock，代码可以在Lib/th
 Lock = _allocate_lock
 _allocate_lock = thread.allocate_lock
 {% endcodeblock %}
-
+<!-- more -->
 C的实现在Python/thread_pthread.h中。程序假定你的系统支持POSIX信号量（semaphores）。sem_init()初始化锁（Lock）所在地址的信号量。初始的信号量值是1，意味着锁没有被锁（unlocked）。信号量将在处理器的不同线程之间共享。
 
 {% codeblock lang:c %}

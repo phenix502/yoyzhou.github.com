@@ -4,18 +4,20 @@ title: "Python模拟登录新浪微薄（使用RSA加密方式和Cookies文件�
 date: 2013-03-18 21:15
 comments: true
 categories: [Python, WEIBO, RSA2, Encryption, Crawler]
+keywords: Python, WEIBO, RSA2, Encryption, Crawler, Scrapy
+description: 本文介绍使用Python和RSA2加密方式模拟用户登录新浪微薄,文中使用的代码可以在https://github.com/yoyzhou/weibo_login中找到。
 ---
 
 本文简单介绍如何使用[PYTHON](http://www.python.org/)模拟用户登录新浪微薄,文中使用的代码可以在[github.com/yoyzhou/weibo_login](https://github.com/yoyzhou/weibo_login)中找到。
 
-###WHY
+###为什么要模拟登录
 一般来说获取微薄数据的方式有两种，一种是使用WEIBO官方提供的API接口；另外一种方式就是从WEIBO网站页面上抓取数据。从网面上抓取数据，相对于使用WEIBO API更加灵活，可控性更强，不用受WEIBO API调用次数的限制；但是易受WEIBO页面结构变动的影响，使得程序可靠性低，不适合在生产系统中使用。
 
-> 当然还有一种是由*别人*提供下载的，下载WEIBO数据可以考虑[爬盟中国](http://www.cnpameng.com/)和[数据堂](http://www.datatang.com/)
+> 当然还有一种是由**别人**提供下载的，下载WEIBO数据可以考虑[爬盟中国](http://www.cnpameng.com/)和[数据堂](http://www.datatang.com/)
 
 本文要讲的内容跟页面抓取数据有关，但是像[WEIBO.COM](weibo.com)这样的[SNS](http://en.wikipedia.org/wiki/SNS)网站必须事先登录之后才能访问到她的数据，所以如何模拟用户登录WEIBO，就成为从网页上抓取微薄数据的第一步。
 
-###WHAT
+###关于模拟登录现有的资源
 目前网上有很多关于模拟用户登录WEIBO的文章:
 
 + 使用[HTTPFOX](https://addons.mozilla.org/en-us/firefox/addon/httpfox/)来侦测用户登录WEIBO.COM的过程[[1]](http://blog.csdn.net/yonglaixiazaide/article/details/7923468), [[2]](http://www.jishuziyuan.com/archive/supeercrsky/8016047.html)
@@ -31,9 +33,9 @@ categories: [Python, WEIBO, RSA2, Encryption, Crawler]
 
 > Python模拟新浪微薄登录的豆瓣讨论[[7]](http://www.douban.com/note/201767245/)
 
-###HOW
+###模拟登录的Python+RSA2实现
 由于新浪登录加密方式的改变，参见[[7]](http://www.douban.com/note/201767245/)，这里仅介绍使用RSA加密方法登录，要使用RSA加密方式，必须安装RSA模块，所以：
-
+<!-- more -->
 1.安装PYTHON实现的RSA加密算法模块[python-rsa](https://pypi.python.org/pypi/rsa/3.1.1).
 {% codeblock  lang:bash %}
 > easy_install rsa
@@ -83,10 +85,10 @@ def get_pwd_rsa(pwd, servertime, nonce):
  	return 0
 {% endcodeblock %}
 
-###PROBLEMS
+###存在的问题
 登入过程中返回ERROR-4049:需要输入验证码，这个问题在[[5] 模拟新浪微博登录（Python+RSA加密算法）](http://www.cnblogs.com/mouse-coder/archive/2013/03/03/2941265.html)中也有提到。
 
-###SOURCE CODE
+###源代码
 文中代码片段的源码地址[github.com/yoyzhou/weibo_login](https://github.com/yoyzhou/weibo_login)
 
 `---EOF---`
