@@ -49,11 +49,12 @@ soup.findAll('div', attrs={'action-type' : 'user_item'})
 
 微薄中有两种关注，我的关注和他人的关注，由于这两种关注的页面结构不同，所以在解析的时候需要分别对待，但是分析的过程是同理的，只是在抽取数据是的页面标签不一样，使用上面的Beautiful Soup工具，抽取时标签的定位会很容易，这就是使用Beautiful Soup带来的好处。
 
-1.使用浏览器的`Inspect Element`功能理解页面的结构
+####1.使用浏览器的`Inspect Element`功能理解页面的结构
 
 最新版的Chrome和Firefox都自身内置有`Inspect Element`功能，在编写代码时，可能要经常的使用它来定位要寻找的页面元素。Chrome浏览器`Inspect Element`的使用请参考[Chrome Developer Tools - Elements Panel][chrome-inspect-element]。
 <!-- more -->
-2.从页面中提取用户关注的HTML字段，构建Beautiful Soup对象
+
+####2.从页面中提取用户关注的HTML字段，构建Beautiful Soup对象
 
 通过上面一步的分析，我们大致了解用户关注列表的页面结构，接下来就把页面文件/流导入到Beautiful Soup中，让它为我们生成页面结构树。可是当我们查看新浪微薄页面源码的时候，情况却不是这样的，我们发现页面源码中很多信息并不是以HTML元素的形式呈现，而是以plain文本形式放到了页面的Javacript脚本里面，这时就更加凸显了Beautiful Soup的伟大之处了，只要我们在Script里面找到了相应的代码（实际上是json格式存放的数据），抽取出来再导入到Beautiful Soup中，这个问题也就迎刃而解。下面的正则表达式用来从页面中提取Script中的json数据并且使用其中的HTML字段生成soup：
 	{% codeblock  lang:python %}
@@ -77,7 +78,7 @@ def parse_followings(page_content):
 		
 {% endcodeblock %}
 
-3.通过Beautiful Soup获取需要的页面元素，并从中抽取感兴趣的信息
+####3.通过Beautiful Soup获取需要的页面元素，并从中抽取感兴趣的信息
 
 通过上一步获得following的HTML信息，导入到Beautiful Soup中，接下来就使用Beautiful Soup抽取信息了。如何去定位元素当然有很多方式，结合`Inspect Element`,可以很容易的做到，获得元素之后就可以抽取需要的信息了。
 	{% codeblock  lang:python %}

@@ -17,7 +17,7 @@ description: 本文介绍使用Python和RSA2加密方式模拟用户登录新浪
 
 本文要讲的内容跟页面抓取数据有关，但是像[WEIBO.COM](weibo.com)这样的[SNS](http://en.wikipedia.org/wiki/SNS)网站必须事先登录之后才能访问到她的数据，所以如何模拟用户登录WEIBO，就成为从网页上抓取微薄数据的第一步。
 
-###关于模拟登录现有的资源
+###模拟登录相关资源
 目前网上有很多关于模拟用户登录WEIBO的文章:
 
 + 使用[HTTPFOX](https://addons.mozilla.org/en-us/firefox/addon/httpfox/)来侦测用户登录WEIBO.COM的过程[[1]](http://blog.csdn.net/yonglaixiazaide/article/details/7923468), [[2]](http://www.jishuziyuan.com/archive/supeercrsky/8016047.html)
@@ -33,16 +33,17 @@ description: 本文介绍使用Python和RSA2加密方式模拟用户登录新浪
 
 > Python模拟新浪微薄登录的豆瓣讨论[[7]](http://www.douban.com/note/201767245/)
 
-###模拟登录的Python+RSA2实现
+###Python+RSA2+Cookies实现模拟登录
 由于新浪登录加密方式的改变，参见[[7]](http://www.douban.com/note/201767245/)，这里仅介绍使用RSA加密方法登录，要使用RSA加密方式，必须安装RSA模块，所以：
 <!-- more -->
-1.安装PYTHON实现的RSA加密算法模块[python-rsa](https://pypi.python.org/pypi/rsa/3.1.1).
+
+####1.安装PYTHON实现的RSA加密算法模块[python-rsa](https://pypi.python.org/pypi/rsa/3.1.1).
 {% codeblock  lang:bash %}
 > easy_install rsa
 {% endcodeblock %}
 python-rsa的文档地址[http://stuvel.eu/files/python-rsa-doc/index.html](http://stuvel.eu/files/python-rsa-doc/index.html)
 
-2.使用RSA加密用户登录密码
+####2.使用RSA加密用户登录密码
 {% codeblock  lang:python %}
 def get_pwd_rsa(pwd, servertime, nonce):
     """
@@ -68,7 +69,7 @@ def get_pwd_rsa(pwd, servertime, nonce):
     return binascii.b2a_hex(encropy_pwd)
 {% endcodeblock %}
 
-3.验证用户登录是否成功，并且保存Cookies
+####3.验证用户登录是否成功，并且保存Cookies
 {% codeblock  lang:python %}
  data = urllib2.urlopen(login_url).read()
  #Verify login feedback, check whether result is TRUE
