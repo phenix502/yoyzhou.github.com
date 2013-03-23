@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: Setuptools | Tony Chou's Blog]]></title>
-  <link href="http://yoyzhou.github.com/blog/categories/setuptools/atom.xml" rel="self"/>
+  <title><![CDATA[Category: easy install | Tony Chou's Blog]]></title>
+  <link href="http://yoyzhou.github.com/blog/categories/easy-install/atom.xml" rel="self"/>
   <link href="http://yoyzhou.github.com/"/>
   <updated>2013-03-23T22:13:07+08:00</updated>
   <id>http://yoyzhou.github.com/</id>

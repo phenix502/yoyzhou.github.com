@@ -4,7 +4,7 @@
   <title><![CDATA[Tony Chou's Blog]]></title>
   <link href="http://yoyzhou.github.com/atom.xml" rel="self"/>
   <link href="http://yoyzhou.github.com/"/>
-  <updated>2013-03-19T23:36:00+08:00</updated>
+  <updated>2013-03-23T22:13:07+08:00</updated>
   <id>http://yoyzhou.github.com/</id>
   <author>
     <name><![CDATA[yoyzhou]]></name>
@@ -14,22 +14,202 @@
 
   
   <entry>
+    <title type="html"><![CDATA[使用Beautiful Soup抽取网页数据，解析微薄用户关注信息]]></title>
+    <link href="http://yoyzhou.github.com/blog/2013/03/23/extract-data-with-beautifulsoup-taking-weibo-4-example/"/>
+    <updated>2013-03-23T17:14:00+08:00</updated>
+    <id>http://yoyzhou.github.com/blog/2013/03/23/extract-data-with-beautifulsoup-taking-weibo-4-example</id>
+    <content type="html"><![CDATA[<p>本文介绍了Beautiful Soup，PYTHON实现的HTML/XML标记的解析器；简要描述了Beautiful Soup的安装以及使用；最后以抽取微薄用户关注信息为例详细的演示了如何使用Beautiful Soup。</p>
+
+<h3 id="beautiful-soup">什么是Beautiful Soup</h3>
+<p><a href="http://www.crummy.com/software/BeautifulSoup/">Beautiful Soup</a>是用PYTHON实现的HTML/XML标记的解析器。它提供简单和通用的方法对HTML/XML语法树进行浏览（navigating），搜索（searching）以及修改（searching）。它甚至可以针对不规范的标记生成语法树，可以大大地减少开发人员的时间。</p>
+
+<blockquote>
+  <p>Beautiful Soup is an HTML/XML parser for Python that can turn even invalid markup into a parse tree. It provides simple, idiomatic ways of navigating, searching, and modifying the parse tree. It commonly saves programmers hours or days of work. <cite><a href="http://www.crummy.com/software/BeautifulSoup/bs3/documentation.html">Beautiful Soup</a></cite></p>
+</blockquote>
+
+<h3 id="beautiful-soup-1">安装Beautiful Soup</h3>
+<p>安装Beautiful Soup很简单，如果你已经安装过pip或者easy_install,如果您还没有安装过Python安装工具，建议您参考<a href="http://yoyzhou.github.com/blog/2012/08/12/install-python-setuptools-slash-distribute-for-both-python2-and-python3/">Install Python Setuptools/Distribute for Python2 and Python3</a>。</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="bash"><span class="line">sudo easy_install beautifulsoup4
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>需要注意的是：BeautifulSoup4支持Python 2.x和3.x，而BeautifulSoup3只支持Python 2.x，Beautiful Soup官网建议大家应该使用BeautifulSoup4而不是BeautifulSoup3。</p>
+
+<blockquote>
+  <p>Beautiful Soup 3 only works on Python 2.x, but Beautiful Soup 4 also works on Python 3.x. Beautiful Soup 4 is faster, has more features, and works with third-party parsers like lxml and html5lib. You should use Beautiful Soup 4 for all new projects.</p>
+</blockquote>
+
+<h3 id="beautiful-soup-2">使用Beautiful Soup</h3>
+<p>首先，导入Beautiful Soup。</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="python"><span class="line"><span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>注意如果你使用的是BeautifulSoup3，那么导入语句可能是：</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="python"><span class="line"><span class="kn">from</span> <span class="nn">BeautifulSoup</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>然后，使用BeautifulSoup为你生成标记语言的语法树。</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="python"><span class="line"><span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s">&#39;my.html&#39;</span><span class="p">))</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>得到了语法树soup之后，就可以调用相应的接口浏览，搜索和修改你的标记文件。比如下面的语句搜索my.html中所有’action-type’是’user_item’的div：</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="python"><span class="line"><span class="n">soup</span><span class="o">.</span><span class="n">findAll</span><span class="p">(</span><span class="s">&#39;div&#39;</span><span class="p">,</span> <span class="n">attrs</span><span class="o">=</span><span class="p">{</span><span class="s">&#39;action-type&#39;</span> <span class="p">:</span> <span class="s">&#39;user_item&#39;</span><span class="p">})</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>上面简单介绍了Beautiful Soup的安装和使用，更多Beautiful Soup的文档请参考官方文档<a href="http://www.crummy.com/software/BeautifulSoup/bs3/documentation.html">bs3</a>和<a href="http://www.crummy.com/software/BeautifulSoup/">bs4</a>。下面我们以从WEIBO.COM页面中解析出用户的关注信息为例，介绍Beautiful Soup的使用。</p>
+
+<h3 id="beautiful-soup-3">Beautiful Soup实例：解析微薄用户的关注信息</h3>
+<p>社交网络中的关注信息（followings）是用户对什么人/东西感兴趣的一种表达，从关注信息中可以得到用户的兴趣偏好，又因为关注信息有用户自己维护，所以相对于粉丝（followers）信息更能体现个人偏好。以微薄来说，关注就是用户关注的人，一般认为用户是根据自己的兴趣爱好出发有选择的关注帐号。</p>
+
+<p>微薄中有两种关注，我的关注和他人的关注，由于这两种关注的页面结构不同，所以在解析的时候需要分别对待，但是分析的过程是同理的，只是在抽取数据是的页面标签不一样，使用上面的Beautiful Soup工具，抽取时标签的定位会很容易，这就是使用Beautiful Soup带来的好处。</p>
+
+<p>1.使用浏览器的<code>Inspect Element</code>功能理解页面的结构</p>
+
+<p>最新版的Chrome和Firefox都自身内置有<code>Inspect Element</code>功能，在编写代码时，可能要经常的使用它来定位要寻找的页面元素。Chrome浏览器<code>Inspect Element</code>的使用请参考<a href="https://developers.google.com/chrome-developer-tools/docs/elements">Chrome Developer Tools - Elements Panel</a>。
+<!-- more -->
+2.从页面中提取用户关注的HTML字段，构建Beautiful Soup对象</p>
+
+<p>通过上面一步的分析，我们大致了解用户关注列表的页面结构，接下来就把页面文件/流导入到Beautiful Soup中，让它为我们生成页面结构树。可是当我们查看新浪微薄页面源码的时候，情况却不是这样的，我们发现页面源码中很多信息并不是以HTML元素的形式呈现，而是以plain文本形式放到了页面的Javacript脚本里面，这时就更加凸显了Beautiful Soup的伟大之处了，只要我们在Script里面找到了相应的代码（实际上是json格式存放的数据），抽取出来再导入到Beautiful Soup中，这个问题也就迎刃而解。下面的正则表达式用来从页面中提取Script中的json数据并且使用其中的HTML字段生成soup：</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+</pre></td><td class="code"><pre><code class="python"><span class="line"><span class="k">def</span> <span class="nf">parse_followings</span><span class="p">(</span><span class="n">page_content</span><span class="p">):</span>
+</span><span class="line">    <span class="sd">&#39;&#39;&#39;</span>
+</span><span class="line"><span class="sd">    @param page_content: html page file or response stream from Internet</span>
+</span><span class="line"><span class="sd">    &#39;&#39;&#39;</span>
+</span><span class="line">
+</span><span class="line">    <span class="c">#reguler expression to extract json data which contains html info</span>
+</span><span class="line">    <span class="n">patt_view</span> <span class="o">=</span> <span class="s">&#39;&lt;script&gt;STK &amp;&amp; STK.pageletM &amp;&amp; STK.pageletM.view\((.*)\)&lt;/script&gt;&#39;</span>
+</span><span class="line">    <span class="n">patt</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">patt_view</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">MULTILINE</span><span class="p">)</span>
+</span><span class="line">
+</span><span class="line">    <span class="n">weibo_scripts</span> <span class="o">=</span> <span class="n">patt</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">page_content</span><span class="p">)</span>
+</span><span class="line">
+</span><span class="line">    <span class="k">for</span> <span class="n">script</span> <span class="ow">in</span> <span class="n">weibo_scripts</span><span class="p">:</span>
+</span><span class="line">	<span class="n">view_json</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">script</span><span class="p">)</span>
+</span><span class="line">
+</span><span class="line">        <span class="k">if</span> <span class="s">&#39;html&#39;</span> <span class="ow">in</span> <span class="n">view_json</span> <span class="ow">and</span> <span class="n">view_json</span><span class="p">[</span><span class="s">&#39;pid&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s">&#39;pl_relation_hisFollow&#39;</span><span class="p">:</span>
+</span><span class="line">            <span class="n">html</span> <span class="o">=</span> <span class="n">view_json</span><span class="p">[</span><span class="s">&#39;html&#39;</span><span class="p">]</span>
+</span><span class="line">            <span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">html</span><span class="p">)</span>	<span class="c">#WOW...we got the soup</span>
+</span><span class="line">		
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>3.通过Beautiful Soup获取需要的页面元素，并从中抽取感兴趣的信息</p>
+
+<p>通过上一步获得following的HTML信息，导入到Beautiful Soup中，接下来就使用Beautiful Soup抽取信息了。如何去定位元素当然有很多方式，结合<code>Inspect Element</code>,可以很容易的做到，获得元素之后就可以抽取需要的信息了。</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+<span class="line-number">20</span>
+<span class="line-number">21</span>
+<span class="line-number">22</span>
+<span class="line-number">23</span>
+<span class="line-number">24</span>
+<span class="line-number">25</span>
+<span class="line-number">26</span>
+</pre></td><td class="code"><pre><code class="python"><span class="line">	
+</span><span class="line"><span class="c">#all the followings, search according element type(li) and attributes</span>
+</span><span class="line"><span class="n">friendollowings</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">findAll</span><span class="p">(</span><span class="s">&#39;li&#39;</span><span class="p">,</span> <span class="n">attrs</span><span class="o">=</span><span class="p">{</span><span class="s">&#39;class&#39;</span><span class="p">:</span><span class="s">&#39;clearfix S_line1&#39;</span><span class="p">,</span> <span class="s">&#39;action-type&#39;</span> <span class="p">:</span> <span class="s">&#39;itemClick&#39;</span><span class="p">})</span>
+</span><span class="line">
+</span><span class="line"><span class="k">for</span> <span class="n">user_item</span> <span class="ow">in</span> <span class="n">friendollowings</span><span class="p">:</span>
+</span><span class="line">
+</span><span class="line">    <span class="n">action_data</span> <span class="o">=</span> <span class="n">user_item</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;action-data&#39;</span><span class="p">)</span>
+</span><span class="line">    <span class="n">user_info</span> <span class="o">=</span> <span class="p">{}</span>
+</span><span class="line">    <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="n">action_data</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;&amp;&quot;</span><span class="p">):</span>
+</span><span class="line">        <span class="n">field_name</span><span class="p">,</span> <span class="n">field_value</span> <span class="o">=</span> <span class="n">field</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;=&#39;</span><span class="p">)</span>
+</span><span class="line">        <span class="n">user_info</span><span class="p">[</span><span class="n">field_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">field_value</span>
+</span><span class="line">
+</span><span class="line">
+</span><span class="line">    <span class="k">for</span>  <span class="n">info</span> <span class="ow">in</span>  <span class="p">[</span><span class="n">more</span> <span class="k">for</span> <span class="n">more</span> <span class="ow">in</span> <span class="n">user_item</span><span class="p">(</span><span class="s">&#39;div&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">more</span><span class="p">,</span> <span class="n">Tag</span><span class="p">)]:</span>
+</span><span class="line">        <span class="n">class_name</span> <span class="o">=</span> <span class="n">info</span><span class="p">[</span><span class="s">&#39;class&#39;</span><span class="p">]</span>
+</span><span class="line">        <span class="k">if</span> <span class="n">class_name</span> <span class="o">==</span> <span class="s">&#39;name&#39;</span><span class="p">:</span>
+</span><span class="line">            <span class="n">user_info</span><span class="p">[</span><span class="s">&#39;name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">clean_content</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">a</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+</span><span class="line">            <span class="n">user_info</span><span class="p">[</span><span class="s">&#39;address&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">clean_content</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">span</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+</span><span class="line">        <span class="k">elif</span> <span class="n">class_name</span> <span class="o">==</span> <span class="s">&#39;connect&#39;</span><span class="p">:</span>
+</span><span class="line">            <span class="n">user_info</span><span class="p">[</span><span class="s">&#39;connect&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">clean_content</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+</span><span class="line">        <span class="k">elif</span> <span class="n">class_name</span> <span class="o">==</span> <span class="s">&#39;face mbspace&#39;</span><span class="p">:</span> <span class="c">#face image</span>
+</span><span class="line">            <span class="n">user_info</span><span class="p">[</span><span class="s">&#39;face&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">info</span><span class="o">.</span><span class="n">a</span><span class="o">.</span><span class="n">img</span><span class="p">[</span><span class="s">&#39;src&#39;</span><span class="p">]</span>
+</span><span class="line">        <span class="k">elif</span> <span class="n">class_name</span> <span class="o">==</span> <span class="s">&#39;weibo&#39;</span><span class="p">:</span>
+</span><span class="line">            <span class="k">pass</span>
+</span><span class="line">            <span class="c">#user_info[&#39;lasttweet&#39;] = clean_content(info.text)</span>
+</span><span class="line">
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<h3 id="section">结束语</h3>
+<p>文中阐述了如何使用Beautiful Soup抽取微薄页面的用户关注信息，最后有几点需要提出：
+1.模拟用户登录</p>
+
+<p>结合本人的上一篇文章<a href="http://yoyzhou.github.com/blog/2013/03/18/sina-weibo-login-simulator-in-python/">Python模拟登录新浪微薄（使用RSA加密方式和Cookies文件）</a>，可以实现模拟用户登录之后发送用户关注的URL请求<code>http://weibo.com/{uid}/follow</code>获得用户关注的页面；</p>
+
+<p>2.分页抽取</p>
+
+<p>解析页面<code>http://weibo.com/{uid}/follow</code>可以获取用户关注的总页面数，通过<code>http://weibo.com/{uid}/follow?page={page_num}</code>可以实现分页抽取。</p>
+
+<p><code>---EOF---</code></p>
+
+<!-- PUT reference-style links below-->
+
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[Python模拟登录新浪微薄（使用RSA加密方式和Cookies文件）]]></title>
     <link href="http://yoyzhou.github.com/blog/2013/03/18/sina-weibo-login-simulator-in-python/"/>
     <updated>2013-03-18T21:15:00+08:00</updated>
     <id>http://yoyzhou.github.com/blog/2013/03/18/sina-weibo-login-simulator-in-python</id>
     <content type="html"><![CDATA[<p>本文简单介绍如何使用<a href="http://www.python.org/">PYTHON</a>模拟用户登录新浪微薄,文中使用的代码可以在<a href="https://github.com/yoyzhou/weibo_login">github.com/yoyzhou/weibo_login</a>中找到。</p>
 
-<h3 id="why">WHY</h3>
+<h3 id="section">为什么要模拟登录</h3>
 <p>一般来说获取微薄数据的方式有两种，一种是使用WEIBO官方提供的API接口；另外一种方式就是从WEIBO网站页面上抓取数据。从网面上抓取数据，相对于使用WEIBO API更加灵活，可控性更强，不用受WEIBO API调用次数的限制；但是易受WEIBO页面结构变动的影响，使得程序可靠性低，不适合在生产系统中使用。</p>
 
 <blockquote>
-  <p>当然还有一种是由<em>别人</em>提供下载的，下载WEIBO数据可以考虑<a href="http://www.cnpameng.com/">爬盟中国</a>和<a href="http://www.datatang.com/">数据堂</a></p>
+  <p>当然还有一种是由<strong>别人</strong>提供下载的，下载WEIBO数据可以考虑<a href="http://www.cnpameng.com/">爬盟中国</a>和<a href="http://www.datatang.com/">数据堂</a></p>
 </blockquote>
 
 <p>本文要讲的内容跟页面抓取数据有关，但是像<a href="weibo.com">WEIBO.COM</a>这样的<a href="http://en.wikipedia.org/wiki/SNS">SNS</a>网站必须事先登录之后才能访问到她的数据，所以如何模拟用户登录WEIBO，就成为从网页上抓取微薄数据的第一步。</p>
 
-<h3 id="what">WHAT</h3>
+<h3 id="section-1">关于模拟登录现有的资源</h3>
 <p>目前网上有很多关于模拟用户登录WEIBO的文章:</p>
 
 <ul>
@@ -51,10 +231,10 @@
   <p>Python模拟新浪微薄登录的豆瓣讨论<a href="http://www.douban.com/note/201767245/">[7]</a></p>
 </blockquote>
 
-<h3 id="how">HOW</h3>
-<p>由于新浪登录加密方式的改变，参见<a href="http://www.douban.com/note/201767245/">[7]</a>，这里仅介绍使用RSA加密方法登录，要使用RSA加密方式，必须安装RSA模块，所以：</p>
-
-<p>1.安装PYTHON实现的RSA加密算法模块<a href="https://pypi.python.org/pypi/rsa/3.1.1">python-rsa</a>.</p>
+<h3 id="pythonrsa2">模拟登录的Python+RSA2实现</h3>
+<p>由于新浪登录加密方式的改变，参见<a href="http://www.douban.com/note/201767245/">[7]</a>，这里仅介绍使用RSA加密方法登录，要使用RSA加密方式，必须安装RSA模块，所以：
+<!-- more -->
+1.安装PYTHON实现的RSA加密算法模块<a href="https://pypi.python.org/pypi/rsa/3.1.1">python-rsa</a>.</p>
 
 <div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
 </pre></td><td class="code"><pre><code class="bash"><span class="line">&gt; easy_install rsa
@@ -140,10 +320,10 @@
 </span><span class="line"> 	<span class="k">return</span> <span class="mi">0</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div>
 
-<h3 id="problems">PROBLEMS</h3>
+<h3 id="section-2">存在的问题</h3>
 <p>登入过程中返回ERROR-4049:需要输入验证码，这个问题在<a href="http://www.cnblogs.com/mouse-coder/archive/2013/03/03/2941265.html">[5] 模拟新浪微博登录（Python+RSA加密算法）</a>中也有提到。</p>
 
-<h3 id="source-code">SOURCE CODE</h3>
+<h3 id="section-3">源代码</h3>
 <p>文中代码片段的源码地址<a href="https://github.com/yoyzhou/weibo_login">github.com/yoyzhou/weibo_login</a></p>
 
 <p><code>---EOF---</code></p>
@@ -156,8 +336,8 @@
     <updated>2013-02-28T23:24:00+08:00</updated>
     <id>http://yoyzhou.github.com/blog/2013/02/28/python-threads-synchronization-locks</id>
     <content type="html"><![CDATA[<blockquote>
-  <p>翻译自<a href="http://www.laurentluce.com/">Laurent Luce</a>的博客
-原文名称：Python threads synchronization: Locks, RLocks, Semaphores, Conditions, Events and Queues
+  <p>翻译自<a href="http://www.laurentluce.com/">Laurent Luce</a>的博客&lt;br &gt;
+原文名称：Python threads synchronization: Locks, RLocks, Semaphores, Conditions, Events and Queues&lt;br &gt;
 原文连接：<a href="http://www.laurentluce.com/posts/python-threads-synchronization-locks-rlocks-semaphores-conditions-events-and-queues/">http://www.laurentluce.com/posts/python-threads-synchronization-locks-rlocks-semaphores-conditions-events-and-queues/</a></p>
 </blockquote>
 
@@ -388,6 +568,7 @@
 </span><span class="line"><span class="n">_allocate_lock</span> <span class="o">=</span> <span class="n">thread</span><span class="o">.</span><span class="n">allocate_lock</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div>
 
+<!-- more -->
 <p>C的实现在Python/thread_pthread.h中。程序假定你的系统支持POSIX信号量（semaphores）。sem_init()初始化锁（Lock）所在地址的信号量。初始的信号量值是1，意味着锁没有被锁（unlocked）。信号量将在处理器的不同线程之间共享。</p>
 
 <div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
@@ -1504,7 +1685,7 @@
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Install Python Setuptools/Distribute for Python2 and Python3]]></title>
+    <title type="html"><![CDATA[Install Python Setuptools/Distribute for Python 2.x and Python 3.x]]></title>
     <link href="http://yoyzhou.github.com/blog/2012/08/12/install-python-setuptools-slash-distribute-for-both-python2-and-python3/"/>
     <updated>2012-08-12T20:23:00+08:00</updated>
     <id>http://yoyzhou.github.com/blog/2012/08/12/install-python-setuptools-slash-distribute-for-both-python2-and-python3</id>
@@ -1512,69 +1693,64 @@
 
 <blockquote><p>Distribute is intended to replace Setuptools as the standard method for working with Python module distributions.</p><footer><strong>@PyPI Distribute</strong> <cite><a href="http://pypi.python.org/pypi/distribute/#disclaimers">pypi.python.org/pypi/distribute/&hellip;</a></cite></footer></blockquote>
 
-<h2 id="install-python-setuptools-with-easyinstall-for-python2">Install python Setuptools with easy_install for Python2.*</h2>
+<h3 id="install-python-setuptools-with-easyinstall-for-python-2x">Install python Setuptools with easy_install for Python 2.x</h3>
 
 <p>1 Download setuptools from http://pypi.python.org/pypi/setuptools/, select the appropriate OS/version you want.</p>
 
-<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Install Setuptools(v2.7) install_setuptools.sh</span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-</pre></td><td class="code"><pre><code class="sh"><span class="line">sudo sh Downloads/setuptools-0.6c11-py2.7.egg
+<div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="bash"><span class="line">sudo sh Downloads/setuptools-0.6c11-py2.7.egg
 </span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>Output:</p>
 
-<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Output install_setuptools.sh</span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
 <span class="line-number">2</span>
 <span class="line-number">3</span>
 <span class="line-number">4</span>
 <span class="line-number">5</span>
-</pre></td><td class="code"><pre><code class="sh"><span class="line">Processing setuptools-0.6c11-py2.7.egg
+</pre></td><td class="code"><pre><code class="bash"><span class="line">Processing setuptools-0.6c11-py2.7.egg
 </span><span class="line">Copying setuptools-0.6c11-py2.7.egg to /usr/local/lib/python2.7/dist-packages
 </span><span class="line">Adding setuptools 0.6c11 to easy-install.pth file
 </span><span class="line">Installing easy_install script to /usr/local/bin
 </span><span class="line">Installing easy_install-2.7 script to /usr/local/bin
 </span></code></pre></td></tr></table></div></figure></notextile></div>
 
-<h2 id="install-python-distribute-with-easyinstall-for-python3">Install python Distribute with easy_install for Python3.*</h2>
+<h3 id="install-python-distribute-with-easyinstall-for-python-3x">Install python Distribute with easy_install for Python 3.x</h3>
 
-<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Install Distribute install_distribute.sh</span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
 <span class="line-number">2</span>
-</pre></td><td class="code"><pre><code class="sh"><span class="line">curl -O http://python-distribute.org/distribute_setup.py
+</pre></td><td class="code"><pre><code class="bash"><span class="line">curl -O http://python-distribute.org/distribute_setup.py
 </span><span class="line">sudo &lt;python-cmd&gt; distribute_setup.py
 </span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>Output:</p>
 
-<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Output install_distribute.sh</span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
 <span class="line-number">2</span>
 <span class="line-number">3</span>
-</pre></td><td class="code"><pre><code class="sh"><span class="line">Adding distribute 0.6.28 to easy-install.pth file
+</pre></td><td class="code"><pre><code class="bash"><span class="line">Adding distribute 0.6.28 to easy-install.pth file
 </span><span class="line">Installing easy_install script to /usr/local/bin
 </span><span class="line">Installing easy_install-3.2 script to /usr/local/bin
 </span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p><strong>Note:</strong> Make sure &lt;python-cmd&gt; is a python3.* command, in my PC, Python2.* command is python, while the Python3.* command is python3,  use &lt;python-cmd&gt; –version to check out version of &lt;python-cmd&gt;. </p>
 
-<p>Now per installing 2.* package, using:</p>
+<h3 id="use-easyinstall-2x-and-3x">Use easy_install 2.x and 3.x</h3>
+<p>Now per installing 2.x packages, using:</p>
 
-<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Install 2.* Package install_package2.sh</span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-</pre></td><td class="code"><pre><code class="sh"><span class="line">easy_install-2.7  &lt;package-name&gt;
+<div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="bash"><span class="line">easy_install-2.7  &lt;package-name&gt;
 </span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>while using</p>
 
-<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Install 3.* Package install_package3.sh</span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-</pre></td><td class="code"><pre><code class="sh"><span class="line">easy_install-3.2  &lt;package-name&gt;
+<div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="bash"><span class="line">easy_install-3.2  &lt;package-name&gt;
 </span></code></pre></td></tr></table></div></figure></notextile></div>
 
-<p>to install version 3.* package.</p>
+<p>to install version 3.x packages.</p>
 
-<p>(End)</p>
+<p><code>---EOF---</code></p>
 
 ]]></content>
   </entry>

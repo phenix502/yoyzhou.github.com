@@ -5,12 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Install Python Setuptools/Distribute for Python2 and Python3 - Tony Chou's Blog</title>
+  <title>Install Python Setuptools/Distribute for Python 2.x and Python 3.x - Tony Chou's Blog</title>
   <meta name="author" content="yoyzhou">
 
   
   <meta name="description" content="Since Setuptools doesn’t support Python3.* so far, for Python3.* we choose Distribute, it is a fork of the Setuptools project. Distribute is intended &hellip;">
-  
+  <meta name="keywords" content="Python, Distribute, Setuptools, easy install, Python easy install">
 
   <!-- http://t.co/dKP3o1e -->
   <meta name="HandheldFriendly" content="True">
@@ -79,7 +79,7 @@
   
   <header>
     
-      <h1 class="entry-title">Install Python Setuptools/Distribute for Python2 and Python3</h1>
+      <h1 class="entry-title">Install Python Setuptools/Distribute for Python 2.x and Python 3.x</h1>
     
     
       <p class="meta">
@@ -108,69 +108,64 @@
 
 <blockquote><p>Distribute is intended to replace Setuptools as the standard method for working with Python module distributions.</p><footer><strong>@PyPI Distribute</strong> <cite><a href="http://pypi.python.org/pypi/distribute/#disclaimers">pypi.python.org/pypi/distribute/&hellip;</a></cite></footer></blockquote>
 
-<h2 id="install-python-setuptools-with-easyinstall-for-python2">Install python Setuptools with easy_install for Python2.*</h2>
+<h3 id="install-python-setuptools-with-easyinstall-for-python-2x">Install python Setuptools with easy_install for Python 2.x</h3>
 
 <p>1 Download setuptools from http://pypi.python.org/pypi/setuptools/, select the appropriate OS/version you want.</p>
 
-<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Install Setuptools(v2.7) install_setuptools.sh</span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-</pre></td><td class="code"><pre><code class="sh"><span class="line">sudo sh Downloads/setuptools-0.6c11-py2.7.egg
+<div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="bash"><span class="line">sudo sh Downloads/setuptools-0.6c11-py2.7.egg
 </span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>Output:</p>
 
-<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Output install_setuptools.sh</span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
 <span class="line-number">2</span>
 <span class="line-number">3</span>
 <span class="line-number">4</span>
 <span class="line-number">5</span>
-</pre></td><td class="code"><pre><code class="sh"><span class="line">Processing setuptools-0.6c11-py2.7.egg
+</pre></td><td class="code"><pre><code class="bash"><span class="line">Processing setuptools-0.6c11-py2.7.egg
 </span><span class="line">Copying setuptools-0.6c11-py2.7.egg to /usr/local/lib/python2.7/dist-packages
 </span><span class="line">Adding setuptools 0.6c11 to easy-install.pth file
 </span><span class="line">Installing easy_install script to /usr/local/bin
 </span><span class="line">Installing easy_install-2.7 script to /usr/local/bin
 </span></code></pre></td></tr></table></div></figure></notextile></div>
 
-<h2 id="install-python-distribute-with-easyinstall-for-python3">Install python Distribute with easy_install for Python3.*</h2>
+<h3 id="install-python-distribute-with-easyinstall-for-python-3x">Install python Distribute with easy_install for Python 3.x</h3>
 
-<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Install Distribute install_distribute.sh</span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
 <span class="line-number">2</span>
-</pre></td><td class="code"><pre><code class="sh"><span class="line">curl -O http://python-distribute.org/distribute_setup.py
+</pre></td><td class="code"><pre><code class="bash"><span class="line">curl -O http://python-distribute.org/distribute_setup.py
 </span><span class="line">sudo &lt;python-cmd&gt; distribute_setup.py
 </span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>Output:</p>
 
-<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Output install_distribute.sh</span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
 <span class="line-number">2</span>
 <span class="line-number">3</span>
-</pre></td><td class="code"><pre><code class="sh"><span class="line">Adding distribute 0.6.28 to easy-install.pth file
+</pre></td><td class="code"><pre><code class="bash"><span class="line">Adding distribute 0.6.28 to easy-install.pth file
 </span><span class="line">Installing easy_install script to /usr/local/bin
 </span><span class="line">Installing easy_install-3.2 script to /usr/local/bin
 </span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p><strong>Note:</strong> Make sure &lt;python-cmd&gt; is a python3.* command, in my PC, Python2.* command is python, while the Python3.* command is python3,  use &lt;python-cmd&gt; –version to check out version of &lt;python-cmd&gt;. </p>
 
-<p>Now per installing 2.* package, using:</p>
+<h3 id="use-easyinstall-2x-and-3x">Use easy_install 2.x and 3.x</h3>
+<p>Now per installing 2.x packages, using:</p>
 
-<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Install 2.* Package install_package2.sh</span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-</pre></td><td class="code"><pre><code class="sh"><span class="line">easy_install-2.7  &lt;package-name&gt;
+<div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="bash"><span class="line">easy_install-2.7  &lt;package-name&gt;
 </span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>while using</p>
 
-<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Install 3.* Package install_package3.sh</span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-</pre></td><td class="code"><pre><code class="sh"><span class="line">easy_install-3.2  &lt;package-name&gt;
+<div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="bash"><span class="line">easy_install-3.2  &lt;package-name&gt;
 </span></code></pre></td></tr></table></div></figure></notextile></div>
 
-<p>to install version 3.* package.</p>
+<p>to install version 3.x packages.</p>
 
-<p>(End)</p>
+<p><code>---EOF---</code></p>
 
 </div>
 
@@ -199,7 +194,7 @@
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/distribute/'>Distribute</a>, <a class='category' href='/blog/categories/python/'>Python</a>, <a class='category' href='/blog/categories/setuptools/'>Setuptools</a>
+    <a class='category' href='/blog/categories/distribute/'>Distribute</a>, <a class='category' href='/blog/categories/python/'>Python</a>, <a class='category' href='/blog/categories/setuptools/'>Setuptools</a>, <a class='category' href='/blog/categories/easy-install/'>easy install</a>
   
 </span>
 
@@ -259,6 +254,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/03/23/extract-data-with-beautifulsoup-taking-weibo-4-example/">使用Beautiful Soup抽取网页数据，解析微薄用户关注信息</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/03/18/sina-weibo-login-simulator-in-python/">Python模拟登录新浪微薄（使用RSA加密方式和Cookies文件）</a>
       </li>
     
@@ -267,7 +266,7 @@
       </li>
     
       <li class="post">
-        <a href="/blog/2012/08/12/install-python-setuptools-slash-distribute-for-both-python2-and-python3/">Install Python Setuptools/Distribute for Python2 and Python3</a>
+        <a href="/blog/2012/08/12/install-python-setuptools-slash-distribute-for-both-python2-and-python3/">Install Python Setuptools/Distribute for Python 2.x and Python 3.x</a>
       </li>
     
       <li class="post">

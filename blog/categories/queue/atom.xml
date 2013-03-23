@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Queue | Tony Chou's Blog]]></title>
   <link href="http://yoyzhou.github.com/blog/categories/queue/atom.xml" rel="self"/>
   <link href="http://yoyzhou.github.com/"/>
-  <updated>2013-03-19T23:36:00+08:00</updated>
+  <updated>2013-03-23T22:13:07+08:00</updated>
   <id>http://yoyzhou.github.com/</id>
   <author>
     <name><![CDATA[yoyzhou]]></name>
@@ -19,8 +19,8 @@
     <updated>2013-02-28T23:24:00+08:00</updated>
     <id>http://yoyzhou.github.com/blog/2013/02/28/python-threads-synchronization-locks</id>
     <content type="html"><![CDATA[<blockquote>
-  <p>翻译自<a href="http://www.laurentluce.com/">Laurent Luce</a>的博客
-原文名称：Python threads synchronization: Locks, RLocks, Semaphores, Conditions, Events and Queues
+  <p>翻译自<a href="http://www.laurentluce.com/">Laurent Luce</a>的博客&lt;br &gt;
+原文名称：Python threads synchronization: Locks, RLocks, Semaphores, Conditions, Events and Queues&lt;br &gt;
 原文连接：<a href="http://www.laurentluce.com/posts/python-threads-synchronization-locks-rlocks-semaphores-conditions-events-and-queues/">http://www.laurentluce.com/posts/python-threads-synchronization-locks-rlocks-semaphores-conditions-events-and-queues/</a></p>
 </blockquote>
 
@@ -248,9 +248,9 @@
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">Lock</span> <span class="o">=</span> <span class="n">_allocate_lock</span>
 </span><span class='line'><span class="n">_allocate_lock</span> <span class="o">=</span> <span class="n">thread</span><span class="o">.</span><span class="n">allocate_lock</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
-
-<p>C的实现在Python/thread_pthread.h中。程序假定你的系统支持POSIX信号量（semaphores）。sem_init()初始化锁（Lock）所在地址的信号量。初始的信号量值是1，意味着锁没有被锁（unlocked）。信号量将在处理器的不同线程之间共享。</p>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+<!-- more -->
+C的实现在Python/thread_pthread.h中。程序假定你的系统支持POSIX信号量（semaphores）。sem_init()初始化锁（Lock）所在地址的信号量。初始的信号量值是1，意味着锁没有被锁（unlocked）。信号量将在处理器的不同线程之间共享。</p>
 
 <p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>

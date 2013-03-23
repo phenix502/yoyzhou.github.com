@@ -9,9 +9,8 @@
   <meta name="author" content="yoyzhou">
 
   
-  <meta name="description" content="本文简单介绍如何使用PYTHON模拟用户登录新浪微薄,文中使用的代码可以在github.com/yoyzhou/weibo_login中找到。 WHY
-一般来说获取微薄数据的方式有两种，一种是使用WEIBO官方提供的API接口；另外一种方式就是从WEIBO网站页面上抓取数据。从网面上抓取数据， &hellip;">
-  
+  <meta name="description" content="本文介绍使用Python和RSA2加密方式模拟用户登录新浪微薄,文中使用的代码可以在https://github.com/yoyzhou/weibo_login中找到。">
+  <meta name="keywords" content="Python, WEIBO, RSA2, Encryption, Crawler, Scrapy">
 
   <!-- http://t.co/dKP3o1e -->
   <meta name="HandheldFriendly" content="True">
@@ -107,16 +106,16 @@
 
 <div class="entry-content"><p>本文简单介绍如何使用<a href="http://www.python.org/">PYTHON</a>模拟用户登录新浪微薄,文中使用的代码可以在<a href="https://github.com/yoyzhou/weibo_login">github.com/yoyzhou/weibo_login</a>中找到。</p>
 
-<h3 id="why">WHY</h3>
+<h3 id="section">为什么要模拟登录</h3>
 <p>一般来说获取微薄数据的方式有两种，一种是使用WEIBO官方提供的API接口；另外一种方式就是从WEIBO网站页面上抓取数据。从网面上抓取数据，相对于使用WEIBO API更加灵活，可控性更强，不用受WEIBO API调用次数的限制；但是易受WEIBO页面结构变动的影响，使得程序可靠性低，不适合在生产系统中使用。</p>
 
 <blockquote>
-  <p>当然还有一种是由<em>别人</em>提供下载的，下载WEIBO数据可以考虑<a href="http://www.cnpameng.com/">爬盟中国</a>和<a href="http://www.datatang.com/">数据堂</a></p>
+  <p>当然还有一种是由<strong>别人</strong>提供下载的，下载WEIBO数据可以考虑<a href="http://www.cnpameng.com/">爬盟中国</a>和<a href="http://www.datatang.com/">数据堂</a></p>
 </blockquote>
 
 <p>本文要讲的内容跟页面抓取数据有关，但是像<a href="weibo.com">WEIBO.COM</a>这样的<a href="http://en.wikipedia.org/wiki/SNS">SNS</a>网站必须事先登录之后才能访问到她的数据，所以如何模拟用户登录WEIBO，就成为从网页上抓取微薄数据的第一步。</p>
 
-<h3 id="what">WHAT</h3>
+<h3 id="section-1">关于模拟登录现有的资源</h3>
 <p>目前网上有很多关于模拟用户登录WEIBO的文章:</p>
 
 <ul>
@@ -138,10 +137,10 @@
   <p>Python模拟新浪微薄登录的豆瓣讨论<a href="http://www.douban.com/note/201767245/">[7]</a></p>
 </blockquote>
 
-<h3 id="how">HOW</h3>
-<p>由于新浪登录加密方式的改变，参见<a href="http://www.douban.com/note/201767245/">[7]</a>，这里仅介绍使用RSA加密方法登录，要使用RSA加密方式，必须安装RSA模块，所以：</p>
-
-<p>1.安装PYTHON实现的RSA加密算法模块<a href="https://pypi.python.org/pypi/rsa/3.1.1">python-rsa</a>.</p>
+<h3 id="pythonrsa2">模拟登录的Python+RSA2实现</h3>
+<p>由于新浪登录加密方式的改变，参见<a href="http://www.douban.com/note/201767245/">[7]</a>，这里仅介绍使用RSA加密方法登录，要使用RSA加密方式，必须安装RSA模块，所以：
+<!-- more -->
+1.安装PYTHON实现的RSA加密算法模块<a href="https://pypi.python.org/pypi/rsa/3.1.1">python-rsa</a>.</p>
 
 <div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
 </pre></td><td class="code"><pre><code class="bash"><span class="line">&gt; easy_install rsa
@@ -227,10 +226,10 @@
 </span><span class="line"> 	<span class="k">return</span> <span class="mi">0</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div>
 
-<h3 id="problems">PROBLEMS</h3>
+<h3 id="section-2">存在的问题</h3>
 <p>登入过程中返回ERROR-4049:需要输入验证码，这个问题在<a href="http://www.cnblogs.com/mouse-coder/archive/2013/03/03/2941265.html">[5] 模拟新浪微博登录（Python+RSA加密算法）</a>中也有提到。</p>
 
-<h3 id="source-code">SOURCE CODE</h3>
+<h3 id="section-3">源代码</h3>
 <p>文中代码片段的源码地址<a href="https://github.com/yoyzhou/weibo_login">github.com/yoyzhou/weibo_login</a></p>
 
 <p><code>---EOF---</code></p>
@@ -286,6 +285,8 @@
         <a class="basic-alignment left" href="/blog/2013/02/28/python-threads-synchronization-locks/" title="Previous Post: Python线程同步机制：Locks，RLocks，Semaphores，Conditions，Events和Queues">&laquo; Python线程同步机制：Locks，RLocks，Semaphores，Conditions，Events和Queues</a>
       
       
+        <a class="basic-alignment right" href="/blog/2013/03/23/extract-data-with-beautifulsoup-taking-weibo-4-example/" title="Next Post: 使用Beautiful Soup抽取网页数据，解析微薄用户关注信息">使用Beautiful Soup抽取网页数据，解析微薄用户关注信息 &raquo;</a>
+      
     </p>
   </footer>
 </article>
@@ -319,6 +320,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/03/23/extract-data-with-beautifulsoup-taking-weibo-4-example/">使用Beautiful Soup抽取网页数据，解析微薄用户关注信息</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/03/18/sina-weibo-login-simulator-in-python/">Python模拟登录新浪微薄（使用RSA加密方式和Cookies文件）</a>
       </li>
     
@@ -327,7 +332,7 @@
       </li>
     
       <li class="post">
-        <a href="/blog/2012/08/12/install-python-setuptools-slash-distribute-for-both-python2-and-python3/">Install Python Setuptools/Distribute for Python2 and Python3</a>
+        <a href="/blog/2012/08/12/install-python-setuptools-slash-distribute-for-both-python2-and-python3/">Install Python Setuptools/Distribute for Python 2.x and Python 3.x</a>
       </li>
     
       <li class="post">

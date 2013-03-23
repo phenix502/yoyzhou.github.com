@@ -9,10 +9,8 @@
   <meta name="author" content="yoyzhou">
 
   
-  <meta name="description" content="翻译自Laurent Luce的博客
-原文名称：Python threads synchronization: Locks, RLocks, Semaphores, Conditions, Events and Queues
-原文连接：http://www.laurentluce.com/ &hellip;">
-  
+  <meta name="description" content="本文详细地阐述了Python线程同步机制。你将学习到以下有关Python线程同步机制：Lock，RLock，Semaphore，Condition，Event和Queue，还有Python的内部是如何实现这些机制。">
+  <meta name="keywords" content="Python, Threading, Threads, Locks, RLocks, Semaphores, Conditions, Events, Synchronization">
 
   <!-- http://t.co/dKP3o1e -->
   <meta name="HandheldFriendly" content="True">
@@ -107,8 +105,8 @@
 
 
 <div class="entry-content"><blockquote>
-  <p>翻译自<a href="http://www.laurentluce.com/">Laurent Luce</a>的博客
-原文名称：Python threads synchronization: Locks, RLocks, Semaphores, Conditions, Events and Queues
+  <p>翻译自<a href="http://www.laurentluce.com/">Laurent Luce</a>的博客&lt;br &gt;
+原文名称：Python threads synchronization: Locks, RLocks, Semaphores, Conditions, Events and Queues&lt;br &gt;
 原文连接：<a href="http://www.laurentluce.com/posts/python-threads-synchronization-locks-rlocks-semaphores-conditions-events-and-queues/">http://www.laurentluce.com/posts/python-threads-synchronization-locks-rlocks-semaphores-conditions-events-and-queues/</a></p>
 </blockquote>
 
@@ -339,6 +337,7 @@
 </span><span class="line"><span class="n">_allocate_lock</span> <span class="o">=</span> <span class="n">thread</span><span class="o">.</span><span class="n">allocate_lock</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div>
 
+<!-- more -->
 <p>C的实现在Python/thread_pthread.h中。程序假定你的系统支持POSIX信号量（semaphores）。sem_init()初始化锁（Lock）所在地址的信号量。初始的信号量值是1，意味着锁没有被锁（unlocked）。信号量将在处理器的不同线程之间共享。</p>
 
 <div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
@@ -1500,7 +1499,7 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2012/08/12/install-python-setuptools-slash-distribute-for-both-python2-and-python3/" title="Previous Post: Install Python Setuptools/Distribute for Python2 and Python3">&laquo; Install Python Setuptools/Distribute for Python2 and Python3</a>
+        <a class="basic-alignment left" href="/blog/2012/08/12/install-python-setuptools-slash-distribute-for-both-python2-and-python3/" title="Previous Post: Install Python Setuptools/Distribute for Python 2.x and Python 3.x">&laquo; Install Python Setuptools/Distribute for Python 2.x and Python 3.x</a>
       
       
         <a class="basic-alignment right" href="/blog/2013/03/18/sina-weibo-login-simulator-in-python/" title="Next Post: Python模拟登录新浪微薄（使用RSA加密方式和Cookies文件）">Python模拟登录新浪微薄（使用RSA加密方式和Cookies文件） &raquo;</a>
@@ -1538,6 +1537,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/03/23/extract-data-with-beautifulsoup-taking-weibo-4-example/">使用Beautiful Soup抽取网页数据，解析微薄用户关注信息</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/03/18/sina-weibo-login-simulator-in-python/">Python模拟登录新浪微薄（使用RSA加密方式和Cookies文件）</a>
       </li>
     
@@ -1546,7 +1549,7 @@
       </li>
     
       <li class="post">
-        <a href="/blog/2012/08/12/install-python-setuptools-slash-distribute-for-both-python2-and-python3/">Install Python Setuptools/Distribute for Python2 and Python3</a>
+        <a href="/blog/2012/08/12/install-python-setuptools-slash-distribute-for-both-python2-and-python3/">Install Python Setuptools/Distribute for Python 2.x and Python 3.x</a>
       </li>
     
       <li class="post">
