@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>使用Beautiful Soup抽取网页数据，解析微薄用户关注信息 - Tony Chou's Blog</title>
+  <title>使用Beautiful Soup抽取网页数据，解析微博用户关注信息 - Tony Chou's Blog</title>
   <meta name="author" content="yoyzhou">
 
   
-  <meta name="description" content="本文介绍了Beautiful Soup，PYTHON实现的HTML/XML标记的解析器；简要描述了Beautiful Soup的安装以及使用；最后以抽取微薄用户关注信息为例详细的演示了如何使用Beautiful Soup。">
+  <meta name="description" content="本文介绍了Beautiful Soup，PYTHON实现的HTML/XML标记的解析器；简要描述了Beautiful Soup的安装以及使用；最后以抽取微博用户关注信息为例详细的演示了如何使用Beautiful Soup。">
   <meta name="keywords" content="Python, WEIBO, BeautifulSoup, Social Network, Data Analysis">
 
   <!-- http://t.co/dKP3o1e -->
@@ -23,6 +23,10 @@
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
    <link href="/stylesheets/data-table.css" media="screen, projection" rel="stylesheet" type="text/css" />
   <script src="/javascripts/modernizr-2.0.js"></script>
+<!--
+<script src="/javascripts/MathJax.js" type="text/javascript"></script>
+
+-->
 <script src="http://kramdown.rubyforge.org/MathJax/MathJax.js" type="text/javascript"></script>
 <script src="/javascripts/ender.js"></script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
@@ -79,7 +83,7 @@
   
   <header>
     
-      <h1 class="entry-title">使用Beautiful Soup抽取网页数据，解析微薄用户关注信息</h1>
+      <h1 class="entry-title">使用Beautiful Soup抽取网页数据，解析微博用户关注信息</h1>
     
     
       <p class="meta">
@@ -104,7 +108,7 @@
   </header>
 
 
-<div class="entry-content"><p>本文介绍了Beautiful Soup，PYTHON实现的HTML/XML标记的解析器；简要描述了Beautiful Soup的安装以及使用；最后以抽取微薄用户关注信息为例详细的演示了如何使用Beautiful Soup。</p>
+<div class="entry-content"><p>本文介绍了Beautiful Soup，PYTHON实现的HTML/XML标记的解析器；简要描述了Beautiful Soup的安装以及使用；最后以抽取微博用户关注信息为例详细的演示了如何使用Beautiful Soup。</p>
 
 <h3 id="beautiful-soup">什么是Beautiful Soup</h3>
 <p><a href="http://www.crummy.com/software/BeautifulSoup/">Beautiful Soup</a>是用PYTHON实现的HTML/XML标记的解析器。它提供简单和通用的方法对HTML/XML语法树进行浏览（navigating），搜索（searching）以及修改（searching）。它甚至可以针对不规范的标记生成语法树，可以大大地减少开发人员的时间。</p>
@@ -153,10 +157,10 @@
 
 <p>上面简单介绍了Beautiful Soup的安装和使用，更多Beautiful Soup的文档请参考官方文档<a href="http://www.crummy.com/software/BeautifulSoup/bs3/documentation.html">bs3</a>和<a href="http://www.crummy.com/software/BeautifulSoup/">bs4</a>。下面我们以从WEIBO.COM页面中解析出用户的关注信息为例，介绍Beautiful Soup的使用。</p>
 
-<h3 id="beautiful-soup-3">Beautiful Soup实例：解析微薄用户的关注信息</h3>
-<p>社交网络中的关注信息（followings）是用户对什么人/东西感兴趣的一种表达，从关注信息中可以得到用户的兴趣偏好，又因为关注信息有用户自己维护，所以相对于粉丝（followers）信息更能体现个人偏好。以微薄来说，关注就是用户关注的人，一般认为用户是根据自己的兴趣爱好出发有选择的关注帐号。</p>
+<h3 id="beautiful-soup-3">Beautiful Soup实例：解析微博用户的关注信息</h3>
+<p>社交网络中的关注信息（followings）是用户对什么人/东西感兴趣的一种表达，从关注信息中可以得到用户的兴趣偏好，又因为关注信息有用户自己维护，所以相对于粉丝（followers）信息更能体现个人偏好。以微博来说，关注就是用户关注的人，一般认为用户是根据自己的兴趣爱好出发有选择的关注帐号。</p>
 
-<p>微薄中有两种关注，我的关注和他人的关注，由于这两种关注的页面结构不同，所以在解析的时候需要分别对待，但是分析的过程是同理的，只是在抽取数据是的页面标签不一样，使用上面的Beautiful Soup工具，抽取时标签的定位会很容易，这就是使用Beautiful Soup带来的好处。</p>
+<p>微博中有两种关注，我的关注和他人的关注，由于这两种关注的页面结构不同，所以在解析的时候需要分别对待，但是分析的过程是同理的，只是在抽取数据是的页面标签不一样，使用上面的Beautiful Soup工具，抽取时标签的定位会很容易，这就是使用Beautiful Soup带来的好处。</p>
 
 <h4 id="inspect-element">1.使用浏览器的<code>Inspect Element</code>功能理解页面的结构</h4>
 
@@ -165,7 +169,7 @@
 
 <h4 id="htmlbeautiful-soup">2.从页面中提取用户关注的HTML字段，构建Beautiful Soup对象</h4>
 
-<p>通过上面一步的分析，我们大致了解用户关注列表的页面结构，接下来就把页面文件/流导入到Beautiful Soup中，让它为我们生成页面结构树。可是当我们查看新浪微薄页面源码的时候，情况却不是这样的，我们发现页面源码中很多信息并不是以HTML元素的形式呈现，而是以plain文本形式放到了页面的Javacript脚本里面，这时就更加凸显了Beautiful Soup的伟大之处了，只要我们在Script里面找到了相应的代码（实际上是json格式存放的数据），抽取出来再导入到Beautiful Soup中，这个问题也就迎刃而解。下面的正则表达式用来从页面中提取Script中的json数据并且使用其中的HTML字段生成soup：</p>
+<p>通过上面一步的分析，我们大致了解用户关注列表的页面结构，接下来就把页面文件/流导入到Beautiful Soup中，让它为我们生成页面结构树。可是当我们查看新浪微博页面源码的时候，情况却不是这样的，我们发现页面源码中很多信息并不是以HTML元素的形式呈现，而是以plain文本形式放到了页面的Javacript脚本里面，这时就更加凸显了Beautiful Soup的伟大之处了，只要我们在Script里面找到了相应的代码（实际上是json格式存放的数据），抽取出来再导入到Beautiful Soup中，这个问题也就迎刃而解。下面的正则表达式用来从页面中提取Script中的json数据并且使用其中的HTML字段生成soup：</p>
 
 <div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
 <span class="line-number">2</span>
@@ -264,10 +268,10 @@
 </span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <h3 id="section">结束语</h3>
-<p>文中阐述了如何使用Beautiful Soup抽取微薄页面的用户关注信息，最后有几点需要提出：
+<p>文中阐述了如何使用Beautiful Soup抽取微博页面的用户关注信息，最后有几点需要提出：
 1.模拟用户登录</p>
 
-<p>结合本人的上一篇文章<a href="/blog/2013/03/18/sina-weibo-login-simulator-in-python/">Python模拟登录新浪微薄（使用RSA加密方式和Cookies文件）</a>，可以实现模拟用户登录之后发送用户关注的URL请求<code>http://weibo.com/{uid}/follow</code>获得用户关注的页面；</p>
+<p>结合本人的上一篇文章<a href="/blog/2013/03/18/sina-weibo-login-simulator-in-python/">Python模拟登录新浪微博（使用RSA加密方式和Cookies文件）</a>，可以实现模拟用户登录之后发送用户关注的URL请求<code>http://weibo.com/{uid}/follow</code>获得用户关注的页面；</p>
 
 <p>2.分页抽取</p>
 
@@ -362,7 +366,7 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2013/03/23/extract-data-with-beautifulsoup-taking-weibo-4-example/">使用Beautiful Soup抽取网页数据，解析微薄用户关注信息</a>
+        <a href="/blog/2013/03/23/extract-data-with-beautifulsoup-taking-weibo-4-example/">使用Beautiful Soup抽取网页数据，解析微博用户关注信息</a>
       </li>
     
       <li class="post">
