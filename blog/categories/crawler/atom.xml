@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Crawler | Tony Chou's Blog]]></title>
   <link href="http://yoyzhou.github.com/blog/categories/crawler/atom.xml" rel="self"/>
   <link href="http://yoyzhou.github.com/"/>
-  <updated>2013-03-23T22:13:07+08:00</updated>
+  <updated>2013-03-23T22:26:02+08:00</updated>
   <id>http://yoyzhou.github.com/</id>
   <author>
     <name><![CDATA[yoyzhou]]></name>
@@ -29,7 +29,7 @@
 
 <p>本文要讲的内容跟页面抓取数据有关，但是像<a href="weibo.com">WEIBO.COM</a>这样的<a href="http://en.wikipedia.org/wiki/SNS">SNS</a>网站必须事先登录之后才能访问到她的数据，所以如何模拟用户登录WEIBO，就成为从网页上抓取微薄数据的第一步。</p>
 
-<h3 id="section-1">关于模拟登录现有的资源</h3>
+<h3 id="section-1">模拟登录相关资源</h3>
 <p>目前网上有很多关于模拟用户登录WEIBO的文章:</p>
 
 <ul>
@@ -51,17 +51,18 @@
   <p>Python模拟新浪微薄登录的豆瓣讨论<a href="http://www.douban.com/note/201767245/">[7]</a></p>
 </blockquote>
 
-<h3 id="pythonrsa2">模拟登录的Python+RSA2实现</h3>
+<h3 id="pythonrsa2cookies">Python+RSA2+Cookies实现模拟登录</h3>
 <p>由于新浪登录加密方式的改变，参见<a href="http://www.douban.com/note/201767245/">[7]</a>，这里仅介绍使用RSA加密方法登录，要使用RSA加密方式，必须安装RSA模块，所以：
-<!-- more -->
-1.安装PYTHON实现的RSA加密算法模块<a href="https://pypi.python.org/pypi/rsa/3.1.1">python-rsa</a>.
-<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<!-- more --></p>
+
+<h4 id="pythonrsapython-rsahttpspypipythonorgpypirsa311">1.安装PYTHON实现的RSA加密算法模块<a href="https://pypi.python.org/pypi/rsa/3.1.1">python-rsa</a>.</h4>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='bash'><span class='line'>&amp;gt; easy_install rsa
 </span></code></pre></td></tr></table></div></figure></notextile></div>
 python-rsa的文档地址<a href="http://stuvel.eu/files/python-rsa-doc/index.html">http://stuvel.eu/files/python-rsa-doc/index.html</a></p>
 
-<p>2.使用RSA加密用户登录密码
-<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<h4 id="rsa">2.使用RSA加密用户登录密码</h4>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -108,8 +109,8 @@ python-rsa的文档地址<a href="http://stuvel.eu/files/python-rsa-doc/index.ht
 </span></code></pre></td></tr></table></div></figure></notextile></div>
 </code></pre>
 
-<p>3.验证用户登录是否成功，并且保存Cookies
-<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<h4 id="cookies">3.验证用户登录是否成功，并且保存Cookies</h4>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>

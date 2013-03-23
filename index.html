@@ -162,7 +162,7 @@ Beautiful &hellip;">
 
 <p>微薄中有两种关注，我的关注和他人的关注，由于这两种关注的页面结构不同，所以在解析的时候需要分别对待，但是分析的过程是同理的，只是在抽取数据是的页面标签不一样，使用上面的Beautiful Soup工具，抽取时标签的定位会很容易，这就是使用Beautiful Soup带来的好处。</p>
 
-<p>1.使用浏览器的<code>Inspect Element</code>功能理解页面的结构</p>
+<h4 id="inspect-element">1.使用浏览器的<code>Inspect Element</code>功能理解页面的结构</h4>
 
 <p>最新版的Chrome和Firefox都自身内置有<code>Inspect Element</code>功能，在编写代码时，可能要经常的使用它来定位要寻找的页面元素。Chrome浏览器<code>Inspect Element</code>的使用请参考<a href="https://developers.google.com/chrome-developer-tools/docs/elements">Chrome Developer Tools - Elements Panel</a>。
 </div>
@@ -217,7 +217,7 @@ Beautiful &hellip;">
 
 <p>本文要讲的内容跟页面抓取数据有关，但是像<a href="weibo.com">WEIBO.COM</a>这样的<a href="http://en.wikipedia.org/wiki/SNS">SNS</a>网站必须事先登录之后才能访问到她的数据，所以如何模拟用户登录WEIBO，就成为从网页上抓取微薄数据的第一步。</p>
 
-<h3 id="section-1">关于模拟登录现有的资源</h3>
+<h3 id="section-1">模拟登录相关资源</h3>
 <p>目前网上有很多关于模拟用户登录WEIBO的文章:</p>
 
 <ul>
@@ -239,7 +239,7 @@ Beautiful &hellip;">
   <p>Python模拟新浪微薄登录的豆瓣讨论<a href="http://www.douban.com/note/201767245/">[7]</a></p>
 </blockquote>
 
-<h3 id="pythonrsa2">模拟登录的Python+RSA2实现</h3>
+<h3 id="pythonrsa2cookies">Python+RSA2+Cookies实现模拟登录</h3>
 <p>由于新浪登录加密方式的改变，参见<a href="http://www.douban.com/note/201767245/">[7]</a>，这里仅介绍使用RSA加密方法登录，要使用RSA加密方式，必须安装RSA模块，所以：
 </div>
   
