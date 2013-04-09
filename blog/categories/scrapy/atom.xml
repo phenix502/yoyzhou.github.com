@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Scrapy | Tony Chou's Blog]]></title>
   <link href="http://yoyzhou.github.com/blog/categories/scrapy/atom.xml" rel="self"/>
   <link href="http://yoyzhou.github.com/"/>
-  <updated>2013-04-08T22:47:22+08:00</updated>
+  <updated>2013-04-09T20:23:09+08:00</updated>
   <id>http://yoyzhou.github.com/</id>
   <author>
     <name><![CDATA[yoyzhou]]></name>
@@ -18,7 +18,7 @@
     <link href="http://yoyzhou.github.com/blog/2013/04/08/weibo-scrapy-framework-with-multi-threading/"/>
     <updated>2013-04-08T20:55:00+08:00</updated>
     <id>http://yoyzhou.github.com/blog/2013/04/08/weibo-scrapy-framework-with-multi-threading</id>
-    <content type="html"><![CDATA[<p>本文介绍基于微博UID的SINA微博信息抓取框架WEIBO_SCRAPY。 WEIBO_SCRAPY是一个PYTHON实现的，使用多线程抓取WEIBO信息的框架。WEIBO_SCRAPY框架给用户提供WEIBO的模拟登录和多线程抓取微博信息的接口，让用户只需关心抓取的业务逻辑，进而将用户从处理棘手的WEIBO模拟登录和多线程中解脱出来。</p>
+    <content type="html"><![CDATA[<p>本文介绍基于微博UID的SINA微博信息抓取框架WEIBO_SCRAPY。 WEIBO_SCRAPY是一个PYTHON实现的，使用多线程抓取WEIBO信息的框架。WEIBO_SCRAPY框架给用户提供WEIBO的模拟登录和多线程抓取微博信息的接口，让用户只需关心抓取的业务逻辑，而不用处理棘手的WEIBO模拟登录和多线程编程。</p>
 
 <h3 id="weiboscrapy">WEIBO_SCRAPY</h3>
 <p>WEIBO_SCRAPY是一个PYTHON实现的，使用基于微博UID的方式从WEIBO.COM页面抓取信息的框架。框架以微博UID为最小单位，为每一个UID分配一个抓取线程，因此每一个UID相当于一个<strong>抓取任务</strong>。WEIBO_SCRAPY内置微博模拟登录和多线程框架，让用户只需关注以微博UID为基础的抓取业务逻辑。具体的说，使用WEIBO_SCRAPY用户只需要重载WEIBO_SCRAPY的<strong>抓取任务</strong>方法为自己的抓取逻辑，即可实现多线程地抓取微博信息（详见下文<code>WEIBO_SCRAPY的实现</code>小节）。</p>

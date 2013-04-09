@@ -4,7 +4,7 @@
   <title><![CDATA[Tony Chou's Blog]]></title>
   <link href="http://yoyzhou.github.com/atom.xml" rel="self"/>
   <link href="http://yoyzhou.github.com/"/>
-  <updated>2013-04-08T22:47:22+08:00</updated>
+  <updated>2013-04-09T20:23:09+08:00</updated>
   <id>http://yoyzhou.github.com/</id>
   <author>
     <name><![CDATA[yoyzhou]]></name>
@@ -18,7 +18,7 @@
     <link href="http://yoyzhou.github.com/blog/2013/04/08/weibo-scrapy-framework-with-multi-threading/"/>
     <updated>2013-04-08T20:55:00+08:00</updated>
     <id>http://yoyzhou.github.com/blog/2013/04/08/weibo-scrapy-framework-with-multi-threading</id>
-    <content type="html"><![CDATA[<p>本文介绍基于微博UID的SINA微博信息抓取框架WEIBO_SCRAPY。 WEIBO_SCRAPY是一个PYTHON实现的，使用多线程抓取WEIBO信息的框架。WEIBO_SCRAPY框架给用户提供WEIBO的模拟登录和多线程抓取微博信息的接口，让用户只需关心抓取的业务逻辑，进而将用户从处理棘手的WEIBO模拟登录和多线程中解脱出来。</p>
+    <content type="html"><![CDATA[<p>本文介绍基于微博UID的SINA微博信息抓取框架WEIBO_SCRAPY。 WEIBO_SCRAPY是一个PYTHON实现的，使用多线程抓取WEIBO信息的框架。WEIBO_SCRAPY框架给用户提供WEIBO的模拟登录和多线程抓取微博信息的接口，让用户只需关心抓取的业务逻辑，而不用处理棘手的WEIBO模拟登录和多线程编程。</p>
 
 <h3 id="weiboscrapy">WEIBO_SCRAPY</h3>
 <p>WEIBO_SCRAPY是一个PYTHON实现的，使用基于微博UID的方式从WEIBO.COM页面抓取信息的框架。框架以微博UID为最小单位，为每一个UID分配一个抓取线程，因此每一个UID相当于一个<strong>抓取任务</strong>。WEIBO_SCRAPY内置微博模拟登录和多线程框架，让用户只需关注以微博UID为基础的抓取业务逻辑。具体的说，使用WEIBO_SCRAPY用户只需要重载WEIBO_SCRAPY的<strong>抓取任务</strong>方法为自己的抓取逻辑，即可实现多线程地抓取微博信息（详见下文<code>WEIBO_SCRAPY的实现</code>小节）。</p>
@@ -570,6 +570,12 @@
 
 <p>解析页面<code>http://weibo.com/{uid}/follow</code>可以获取用户关注的总页面数，通过<code>http://weibo.com/{uid}/follow?page={page_num}</code>可以实现分页抽取。</p>
 
+<h3 id="section-1">相关阅读</h3>
+
+<p>1. <a href="http://yoyzhou.github.com/blog/2013/03/18/sina-weibo-login-simulator-in-python/">Python模拟登录新浪微薄（使用RSA加密方式和Cookies文件）</a>,使用RSA2加密方式模拟登录SINA微博。</p>
+
+<p>2. <a href="http://yoyzhou.github.com/blog/2013/04/08/weibo-scrapy-framework-with-multi-threading/">基于UID的WEIBO信息抓取框架WEIBO_SCRAPY</a>，详细介绍了多线程WEIBO数据抓取框架WEIBO_SCRAPY。</p>
+
 <p><code>---EOF---</code></p>
 
 <!-- PUT reference-style links below-->
@@ -598,7 +604,7 @@
 
 <ul>
   <li>使用<a href="https://addons.mozilla.org/en-us/firefox/addon/httpfox/">HTTPFOX</a>来侦测用户登录WEIBO.COM的过程<a href="http://blog.csdn.net/yonglaixiazaide/article/details/7923468">[1]</a>, <a href="http://www.jishuziyuan.com/archive/supeercrsky/8016047.html">[2]</a></li>
-  <li>模拟登录PHP<a href="PHP http://blog.csdn.net/lgg201/article/details/8050606">[3]</a></li>
+  <li>模拟登录PHP<a href="http://blog.csdn.net/lgg201/article/details/8050606">[3]</a></li>
   <li>Python实现<a href="http://hi.baidu.com/enmzqbeadvfhiye/item/4018b4e7775cd3edfa42bad3">[4]</a>, <a href="http://www.cnblogs.com/mouse-coder/archive/2013/03/03/2941265.html">[5]</a></li>
   <li>JAVA实现<a href="http://marspring.mobi/http-client-weibo/">[6]</a></li>
 </ul>
@@ -711,7 +717,14 @@
 <h3 id="section-3">源代码</h3>
 <p>文中代码片段的源码地址<a href="https://github.com/yoyzhou/weibo_login">github.com/yoyzhou/weibo_login</a></p>
 
+<h3 id="section-4">相关阅读</h3>
+
+<p>1. <a href="http://yoyzhou.github.com/blog/2013/03/23/extract-data-with-beautifulsoup-taking-weibo-4-example/">使用Beautiful Soup抽取网页数据，解析微博用户关注信息</a>，介绍如何使用Beautiful Soup抽取网页数据。</p>
+
+<p>2. <a href="http://yoyzhou.github.com/blog/2013/04/08/weibo-scrapy-framework-with-multi-threading/">基于UID的WEIBO信息抓取框架WEIBO_SCRAPY</a>，详细介绍了多线程WEIBO数据抓取框架WEIBO_SCRAPY。</p>
+
 <p><code>---EOF---</code></p>
+
 ]]></content>
   </entry>
   

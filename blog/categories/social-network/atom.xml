@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Social Network | Tony Chou's Blog]]></title>
   <link href="http://yoyzhou.github.com/blog/categories/social-network/atom.xml" rel="self"/>
   <link href="http://yoyzhou.github.com/"/>
-  <updated>2013-04-08T22:47:22+08:00</updated>
+  <updated>2013-04-09T20:23:09+08:00</updated>
   <id>http://yoyzhou.github.com/</id>
   <author>
     <name><![CDATA[yoyzhou]]></name>
@@ -185,6 +185,12 @@
 <p>2.分页抽取</p>
 
 <p>解析页面<code>http://weibo.com/{uid}/follow</code>可以获取用户关注的总页面数，通过<code>http://weibo.com/{uid}/follow?page={page_num}</code>可以实现分页抽取。</p>
+
+<h3 id="section-1">相关阅读</h3>
+
+<p>1. <a href="/blog/2013/03/18/sina-weibo-login-simulator-in-python/">Python模拟登录新浪微薄（使用RSA加密方式和Cookies文件）</a>,使用RSA2加密方式模拟登录SINA微博。</p>
+
+<p>2. <a href="/blog/2013/04/08/weibo-scrapy-framework-with-multi-threading/">基于UID的WEIBO信息抓取框架WEIBO_SCRAPY</a>，详细介绍了多线程WEIBO数据抓取框架WEIBO_SCRAPY。</p>
 
 <p><code>---EOF---</code></p>
 
