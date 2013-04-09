@@ -20,10 +20,13 @@ description: 本文介绍使用Python和RSA2加密方式模拟用户登录新浪
 ###模拟登录相关资源
 目前网上有很多关于模拟用户登录WEIBO的文章:
 
-+ 使用[HTTPFOX](https://addons.mozilla.org/en-us/firefox/addon/httpfox/)来侦测用户登录WEIBO.COM的过程[[1]](http://blog.csdn.net/yonglaixiazaide/article/details/7923468), [[2]](http://www.jishuziyuan.com/archive/supeercrsky/8016047.html)
-+ 模拟登录PHP[[3]](http://blog.csdn.net/lgg201/article/details/8050606)
-+ Python实现[[4]](http://hi.baidu.com/enmzqbeadvfhiye/item/4018b4e7775cd3edfa42bad3), [[5]](http://www.cnblogs.com/mouse-coder/archive/2013/03/03/2941265.html)
-+ JAVA实现[[6]](http://marspring.mobi/http-client-weibo/)
+\+ 使用[HTTPFOX](https://addons.mozilla.org/en-us/firefox/addon/httpfox/)来侦测用户登录WEIBO.COM的过程[[1]](http://blog.csdn.net/yonglaixiazaide/article/details/7923468), [[2]](http://www.jishuziyuan.com/archive/supeercrsky/8016047.html)
+
+\+ 模拟登录PHP[[3]](http://blog.csdn.net/lgg201/article/details/8050606)
+
+\+ Python实现[[4]](http://hi.baidu.com/enmzqbeadvfhiye/item/4018b4e7775cd3edfa42bad3), [[5]](http://www.cnblogs.com/mouse-coder/archive/2013/03/03/2941265.html)
+
+\+ JAVA实现[[6]](http://marspring.mobi/http-client-weibo/)
 
 其中[[4] 新浪微博登录rsa加密方法](http://hi.baidu.com/enmzqbeadvfhiye/item/4018b4e7775cd3edfa42bad3)介绍了使用RSA2加密方式模拟登录，[[5] 模拟新浪微博登录（Python+RSA加密算法）](http://www.cnblogs.com/mouse-coder/archive/2013/03/03/2941265.html)和[[6] httpclient登录新浪微博（非SDK方式）](http://marspring.mobi/http-client-weibo/)分别给出了RSA加密算法模拟登录WEIBO的PYTHON和JAVA实现。
 
