@@ -4,7 +4,7 @@
   <title><![CDATA[Tony Chou's Blog]]></title>
   <link href="http://yoyzhou.github.com/atom.xml" rel="self"/>
   <link href="http://yoyzhou.github.com/"/>
-  <updated>2013-04-09T20:23:09+08:00</updated>
+  <updated>2013-04-09T20:32:15+08:00</updated>
   <id>http://yoyzhou.github.com/</id>
   <author>
     <name><![CDATA[yoyzhou]]></name>
@@ -602,12 +602,13 @@
 <h3 id="section-1">模拟登录相关资源</h3>
 <p>目前网上有很多关于模拟用户登录WEIBO的文章:</p>
 
-<ul>
-  <li>使用<a href="https://addons.mozilla.org/en-us/firefox/addon/httpfox/">HTTPFOX</a>来侦测用户登录WEIBO.COM的过程<a href="http://blog.csdn.net/yonglaixiazaide/article/details/7923468">[1]</a>, <a href="http://www.jishuziyuan.com/archive/supeercrsky/8016047.html">[2]</a></li>
-  <li>模拟登录PHP<a href="http://blog.csdn.net/lgg201/article/details/8050606">[3]</a></li>
-  <li>Python实现<a href="http://hi.baidu.com/enmzqbeadvfhiye/item/4018b4e7775cd3edfa42bad3">[4]</a>, <a href="http://www.cnblogs.com/mouse-coder/archive/2013/03/03/2941265.html">[5]</a></li>
-  <li>JAVA实现<a href="http://marspring.mobi/http-client-weibo/">[6]</a></li>
-</ul>
+<p>+ 使用<a href="https://addons.mozilla.org/en-us/firefox/addon/httpfox/">HTTPFOX</a>来侦测用户登录WEIBO.COM的过程<a href="http://blog.csdn.net/yonglaixiazaide/article/details/7923468">[1]</a>, <a href="http://www.jishuziyuan.com/archive/supeercrsky/8016047.html">[2]</a></p>
+
+<p>+ 模拟登录PHP<a href="http://blog.csdn.net/lgg201/article/details/8050606">[3]</a></p>
+
+<p>+ Python实现<a href="http://hi.baidu.com/enmzqbeadvfhiye/item/4018b4e7775cd3edfa42bad3">[4]</a>, <a href="http://www.cnblogs.com/mouse-coder/archive/2013/03/03/2941265.html">[5]</a></p>
+
+<p>+ JAVA实现<a href="http://marspring.mobi/http-client-weibo/">[6]</a></p>
 
 <p>其中<a href="http://hi.baidu.com/enmzqbeadvfhiye/item/4018b4e7775cd3edfa42bad3">[4] 新浪微博登录rsa加密方法</a>介绍了使用RSA2加密方式模拟登录，<a href="http://www.cnblogs.com/mouse-coder/archive/2013/03/03/2941265.html">[5] 模拟新浪微博登录（Python+RSA加密算法）</a>和<a href="http://marspring.mobi/http-client-weibo/">[6] httpclient登录新浪微博（非SDK方式）</a>分别给出了RSA加密算法模拟登录WEIBO的PYTHON和JAVA实现。</p>
 
