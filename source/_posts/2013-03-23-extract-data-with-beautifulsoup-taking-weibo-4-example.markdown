@@ -120,6 +120,14 @@ for user_item in friendollowings:
 
 解析页面`http://weibo.com/{uid}/follow`可以获取用户关注的总页面数，通过`http://weibo.com/{uid}/follow?page={page_num}`可以实现分页抽取。
 
+###相关阅读
+
+1\. [Python模拟登录新浪微薄（使用RSA加密方式和Cookies文件）][weibo_login_post],使用RSA2加密方式模拟登录SINA微博。
+
+2\. [基于UID的WEIBO信息抓取框架WEIBO_SCRAPY][weibo_scrapy_post]，详细介绍了多线程WEIBO数据抓取框架WEIBO_SCRAPY。
+
+
+
 `---EOF---`
 
 
@@ -130,7 +138,8 @@ for user_item in friendollowings:
 [kaifulee_followings]: /images/kaifulee_followings.png
 [chrome-inspect-element]: https://developers.google.com/chrome-developer-tools/docs/elements
 [weibo-login]: /blog/2013/03/18/sina-weibo-login-simulator-in-python/
-
-
+[weibo_login_post]: /blog/2013/03/18/sina-weibo-login-simulator-in-python/
+[following_ntk_post]:/blog/2013/03/23/extract-data-with-beautifulsoup-taking-weibo-4-example/
+[weibo_scrapy_post]: /blog/2013/04/08/weibo-scrapy-framework-with-multi-threading/
 
 

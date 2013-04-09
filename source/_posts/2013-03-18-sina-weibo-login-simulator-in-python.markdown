@@ -21,7 +21,7 @@ description: 本文介绍使用Python和RSA2加密方式模拟用户登录新浪
 目前网上有很多关于模拟用户登录WEIBO的文章:
 
 + 使用[HTTPFOX](https://addons.mozilla.org/en-us/firefox/addon/httpfox/)来侦测用户登录WEIBO.COM的过程[[1]](http://blog.csdn.net/yonglaixiazaide/article/details/7923468), [[2]](http://www.jishuziyuan.com/archive/supeercrsky/8016047.html)
-+ 模拟登录PHP[[3]](PHP http://blog.csdn.net/lgg201/article/details/8050606)
++ 模拟登录PHP[[3]](http://blog.csdn.net/lgg201/article/details/8050606)
 + Python实现[[4]](http://hi.baidu.com/enmzqbeadvfhiye/item/4018b4e7775cd3edfa42bad3), [[5]](http://www.cnblogs.com/mouse-coder/archive/2013/03/03/2941265.html)
 + JAVA实现[[6]](http://marspring.mobi/http-client-weibo/)
 
@@ -92,4 +92,18 @@ def get_pwd_rsa(pwd, servertime, nonce):
 ###源代码
 文中代码片段的源码地址[github.com/yoyzhou/weibo_login](https://github.com/yoyzhou/weibo_login)
 
+
+###相关阅读
+
+1\. [使用Beautiful Soup抽取网页数据，解析微博用户关注信息][following_ntk_post]，介绍如何使用Beautiful Soup抽取网页数据。
+
+2\. [基于UID的WEIBO信息抓取框架WEIBO_SCRAPY][weibo_scrapy_post]，详细介绍了多线程WEIBO数据抓取框架WEIBO_SCRAPY。
+
+
 `---EOF---`
+
+
+[weibo_login_post]: /blog/2013/03/18/sina-weibo-login-simulator-in-python/
+[following_ntk_post]:/blog/2013/03/23/extract-data-with-beautifulsoup-taking-weibo-4-example/
+[weibo_scrapy_post]: /blog/2013/04/08/weibo-scrapy-framework-with-multi-threading/
+
