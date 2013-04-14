@@ -4,4 +4,4 @@ title: About Me
 footer: true
 ---
 
-[`A Second-hand Coder, Once Stayed in Management School for ~Seven YEARS.`]
+[`DATA itself is NOTHING, no matter how biiig it is, we NEED mine value out of da...ata`]
