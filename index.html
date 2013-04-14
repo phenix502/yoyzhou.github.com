@@ -9,7 +9,7 @@
   <meta name="author" content="yoyzhou">
 
   
-  <meta name="description" content="第一章 Hadoop简介 现今，互联网每天都产生海量的数据，现有工具对于TB、PB级别大规模分布式海量数据变得无力处理。 Google首先推出了处理大规模分布式数据的MapReduce计算范式，Doug Cutting领导开发了一个开源版的MapReduce，后来成为Hadoop。 &hellip;">
+  <meta name="description" content="以下8个步骤是我在使用Eclipse开发MapReduce程序时的路线，假定读者已经配置好了Hadoop环境并且了解Eclipse的相关操作。 步骤0～4为在Eclipse中编写和调试MapReduce程序；步骤5、6为在伪分布模式下运行MapReduce程序， &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,6 +80,73 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/04/14/steps-of-programming-hadoop-with-eclipse/">使用Eclipse开发MapReduce程序的步骤</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-04-14T20:58:00+08:00" pubdate data-updated="true">Apr 14<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/04/14/steps-of-programming-hadoop-with-eclipse/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>以下8个步骤是我在使用Eclipse开发MapReduce程序时的路线，假定读者已经配置好了Hadoop环境并且了解Eclipse的相关操作。</p>
+
+<p>步骤<code>0～4</code>为在Eclipse中编写和调试MapReduce程序；步骤<code>5、6</code>为在伪分布模式下运行MapReduce程序，并且通过导出项目到指定目录实现了Eclipse项目与Hadoop的关联。</p>
+
+<p>0 创建Java项目</p>
+
+<p>1 在项目的CLASS PATH中添加<a href="http://hadoop.apache.org/">Hadoop</a>相关的JAR引用（注意在添加JAR文件，而不是JAR文件夹，要不然在4中会因为找不到JAR或者Class而报错）</p>
+
+<blockquote>
+  <p>如果你还下载了Hadoop的<a href="http://hadoop.apache.org/releases.html">源码</a>，也可以给Hadoop相关的JAR添加源码，这样在Eclipse就可以使用F3参看Hadoop源码）</p>
+</blockquote>
+
+<p>2 按照<a href="http://hadoop.apache.org/docs/r1.0.4/mapred_tutorial.html">MapReduce</a>类规范，编写自己的MapReduce类</p>
+
+<p>3 配置MapReduce类的运行参数</p>
+
+<p>4 在Eclipse中以单机模式运行/调试程序</p>
+
+<p>5 将程序导出（Export）为JAR文件到$HADOOP_HOME/lib下</p>
+
+<p>6 在伪分布模式下运行程序 bin/hadoop jar lib/ur-exported-jar.JAR full-class-name 参数列表</p>
+
+<blockquote>
+  <p>例如，你导出的JAR文件名为myhadoop.jar，类名称com.coolcompany.wordcount，命令就是：bin/hadoop jar lib/myhadoop.jar com.coolcompany.wordcount 参数列表</p>
+</blockquote>
+
+<p>7 部署程序到真实的Hadoop集群</p>
+
+<p><code>---EOF---</code></p>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1790,83 +1857,6 @@ etc. 更多选项请使用 git log –help</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/08/05/add-latex-support-for-octopress/">Add Latex Support for Octopress With Kramdown and MathJax</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-08-05T15:24:00+08:00" pubdate data-updated="true">Aug 5<span>th</span>, 2012</time>
-        
-         | <a href="/blog/2012/08/05/add-latex-support-for-octopress/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><blockquote><p>kramdown (sic, not Kramdown or KramDown, just kramdown) is a free GPL-licensed Ruby library for parsing and converting a superset of Markdown.  It is completely written in Ruby, supports standard Markdown.</p><footer><strong>@kramdown</strong> <cite><a href="http://kramdown.rubyforge.org/index.html">kramdown.rubyforge.org/&hellip;</a></cite></footer></blockquote>
-
-<h2 id="install-kramdown">Install kramdown</h2>
-<p>First of all make sure you have ruby installed on your box:</p>
-
-<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">$ ruby --version # or
-</span><span class="line">$ which ruby</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-<p>If command &ldquo;which ruby&rdquo; returns nothing, then you should install it first.</p>
-
-<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">$ sudo apt-cache search ruby # to chech out the available ruby package
-</span><span class="line">$ sudo apt-get install ruby[*.*] # to install *.* version of ruby</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-<p>Also you can use <a href="https://rvm.io/">RVM</a>, aka Ruby Version Manager, to install/manage your ruby entries, but actually I am not able to install ruby 1.9.2 approperately following the instruction from Octopress site on my PC which is <em>ubuntu 12.04</em>.</p>
-
-<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Install kramdown  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-</pre></td><td class="code"><pre><code class="sh"><span class="line"><span class="nv">$ </span>sudo gem install kramdown
-</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-<h2 id="change-configyml-and-gemfile-to-include-kramdown">Change _config.yml and Gemfile to include kramdown</h2>
-<p>Change markdown engine to kramdown</p>
-
-<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Change markdown engine to kramdown _config.yml </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-</pre></td><td class="code"><pre><code class="yaml"><span class="line"><span class="p-Indicator">[</span><span class="nv">...</span><span class="p-Indicator">]</span>
-</span><span class="line"><span class="l-Scalar-Plain">markdown</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">kramdown</span>
-</span><span class="line"><span class="p-Indicator">[</span><span class="nv">...</span><span class="p-Indicator">]</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2012/08/05/add-latex-support-for-octopress/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -1894,6 +1884,10 @@ etc. 更多选项请使用 git log –help</p>
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/04/14/steps-of-programming-hadoop-with-eclipse/">使用Eclipse开发MapReduce程序的步骤</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2013/04/14/hadoop-in-action-reading-note/">Hadoop in Action学习笔记</a>
@@ -1929,10 +1923,6 @@ etc. 更多选项请使用 git log –help</p>
     
       <li class="post">
         <a href="/blog/2012/08/09/git-fundamentals-learning-note-of-pro-git/">Git Fundamentals: Learning Note of Pro Git</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/08/05/add-latex-support-for-octopress/">Add Latex Support for Octopress with kramdown and MathJax</a>
       </li>
     
   </ul>
