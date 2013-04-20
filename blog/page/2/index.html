@@ -9,7 +9,10 @@
   <meta name="author" content="yoyzhou">
 
   
-  <meta name="description" content="kramdown (sic, not Kramdown or KramDown, just kramdown) is a free GPL-licensed Ruby library for parsing and converting a superset of Markdown. It is &hellip;">
+  <meta name="description" content="git基础 git优点
+1 直接快照,而非比较差异
+不像集中式版本管理系统那样只记录不同版本之间的Deta, 而是直接快照整个项目文件，这使得Git更像是一个文件系统 2 近乎所有操作都可本地执行 3 时刻保持数据完整性
+通过数据内容校验和计算(checksum) 4 多数操作仅添加数据 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,6 +83,144 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/08/09/git-fundamentals-learning-note-of-pro-git/">Git Fundamentals: Learning Note of Pro Git</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-08-09T22:30:00+08:00" pubdate data-updated="true">Aug 9<span>th</span>, 2012</time>
+        
+         | <a href="/blog/2012/08/09/git-fundamentals-learning-note-of-pro-git/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2 id="git">git基础</h2>
+
+<h3 id="git-1">git优点</h3>
+<pre><code>1 直接快照,而非比较差异
+不像集中式版本管理系统那样只记录不同版本之间的Deta, 而是直接快照整个项目文件，这使得Git更像是一个文件系统
+
+2 近乎所有操作都可本地执行
+
+3 时刻保持数据完整性
+通过数据内容校验和计算(checksum)
+
+4 多数操作仅添加数据
+</code></pre>
+
+<h3 id="git-2">git配置文件的类型和位置</h3>
+
+<pre><code>/etc/gitconfig 系统级别的git的配置文件 通过 git config --system 选项指定进行配置
+
+
+～/.gitconfig 用户级别的配置文件 通过 git config --global 选项指定进行配置
+
+
+.git/config(当前工作项目目录下) 项目级别的配置文件
+</code></pre>
+
+<h2 id="git-3">git命令</h2>
+
+<h3 id="git-init">git init</h3>
+<p>初始化git仓库</p>
+
+<h3 id="git-status">git status</h3>
+<p>查看git repos库状态<br />
+status的形式:未跟踪，未修改，修改，暂存<br />
+运行了git add之后又作了修订的文件,需要重新运行git add把最新版本重新暂存起来。</p>
+
+<h4 id="git-4">演示git仓库中文件状态的例子</h4>
+<pre><code>1.vim &lt;file&gt; -- untracked v0  
+2.git add &lt;file&gt; -- tracked &amp; staged v0  
+3.git commit -m '' -- version v0  
+4.vim &lt;file&gt; -- tracked &amp; modified &amp; staged v0  
+5.git add &lt;file&gt; -- tracked &amp; staged v1  
+6.vim &lt;file&gt; -- tracked &amp; modified &amp; staged v1  
+7.git commit -m '' -- version v1  
+</code></pre>
+
+<h3 id="git-diff">git diff</h3>
+<p>–查看尚未暂存文件更新了什么，即查看工作目录中当前文件与暂存区快照之间的差异。用上面的例子来说，假设我们在第4步后面执行git diff, 这个命令查看的将是文件&lt;file&gt;在第4步[修改过但是还未暂存]与第3步[Staged v0]的差异  </p>
+
+<h3 id="git-diff---cached--staged">git diff –cached/–staged</h3>
+<p>查看已经暂存起来的文件和上次提交时的快照之间的差异。还是用上面的例子，假设我们在第7步后面执行命令git diff –staged，将查看文件&lt;file&gt;在第5步[Staged v1]和第3步[Version v0]之间的变化</p>
+
+<h3 id="git-commit--m-message-for-commit">git commit -m ‘message for commit…’</h3>
+<p>在之进行commit之前,一定要确认还有什么修改过的或新建的文件还没有git add过,否则提交的时候不会记录这些还没暂存起来的变化。所以,每次准备提交前,先用下,是不是都已暂存起来了,然后再运行提交命令git status看是不是都已经暂存起来了，然后再执行命令git commit。</p>
+
+<h3 id="git-rm-file">git rm &lt;file&gt;</h3>
+<p>Remove file(s) from git’s tracking list, meanwhile delete the file(s)</p>
+
+<h3 id="git-rm---cached-file">git rm –cached &lt;file&gt;</h3>
+<p>Remove file(s) from git’s tracking list, but keep file(s) as cached, file(s) will not be removed.</p>
+
+<h3 id="git-mv-filefrom-fileto">git mv file_from file_to</h3>
+<p>Move file in git repos, equals to:</p>
+
+<pre><code>1 mv file_from file_to  
+2 git rm file_from  
+3 git add file_to  
+</code></pre>
+
+<h3 id="git-log--options">git log [-options]</h3>
+<p>View commit history<br />
+-p 展开每一次提交的diffs<br />
+-n 仅显示最近n次提交<br />
+–stat 显示每次提交的文件修改统计信息<br />
+–pretty 指定显示格式，oneline、short、full、fuller和format(后面指定格式)<br />
+–since 从什么时间开始<br />
+etc. 更多选项请使用 git log –help</p>
+
+<h3 id="git-commit---amend">git commit –amend</h3>
+<p>进行重新提交操作，可修改上一次提交的commit comment或者添加忘记staged的更新</p>
+
+<h3 id="git-reset-head-file">git reset HEAD &lt;file&gt;</h3>
+<p>撤销对文件&lt;file&gt;的暂存操作，比如你需要对某一个文件进行单独提交时，可以：<br />
+	git add . #将所有的文件暂存<br />
+	git reset HEAD &lt;file&gt; #撤销对某文件的暂存<br />
+	git commit -m ‘commit message’<br />
+	git add &lt;file&gt;<br />
+	[可能的文件&lt;file&gt;的修改]<br />
+	git commit &lt;file&gt; -m ‘commit &lt;file&gt; seperately’  </p>
+
+<h3 id="git-checkout---file">git checkout –&lt;file&gt;</h3>
+<p>取消对文件的修改，慎用。此命令将文件恢复到文件修改前的版本/暂存区内容，工作目录中所有对该文件的修改都将丢失。<br />
+在git 1.7.9.5中测试可省略“–”直接使用git checkout &lt;file&gt;</p>
+
+<h2 id="git-5">git远程仓库</h2>
+
+<h3 id="git-remote--v">git remote -v</h3>
+<p>查看远程库信息 -v选项显示远程库地址<br />
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2012/08/09/git-fundamentals-learning-note-of-pro-git/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -225,6 +366,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/04/20/my-first-luckily-and-sad-hadoop-results/">My First Lucky and Sad Hadoop Results</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/04/14/steps-of-programming-hadoop-with-eclipse/">使用Eclipse开发MapReduce程序的步骤</a>
       </li>
     
@@ -258,10 +403,6 @@
     
       <li class="post">
         <a href="/blog/2012/08/11/git-fundamentals-learning-notes-of-pro-git-part2/">Git Fundamentals - Branch: Learning Notes of Pro Git</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/08/09/git-fundamentals-learning-note-of-pro-git/">Git Fundamentals: Learning Note of Pro Git</a>
       </li>
     
   </ul>
