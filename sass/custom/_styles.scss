@@ -214,7 +214,8 @@ blockquote {
   background-repeat: no-repeat;
   text-indent: 23px;
   }
-  blockquote p {
+
+blockquote p {
     	display: block;
     	background-image: url(/images/closequote1.gif);
     	background-repeat: no-repeat;
@@ -223,7 +224,9 @@ blockquote {
 	margin-bottom: 0.618em;
   	}
 	
-
+table {
+background-color: #faebbc;
+}
 /* 提示框样式 */
 
 .info, .warning{

@@ -112,3 +112,9 @@ google_analytics_tracking_id: UA-34034666-1
 
 # Facebook Like
 facebook_like: true
+
+
+#hide feature of posts in certain categories
+front_page_categories: [hide] # A list of categories for the front page
+front_page_categories_op : 'hide' # Whether to show or hide the list of categories from front_page_categories
+
