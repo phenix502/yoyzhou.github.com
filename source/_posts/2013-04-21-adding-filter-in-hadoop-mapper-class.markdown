@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "My Solutions to Solve the Disk Space Shortage Problem"
+title: "Adding Filter in Hadoop Mapper Class"
 date: 2013-04-21 15:08
 comments: true
 categories: [Hadoop, MapReduce, Bigdata, Analytic]
@@ -31,9 +31,9 @@ In order to accomplish it, we need:
 
 **Third**, using DistrbutedCache of Hadoop to cache users who satisfy the filter to all Mappers;
 
-**Forth**, add followed filter to Mapper class, only users satisfy filter condition will be passed into co-followed combination computing phrase;
+**Forth**, adding followed filter to Mapper class, only users satisfy filter condition will be passed into co-followed combination computing phrase;
 
-**Fifth**, add co-followed filter/threshold in Reducer side if necessary.
+**Fifth**, adding co-followed filter/threshold in Reducer side if necessary.
 
 
 ####Outcomes
