@@ -3,12 +3,12 @@ layout: post
 title: My First Lucky and Sad Hadoop Results
 date: 2013-04-20 17:05
 comments: true
-categories: [Hadoop, MapReduce, Bigdata Analytic, Weibo]
+categories: [Hadoop, MapReduce, Bigdata, Analytic]
 keywords: Hadoop, MapReduce, Bigdata Analytic, Weibo, Mapper, Reduce, Outputs, Aanlysis
-description: 本文介绍使用Python和RSA2加密方式模拟用户登录新浪微薄,文中使用的代码可以在https://github.com/yoyzhou/weibo_login中找到。
+description: After a couple of tryings, many are failed due to disk space shortage, after I decreased the input date set volumn, luckily I gained a completed Hadoop Job results, but, sadly, with only 1000 lines of records processed.
 ---
 
-After a couple of tryings, finally and luckily I gained a completed Hadoop Job results, but with only 1000 lines of records processed.
+Recently I am playing with Hadoop per analyzing the data set I scraped from WEIBO.COM. After a couple of tryings, many are failed due to disk space shortage, after I decreased the input date set volumn, luckily I gained a completed Hadoop Job results, but, sadly, with only 1000 lines of records processed.
 
 Here is the Job Summary:
 
@@ -37,11 +37,11 @@ Here is the Job Summary:
 
 
 
-From which we can see, specially metrics which highlighted in bold, that in the job I only pass in about 7MB data file with 1000 lines of records, but Reducer outputs 381,696,888 records, which are 2.1G  B compressed gz file and some 9GB plain text when decompressed.
+From which we can see that, specially metrics which highlighted in bold style, I only passed in about 7MB data file with 1000 lines of records, but Reducer outputs 381,696,888 records, which are 2.1GB compressed gz file and some 9GB plain text when decompressed.
 
-But clearly it's not the problem of my code that leads to so much disk space usage, the above output metrics are all reasonable, although you may be surprised by the comparison between 7MB with only 1000 records input and  9GB  with 381,696,888 records output. The truth is that I'm calculating co-appearance combination computation.
+But clearly it's not the problem of my code that leads to so much disk space usages, the above output metrics are all reasonable, although you may be surprised by the comparison between 7MB with only 1000 records input and  9GB  with 381,696,888 records output. The truth is that I'm calculating co-appearance combination computation.
 
-From this experimental I learned that my personal computer really cannot play with big elephant, input data records from the first 10 thousand to 5 thousand to 3 thousand to the last ONE thousand, but data analytic should go on, I need to find a solution to work it out, actually I have 30 times of data need to process, that is 30 thousand records.
+From this experimental I learned that my personal computer really cannot play with big elephant, input data records from the first 10 thousand down to 5 thousand to 3 thousand to ONE thousand at last, but data analytic should go on, I need to find a solution to work it out, actually I have 30 times of data need to process, that is 30 thousand records.
 
 Yet still have a lot of work to do, and I plan to post some articles about what's I have done with my *big data* :) and *Hadoop* so far.
   
