@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>My Solutions to Solve the Disk Space Shortage Problem - Tony Chou's Blog</title>
+  <title>Adding Filter in Hadoop Mapper Class - Tony Chou's Blog</title>
   <meta name="author" content="yoyzhou">
 
   
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://yoyzhou.github.com/blog/2013/04/21/my-solutions-to-solve-the-disk-space-shortage-problem/">
+  <link rel="canonical" href="http://yoyzhou.github.com/blog/2013/04/21/adding-filter-in-hadoop-mapper-class/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
    <link href="/stylesheets/data-table.css" media="screen, projection" rel="stylesheet" type="text/css" />
@@ -83,7 +83,7 @@
   
   <header>
     
-      <h1 class="entry-title">My Solutions to Solve the Disk Space Shortage Problem</h1>
+      <h1 class="entry-title">Adding Filter in Hadoop Mapper Class</h1>
     
     
       <p class="meta">
@@ -131,9 +131,9 @@ The true face of the <strong>FILTER</strong> is called  <strong>Followed Filter<
 
 <p><strong>Third</strong>, using DistrbutedCache of Hadoop to cache users who satisfy the filter to all Mappers;</p>
 
-<p><strong>Forth</strong>, add followed filter to Mapper class, only users satisfy filter condition will be passed into co-followed combination computing phrase;</p>
+<p><strong>Forth</strong>, adding followed filter to Mapper class, only users satisfy filter condition will be passed into co-followed combination computing phrase;</p>
 
-<p><strong>Fifth</strong>, add co-followed filter/threshold in Reducer side if necessary.</p>
+<p><strong>Fifth</strong>, adding co-followed filter/threshold in Reducer side if necessary.</p>
 
 <h4 id="outcomes">Outcomes</h4>
 <p>Here is the Hadoop Job Summary, after applying the followed filter with followed threshold of 1000, that means only users who are followed by 1000 users will have the opportunity to co-followed combinations, compared with the Job Summary in my previous post, most all metrics have significant improvements:</p>
@@ -322,7 +322,7 @@ The true face of the <strong>FILTER</strong> is called  <strong>Followed Filter<
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://yoyzhou.github.com/blog/2013/04/21/my-solutions-to-solve-the-disk-space-shortage-problem/" data-via="pigdooo" data-counturl="http://yoyzhou.github.com/blog/2013/04/21/my-solutions-to-solve-the-disk-space-shortage-problem/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://yoyzhou.github.com/blog/2013/04/21/adding-filter-in-hadoop-mapper-class/" data-via="pigdooo" data-counturl="http://yoyzhou.github.com/blog/2013/04/21/adding-filter-in-hadoop-mapper-class/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -371,7 +371,7 @@ The true face of the <strong>FILTER</strong> is called  <strong>Followed Filter<
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2013/04/21/my-solutions-to-solve-the-disk-space-shortage-problem/">My Solutions to Solve the Disk Space Shortage Problem</a>
+        <a href="/blog/2013/04/21/adding-filter-in-hadoop-mapper-class/">Adding Filter in Hadoop Mapper Class</a>
       </li>
     
       <li class="post">
@@ -491,8 +491,8 @@ The true face of the <strong>FILTER</strong> is called  <strong>Followed Filter<
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://yoyzhou.github.com/blog/2013/04/21/my-solutions-to-solve-the-disk-space-shortage-problem/';
-        var disqus_url = 'http://yoyzhou.github.com/blog/2013/04/21/my-solutions-to-solve-the-disk-space-shortage-problem/';
+        var disqus_identifier = 'http://yoyzhou.github.com/blog/2013/04/21/adding-filter-in-hadoop-mapper-class/';
+        var disqus_url = 'http://yoyzhou.github.com/blog/2013/04/21/adding-filter-in-hadoop-mapper-class/';
         var disqus_script = 'embed.js';
       
     (function () {

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Analytic | Tony Chou's Blog]]></title>
   <link href="http://yoyzhou.github.com/blog/categories/analytic/atom.xml" rel="self"/>
   <link href="http://yoyzhou.github.com/"/>
-  <updated>2013-04-21T15:40:32+08:00</updated>
+  <updated>2013-04-21T15:53:00+08:00</updated>
   <id>http://yoyzhou.github.com/</id>
   <author>
     <name><![CDATA[yoyzhou]]></name>
@@ -14,10 +14,10 @@
 
   
   <entry>
-    <title type="html"><![CDATA[My Solutions to Solve the Disk Space Shortage Problem]]></title>
-    <link href="http://yoyzhou.github.com/blog/2013/04/21/my-solutions-to-solve-the-disk-space-shortage-problem/"/>
+    <title type="html"><![CDATA[Adding Filter in Hadoop Mapper Class]]></title>
+    <link href="http://yoyzhou.github.com/blog/2013/04/21/adding-filter-in-hadoop-mapper-class/"/>
     <updated>2013-04-21T15:08:00+08:00</updated>
-    <id>http://yoyzhou.github.com/blog/2013/04/21/my-solutions-to-solve-the-disk-space-shortage-problem</id>
+    <id>http://yoyzhou.github.com/blog/2013/04/21/adding-filter-in-hadoop-mapper-class</id>
     <content type="html"><![CDATA[<p>There is my solutions to tackle the disk spaces shortage problem I described in the <a href="/blog/2013/04/20/my-first-luckily-and-sad-hadoop-results/">previous post</a>. The core principle of the solution is to reduce the number of output records at Mapper stage; the method I used is <strong>Filter</strong>, adding a filter, which I will explain later, to decrease the output records of Mapper, which in turn significantly decrease the Mapper’s Spill records, and fundamentally decrease the disk space usages. After applying the filter, with 30,661 records. some 200MB data set as inputs, the total Spill Records is 25,471,725,  and it <strong>only</strong> takes about 509MB disk spaces!</p>
 
 <h4 id="followed-filter">Followed Filter</h4>
@@ -41,9 +41,9 @@ The true face of the <strong>FILTER</strong> is called  <strong>Followed Filter<
 
 <p><strong>Third</strong>, using DistrbutedCache of Hadoop to cache users who satisfy the filter to all Mappers;</p>
 
-<p><strong>Forth</strong>, add followed filter to Mapper class, only users satisfy filter condition will be passed into co-followed combination computing phrase;</p>
+<p><strong>Forth</strong>, adding followed filter to Mapper class, only users satisfy filter condition will be passed into co-followed combination computing phrase;</p>
 
-<p><strong>Fifth</strong>, add co-followed filter/threshold in Reducer side if necessary.</p>
+<p><strong>Fifth</strong>, adding co-followed filter/threshold in Reducer side if necessary.</p>
 
 <h4 id="outcomes">Outcomes</h4>
 <p>Here is the Hadoop Job Summary, after applying the followed filter with followed threshold of 1000, that means only users who are followed by 1000 users will have the opportunity to co-followed combinations, compared with the Job Summary in my previous post, most all metrics have significant improvements:</p>
