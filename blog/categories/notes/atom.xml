@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Notes | Tony Chou's Blog]]></title>
   <link href="http://yoyzhou.github.com/blog/categories/notes/atom.xml" rel="self"/>
   <link href="http://yoyzhou.github.com/"/>
-  <updated>2013-04-29T10:57:02+08:00</updated>
+  <updated>2013-04-29T11:38:26+08:00</updated>
   <id>http://yoyzhou.github.com/</id>
   <author>
     <name><![CDATA[yoyzhou]]></name>
@@ -18,7 +18,7 @@
     <link href="http://yoyzhou.github.com/blog/2013/04/28/studying-notes-a-set-of-measures-of-centrality-based-on-betweenness/"/>
     <updated>2013-04-28T23:49:00+08:00</updated>
     <id>http://yoyzhou.github.com/blog/2013/04/28/studying-notes-a-set-of-measures-of-centrality-based-on-betweenness</id>
-    <content type="html"><![CDATA[<p>This paper by Freeman (1977) is an introductory and the most classic paper of betweenness centrality. Based on the betweenness centrality concept first introduced by Bavelas on 1948, the paper introduces a set of measures of centrality, including point centrality, scale free (relative) point centrality, and graph centrality. </p>
+    <content type="html"><![CDATA[<p>This post is a studying notes of paper “A Set of Measures of Centrality Based on Betweenness”, the paper <a href="https://www.tribler.org/trac/raw-attachment/wiki/ReputationFunction/23.pdf">[pdf]</a>, wrote by Freeman in 1977, is an introductory and the most classic paper of <a href="http://en.wikipedia.org/wiki/Betweenness_centrality">betweenness centrality</a>. Based on the betweenness centrality concept first introduced by Bavelas in 1948, the paper introduces a set of measures of centrality, including point centrality, scale free (relative) point centrality, and graph centrality. </p>
 
 <h4 id="betweenness-and-point-centrality">Betweenness and Point Centrality</h4>
 
