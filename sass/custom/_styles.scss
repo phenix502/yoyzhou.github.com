@@ -108,6 +108,34 @@ font-weight: bold;
 font-family: Georgia， "Hiragino Sans GB", 楷体_GB2312, Palatino, "Palatino Linotype",  "文泉驿微米黑", "Microsoft YaHei","SimSun", sans-serif;
 }
  
+
+/* custom css style per blog archives*/
+div#blog-archives article{
+padding-left: 4.5em;
+padding-bottom: .2em;
+padding-top: 0.3em;
+
+}
+
+div#blog-archives h2{
+padding-top: .5em;
+}
+
+div#blog-archives article time{
+font-size: 14px;
+top: 1.5em;
+}
+
+div#blog-archives article h1{
+font-size: 14px;
+padding-top: 0.3em;
+}
+
+div#blog-archives article footer{
+font-size: 12px;
+}
+
+
 	/* ----- Sidebar ----- */
 
 
