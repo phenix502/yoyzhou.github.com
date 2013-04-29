@@ -9,7 +9,7 @@
   <meta name="author" content="yoyzhou">
 
   
-  <meta name="description" content="This post is a studying notes of paper “A Set of Measures of Centrality Based on Betweenness”, the paper [pdf], wrote by Freeman in 1977, is an &hellip;">
+  <meta name="description" content="In this post I’d like to demonstrate a algorithm per computing the betweenness centrality which I have introduced in the previous post, please refer &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -94,6 +94,89 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/04/29/a-kinda-betweenness-centrality-algorithm/">A Kinda Betweenness Centrality Algorithm</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-04-29T15:06:00+08:00" pubdate data-updated="true">Apr 29<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/04/29/a-kinda-betweenness-centrality-algorithm/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>In this post I’d like to demonstrate a algorithm per computing the betweenness centrality which I have introduced in the previous post, please refer to <a href="/blog/2013/04/28/studying-notes-a-set-of-measures-of-centrality-based-on-betweenness/">A Set of Measures of Centrality Based on Betweenness</a> for details of what’s Betweenness Centrality, and its measurements.</p>
+
+<h4 id="definitions-and-notations">Definitions and notations</h4>
+
+<p>Before getting down to the algorithm, we first briefly go through the definitions and notations.</p>
+
+<p><strong><em>Betweenness Centrality</em></strong> is “the degree to which a point falls on the shortest path between others”, it’s the core of the algorithm. Although computing <a href="http://en.wikipedia.org/wiki/Shortest_path_problem">shortest path</a> between a pair of point is essential to our problem, shortest path algorithm will not be the focus of this post. Readers interested shortest path algorithm please can refer to the shortest path on Wikipedia page <a href="http://en.wikipedia.org/wiki/Shortest_path_problem">here</a>, kindly note that even if you have no knowledge of shortest path algorithm, it’s not affect you reading this post.
+We will use graph-theoretic terminology neutral to interpretation.</p>
+
+<p>Given a <em>directed graph</em> <script type="math/tex">\begin{smallmatrix} G = \left( V, E \right) \end{smallmatrix}</script>, consists of a set of $V$ of vertices and a set of $E \subseteq V \times V$ of <em>derected</em> edges.</p>
+
+<p>Denote $\sigma(s, t)$ to the number of <em>shortest</em> $(s, t)$-paths, some times called geodesics, and let <script type="math/tex">\sigma(s,t \vert v)</script> be the number of shortest path which passing through certain vertex $v$ other than $s, t$, then the <em>betweenness centrality</em> $C_B(v)$ of vertex $v \in V$ is defined to be:</p>
+
+<script type="math/tex; mode=display">\begin{align}  C_B(v) = \sum\limits_{s,t \in V} \frac{\sigma(s,t \vert v)}{\sigma(s, t)} \end{align}</script>
+
+<h4 id="the-algorithm">The Algorithm</h4>
+<p>As quoted from “On variants of shortest-path betweenness centrality and their computation”:</p>
+
+<blockquote>
+  <p>Efficient computation of betweenness is based on the fact that the cubic number of <em>pair-wise dependencies <script type="math/tex">\delta(s,t \vert v) = \sigma(s, t \vert v)/ \sigma(s, t)</script></em> can be aggregated without computing all of them explicitly.</p>
+</blockquote>
+
+<p>Defining one-side dependencies:</p>
+
+<p><script type="math/tex">\begin{align} \delta(s \vert v) = \sum\limits_{t \in V} \delta(s, t \vert v)\end{align}</script>,</p>
+
+<p>per <script type="math/tex">\forall s, v \in V</script> we can exploit that</p>
+
+<script type="math/tex; mode=display">\begin{align} \delta(s \vert v) = \sum\limits_{w: (v, w) \in E  \ and \\\ dist(s, w) = dist(s, v) + 1} \left[ \frac{\sigma(s,v)}{\sigma(s, w)}
+\times \left( 1 + \delta(s \vert w) \right) \right]
+\end{align}</script>
+
+<p>where $dist(s, t)$ denotes the minimum path length of point pair $(s, t)$.</p>
+
+<p>The algorithm asserts that the dependency of a vertex $s$ on some $v$ can be compiled from dependencies on vertices <strong><em>one edge farther away</em></strong>. </p>
+
+<p>Since $w$ is connected to $v$ and <strong>one edge farther away</strong> (which determined by <script type="math/tex">dist(s, w) = dist(s, v) + 1</script>) from $v$, so point $v$ is on the shortest paths of $(s, w)$ and the proportion of betweenness value that $v$ gains from edge $(v, w)$ equals to $\frac{\sigma(s,v)}{\sigma(s, w)} \times 1$; the other part of betweenness gain is from point $w$, that <script type="math/tex">\frac{\sigma(s,v)}{\sigma(s, w)} \times \delta(s \vert w)</script>, thus sum of the above two parts of betweenness gain is what exactly the equation demonstrates.</p>
+
+<h4 id="references">References</h4>
+
+<p>[1] Linton C. Freeman. A set of measures of centrality based on betweenness. Sociometry, 40(1):35–41, March 1977.</p>
+
+<p>[2] Ulrik Brandes. On variants of shortest-path betweenness centrality and their generic computation. Social Networks, 30(2):136–145, May 2008.</p>
+
+<p><code>---EOF---</code></p>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1775,280 +1858,6 @@ Amazon Web Services(AWS)</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/02/28/python-threads-synchronization-locks/">Python线程同步机制: Locks, RLocks, Semaphores, Conditions, Events和Queues</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-02-28T23:24:00+08:00" pubdate data-updated="true">Feb 28<span>th</span>, 2013</time>
-        
-         | <a href="/blog/2013/02/28/python-threads-synchronization-locks/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><blockquote>
-  <p>翻译自<a href="http://www.laurentluce.com/">Laurent Luce</a>的博客<br />
-原文名称：Python threads synchronization: Locks, RLocks, Semaphores, Conditions, Events and Queues<br />
-原文连接：<a href="http://www.laurentluce.com/posts/python-threads-synchronization-locks-rlocks-semaphores-conditions-events-and-queues/">http://www.laurentluce.com/posts/python-threads-synchronization-locks-rlocks-semaphores-conditions-events-and-queues/</a></p>
-</blockquote>
-
-<p>本文详细地阐述了Python线程同步机制。你将学习到以下有关Python线程同步机制：Lock，RLock，Semaphore，Condition，Event和Queue，还有Python的内部是如何实现这些机制的。
-本文给出的程序的源代码可以在<a href="https://github.com/laurentluce/python-tutorials/tree/master/threads">github</a>上找到。</p>
-
-<p>首先让我们来看一个没有使用线程同步的简单程序。</p>
-<h2>线程（Threading）</h2>
-<p>我们希望编程一个从一些URL中获得内容并且将内容写入文件的程序，完成这个程序可以不使用线程，为了加快获取的速度，我们使用2个线程，每个线程处理一半的URL。</p>
-
-<p>注：完成这个程序的最好方式是使用一个URL队列，但是以下面的例子开始我的讲解更加合适。</p>
-
-<p>类FetchUrls是threading.Thread的子类，他拥有一个URL列表和一个写URL内容的文件对象。</p>
-
-<div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-<span class="line-number">5</span>
-<span class="line-number">6</span>
-<span class="line-number">7</span>
-<span class="line-number">8</span>
-<span class="line-number">9</span>
-<span class="line-number">10</span>
-<span class="line-number">11</span>
-<span class="line-number">12</span>
-<span class="line-number">13</span>
-<span class="line-number">14</span>
-<span class="line-number">15</span>
-<span class="line-number">16</span>
-<span class="line-number">17</span>
-<span class="line-number">18</span>
-<span class="line-number">19</span>
-<span class="line-number">20</span>
-<span class="line-number">21</span>
-<span class="line-number">22</span>
-<span class="line-number">23</span>
-<span class="line-number">24</span>
-<span class="line-number">25</span>
-<span class="line-number">26</span>
-<span class="line-number">27</span>
-<span class="line-number">28</span>
-<span class="line-number">29</span>
-<span class="line-number">30</span>
-</pre></td><td class="code"><pre><code class="python"><span class="line"><span class="k">class</span> <span class="nc">FetchUrls</span><span class="p">(</span><span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">):</span>
-</span><span class="line">  <span class="sd">&quot;&quot;&quot;</span>
-</span><span class="line"><span class="sd">  下载URL内容的线程</span>
-</span><span class="line"><span class="sd">  &quot;&quot;&quot;</span>
-</span><span class="line">
-</span><span class="line">  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">urls</span><span class="p">,</span> <span class="n">output</span><span class="p">):</span>
-</span><span class="line">    <span class="sd">&quot;&quot;&quot;</span>
-</span><span class="line"><span class="sd">    构造器</span>
-</span><span class="line">
-</span><span class="line"><span class="sd">    @param urls 需要下载的URL列表</span>
-</span><span class="line"><span class="sd">    @param output 写URL内容的输出文件</span>
-</span><span class="line"><span class="sd">    &quot;&quot;&quot;</span>
-</span><span class="line">    <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-</span><span class="line">    <span class="bp">self</span><span class="o">.</span><span class="n">urls</span> <span class="o">=</span> <span class="n">urls</span>
-</span><span class="line">    <span class="bp">self</span><span class="o">.</span><span class="n">output</span> <span class="o">=</span> <span class="n">output</span>
-</span><span class="line">
-</span><span class="line">  <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span class="line">    <span class="sd">&quot;&quot;&quot;</span>
-</span><span class="line"><span class="sd">    实现父类Thread的run方法，打开URL，并且一个一个的下载URL的内容</span>
-</span><span class="line"><span class="sd">    &quot;&quot;&quot;</span>
-</span><span class="line">    <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">urls</span><span class="p">:</span>
-</span><span class="line">      <span class="n">url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">urls</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
-</span><span class="line">      <span class="n">req</span> <span class="o">=</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">Request</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
-</span><span class="line">      <span class="k">try</span><span class="p">:</span>
-</span><span class="line">        <span class="n">d</span> <span class="o">=</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">req</span><span class="p">)</span>
-</span><span class="line">      <span class="k">except</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">URLError</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
-</span><span class="line">        <span class="k">print</span> <span class="s">&#39;URL </span><span class="si">%s</span><span class="s"> failed: </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">reason</span><span class="p">)</span>
-</span><span class="line">      <span class="bp">self</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
-</span><span class="line">      <span class="k">print</span> <span class="s">&#39;write done by </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
-</span><span class="line">      <span class="k">print</span> <span class="s">&#39;URL </span><span class="si">%s</span><span class="s"> fetched by </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-<p>main函数启动了两个线程，之后让他们下载URL内容。</p>
-
-<div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-<span class="line-number">5</span>
-<span class="line-number">6</span>
-<span class="line-number">7</span>
-<span class="line-number">8</span>
-<span class="line-number">9</span>
-<span class="line-number">10</span>
-<span class="line-number">11</span>
-<span class="line-number">12</span>
-<span class="line-number">13</span>
-<span class="line-number">14</span>
-<span class="line-number">15</span>
-<span class="line-number">16</span>
-</pre></td><td class="code"><pre><code class="python"><span class="line"><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-</span><span class="line">  <span class="c"># URL列表1</span>
-</span><span class="line">  <span class="n">urls1</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;http://www.google.com&#39;</span><span class="p">,</span> <span class="s">&#39;http://www.facebook.com&#39;</span><span class="p">]</span>
-</span><span class="line">  <span class="c"># URL列表2</span>
-</span><span class="line">  <span class="n">urls2</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;http://www.yahoo.com&#39;</span><span class="p">,</span> <span class="s">&#39;http://www.youtube.com&#39;</span><span class="p">]</span>
-</span><span class="line">  <span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;output.txt&#39;</span><span class="p">,</span> <span class="s">&#39;w+&#39;</span><span class="p">)</span>
-</span><span class="line">  <span class="n">t1</span> <span class="o">=</span> <span class="n">FetchUrls</span><span class="p">(</span><span class="n">urls1</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
-</span><span class="line">  <span class="n">t2</span> <span class="o">=</span> <span class="n">FetchUrls</span><span class="p">(</span><span class="n">urls2</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
-</span><span class="line">  <span class="n">t1</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
-</span><span class="line">  <span class="n">t2</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
-</span><span class="line">  <span class="n">t1</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
-</span><span class="line">  <span class="n">t2</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
-</span><span class="line">  <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-</span><span class="line">
-</span><span class="line"><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
-</span><span class="line">  <span class="n">main</span><span class="p">()</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-<p>上面的程序将出现两个线程同时写一个文件的情况，导致文件一团乱码。我们需要找到一种在给定的时间里只有一个线程写文件的方法。实现的方法就是使用像锁（Locks）这样的线程同步机制。</p>
-
-<h2>锁（Lock）</h2>
-<p>锁有两种状态：被锁（locked）和没有被锁（unlocked）。拥有acquire()和release()两种方法，并且遵循一下的规则：</p>
-<ul>
-<li>如果一个锁的状态是unlocked，调用acquire()方法改变它的状态为locked；</li>
-<li>如果一个锁的状态是locked，acquire()方法将会阻塞，直到另一个线程调用release()方法释放了锁；</li>
-<li>如果一个锁的状态是unlocked调用release()会抛出RuntimeError异常；</li>
-<li>如果一个锁的状态是locked，调用release()方法改变它的状态为unlocked。</li>
-</ul>
-<p>解决上面两个线程同时写一个文件的问题的方法就是：我们给类FetchUrls的构造器中传入一个锁（lock），使用这个锁来保护文件操作，实现在给定的时间只有一个线程写文件。下面的代码只显示了关于lock部分的修改。完整的源码可以在threads/lock.py中找到。</p>
-
-<div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-<span class="line-number">5</span>
-<span class="line-number">6</span>
-<span class="line-number">7</span>
-<span class="line-number">8</span>
-<span class="line-number">9</span>
-<span class="line-number">10</span>
-<span class="line-number">11</span>
-<span class="line-number">12</span>
-<span class="line-number">13</span>
-<span class="line-number">14</span>
-<span class="line-number">15</span>
-<span class="line-number">16</span>
-<span class="line-number">17</span>
-<span class="line-number">18</span>
-<span class="line-number">19</span>
-<span class="line-number">20</span>
-<span class="line-number">21</span>
-<span class="line-number">22</span>
-<span class="line-number">23</span>
-<span class="line-number">24</span>
-<span class="line-number">25</span>
-<span class="line-number">26</span>
-</pre></td><td class="code"><pre><code class="python"><span class="line"><span class="k">class</span> <span class="nc">FetchUrls</span><span class="p">(</span><span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">):</span>
-</span><span class="line">  <span class="o">...</span>
-</span><span class="line">
-</span><span class="line">  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">urls</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">lock</span><span class="p">):</span>
-</span><span class="line">    <span class="o">...</span>
-</span><span class="line">    <span class="bp">self</span><span class="o">.</span><span class="n">lock</span> <span class="o">=</span> <span class="n">lock</span>	<span class="c">#传入的lock对象</span>
-</span><span class="line">
-</span><span class="line">  <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span class="line">    <span class="o">...</span>
-</span><span class="line">    <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">urls</span><span class="p">:</span>
-</span><span class="line">      <span class="o">...</span>
-</span><span class="line">      <span class="bp">self</span><span class="o">.</span><span class="n">lock</span><span class="o">.</span><span class="n">acquire</span><span class="p">()</span>	<span class="c">#获得lock对象，lock状态变为locked，并且阻塞其他线程获取lock对象（写文件的权利）</span>
-</span><span class="line">      <span class="k">print</span> <span class="s">&#39;lock acquired by </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
-</span><span class="line">      <span class="bp">self</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
-</span><span class="line">      <span class="k">print</span> <span class="s">&#39;write done by </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
-</span><span class="line">      <span class="k">print</span> <span class="s">&#39;lock released by </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
-</span><span class="line">      <span class="bp">self</span><span class="o">.</span><span class="n">lock</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>	<span class="c">#释放lock对象，lock状态变为unlocked，其他的线程可以重新获取lock对象</span>
-</span><span class="line">      <span class="o">...</span>
-</span><span class="line">
-</span><span class="line"><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-</span><span class="line">  <span class="o">...</span>
-</span><span class="line">  <span class="n">lock</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Lock</span><span class="p">()</span>
-</span><span class="line">  <span class="o">...</span>
-</span><span class="line">  <span class="n">t1</span> <span class="o">=</span> <span class="n">FetchUrls</span><span class="p">(</span><span class="n">urls1</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">lock</span><span class="p">)</span>
-</span><span class="line">  <span class="n">t2</span> <span class="o">=</span> <span class="n">FetchUrls</span><span class="p">(</span><span class="n">urls2</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">lock</span><span class="p">)</span>
-</span><span class="line">  <span class="o">...</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-<p><img src="http://www.laurentluce.com/images/blog/threads/lock.png" /></p>
-
-<p>以下是程序的输出：</p>
-
-<div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-<span class="line-number">5</span>
-<span class="line-number">6</span>
-<span class="line-number">7</span>
-<span class="line-number">8</span>
-<span class="line-number">9</span>
-<span class="line-number">10</span>
-<span class="line-number">11</span>
-<span class="line-number">12</span>
-<span class="line-number">13</span>
-<span class="line-number">14</span>
-<span class="line-number">15</span>
-<span class="line-number">16</span>
-<span class="line-number">17</span>
-</pre></td><td class="code"><pre><code class="sh"><span class="line"><span class="nv">$ </span>python locks.py
-</span><span class="line">lock acquired by Thread-2
-</span><span class="line">write <span class="k">done </span>by Thread-2
-</span><span class="line">lock released by Thread-2
-</span><span class="line">URL http://www.youtube.com fetched by Thread-2
-</span><span class="line">lock acquired by Thread-1
-</span><span class="line">write <span class="k">done </span>by Thread-1
-</span><span class="line">lock released by Thread-1
-</span><span class="line">URL http://www.facebook.com fetched by Thread-1
-</span><span class="line">lock acquired by Thread-2
-</span><span class="line">write <span class="k">done </span>by Thread-2
-</span><span class="line">lock released by Thread-2
-</span><span class="line">URL http://www.yahoo.com fetched by Thread-2
-</span><span class="line">lock acquired by Thread-1
-</span><span class="line">write <span class="k">done </span>by Thread-1
-</span><span class="line">lock released by Thread-1
-</span><span class="line">URL http://www.google.com fetched by Thread-1
-</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-<p>从上面的输出我们可以看出，写文件的操作被锁保护，没有出现两个线程同时写一个文件的现象。</p>
-
-<p>下面我们看一下Python内部是如何实现锁（Lock）的。我正在使用的Python版本是Linux操作系统上的Python 2.6.6。</p>
-
-<p>threading模块的Lock()方法就是thread.allocate_lock，代码可以在Lib/threading.py中找到。</p>
-
-<div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-</pre></td><td class="code"><pre><code class="python"><span class="line"><span class="n">Lock</span> <span class="o">=</span> <span class="n">_allocate_lock</span>
-</span><span class="line"><span class="n">_allocate_lock</span> <span class="o">=</span> <span class="n">thread</span><span class="o">.</span><span class="n">allocate_lock</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/02/28/python-threads-synchronization-locks/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -2076,6 +1885,10 @@ Amazon Web Services(AWS)</p>
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/04/29/a-kinda-betweenness-centrality-algorithm/">A Kinda Betweenness Centrality Algorithm</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2013/04/28/studying-notes-a-set-of-measures-of-centrality-based-on-betweenness/">A Set of Measures of Centrality Based on Betweenness</a>
@@ -2111,10 +1924,6 @@ Amazon Web Services(AWS)</p>
     
       <li class="post">
         <a href="/blog/2013/03/18/sina-weibo-login-simulator-in-python/">Python模拟登录新浪微薄（使用RSA加密方式和Cookies文件）</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/02/28/python-threads-synchronization-locks/">Python线程同步机制: Locks, RLocks, Semaphores, Conditions, Events和Queues</a>
       </li>
     
   </ul>
