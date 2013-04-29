@@ -4,7 +4,7 @@
   <title><![CDATA[Category: SNA | Tony Chou's Blog]]></title>
   <link href="http://yoyzhou.github.com/blog/categories/sna/atom.xml" rel="self"/>
   <link href="http://yoyzhou.github.com/"/>
-  <updated>2013-04-29T17:39:30+08:00</updated>
+  <updated>2013-04-29T18:00:45+08:00</updated>
   <id>http://yoyzhou.github.com/</id>
   <author>
     <name><![CDATA[yoyzhou]]></name>
@@ -18,14 +18,15 @@
     <link href="http://yoyzhou.github.com/blog/2013/04/29/a-kinda-betweenness-centrality-algorithm/"/>
     <updated>2013-04-29T15:06:00+08:00</updated>
     <id>http://yoyzhou.github.com/blog/2013/04/29/a-kinda-betweenness-centrality-algorithm</id>
-    <content type="html"><![CDATA[<p>In this post I’d like to demonstrate a algorithm per computing the betweenness centrality which I have introduced in the previous post, please refer to <a href="/blog/2013/04/28/studying-notes-a-set-of-measures-of-centrality-based-on-betweenness/">A Set of Measures of Centrality Based on Betweenness</a> for details of what’s Betweenness Centrality, and its measurements.</p>
+    <content type="html"><![CDATA[<p>In this post I’d like to demonstrate a algorithm per computing the betweenness centrality which I have introduced in the previous post, for more details of what is Betweenness Centrality, and its measurements, please refer to my post <a href="/blog/2013/04/28/studying-notes-a-set-of-measures-of-centrality-based-on-betweenness/">A Set of Measures of Centrality Based on Betweenness</a>. </p>
 
 <h4 id="definitions-and-notations">Definitions and notations</h4>
 
-<p>Before getting down to the algorithm, we first briefly go through the definitions and notations.</p>
+<p>Before getting down to the algorithm, first we briefly go through the definitions and notations.</p>
 
-<p><strong><em>Betweenness Centrality</em></strong> is “the degree to which a point falls on the shortest path between others”, it’s the core of the algorithm. Although computing <a href="http://en.wikipedia.org/wiki/Shortest_path_problem">shortest path</a> between a pair of point is essential to our problem, shortest path algorithm will not be the focus of this post. Readers interested shortest path algorithm please can refer to the shortest path on Wikipedia page <a href="http://en.wikipedia.org/wiki/Shortest_path_problem">here</a>, kindly note that even if you have no knowledge of shortest path algorithm, it’s not affect you reading this post.
-We will use graph-theoretic terminology neutral to interpretation.</p>
+<p><strong><em>Betweenness Centrality</em></strong> is “the degree to which a point falls on the shortest path between others”, it’s the core of the algorithm. Although computing <a href="http://en.wikipedia.org/wiki/Shortest_path_problem">shortest path</a> between point pair is essential to our problem, shortest path algorithm will not be the focus of this post. Readers interested in shortest path algorithm please refer to the shortest path on Wikipedia page <a href="http://en.wikipedia.org/wiki/Shortest_path_problem">here</a>, kindly note that even if you have no knowledge of shortest path algorithm, it will not affect you reading this post.</p>
+
+<p>In the next section, we use graph-theoretic terminology neutral to interpretation of notations.</p>
 
 <p>Given a <em>directed graph</em> <script type="math/tex">\begin{smallmatrix} G = \left( V, E \right) \end{smallmatrix}</script>, consists of a set of $V$ of vertices and a set of $E \subseteq V \times V$ of <em>derected</em> edges.</p>
 
