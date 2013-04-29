@@ -5,17 +5,18 @@ date: 2013-04-29 15:06
 comments: true
 categories: [Algorithm, Betweenness, Centrality, SNA]
 keywords: Algorithm, Betweenness, Centrality, SNA, Social Network Analysis, Graph 
-description: 
+description: In this post I'd like to demonstrate a algorithm per computing the betweenness centrality which I have introduced in the previous post, for more details of what's Betweenness Centrality, and its measurements, please refer to A Set of Measures of Centrality Based on Betweenness. 
 ---
 
-In this post I'd like to demonstrate a algorithm per computing the betweenness centrality which I have introduced in the previous post, please refer to [A Set of Measures of Centrality Based on Betweenness][betweenness_post] for details of what's Betweenness Centrality, and its measurements.
+In this post I'd like to demonstrate a algorithm per computing the betweenness centrality which I have introduced in the previous post, for more details of what is Betweenness Centrality, and its measurements, please refer to my post [A Set of Measures of Centrality Based on Betweenness][betweenness_post]. 
 
 ####Definitions and notations
 
- Before getting down to the algorithm, we first briefly go through the definitions and notations.
+ Before getting down to the algorithm, first we briefly go through the definitions and notations.
 
- **_Betweenness Centrality_** is "the degree to which a point falls on the shortest path between others", it's the core of the algorithm. Although computing [shortest path][shortest_path] between a pair of point is essential to our problem, shortest path algorithm will not be the focus of this post. Readers interested shortest path algorithm please can refer to the shortest path on Wikipedia page [here][shortest_path], kindly note that even if you have no knowledge of shortest path algorithm, it's not affect you reading this post.
-We will use graph-theoretic terminology neutral to interpretation.
+ **_Betweenness Centrality_** is "the degree to which a point falls on the shortest path between others", it's the core of the algorithm. Although computing [shortest path][shortest_path] between point pair is essential to our problem, shortest path algorithm will not be the focus of this post. Readers interested in shortest path algorithm please refer to the shortest path on Wikipedia page [here][shortest_path], kindly note that even if you have no knowledge of shortest path algorithm, it will not affect you reading this post.
+
+In the next section, we use graph-theoretic terminology neutral to interpretation of notations.
 
 Given a _directed graph_ $$\begin{smallmatrix} G = \left( V, E \right) \end{smallmatrix}$$, consists of a set of $V$ of vertices and a set of $E \subseteq V \times V$ of _derected_ edges.
 
