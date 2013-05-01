@@ -4,7 +4,7 @@
   <title><![CDATA[Category: SNA | Tony Chou's Blog]]></title>
   <link href="http://yoyzhou.github.com/blog/categories/sna/atom.xml" rel="self"/>
   <link href="http://yoyzhou.github.com/"/>
-  <updated>2013-05-01T17:14:06+08:00</updated>
+  <updated>2013-05-01T17:26:13+08:00</updated>
   <id>http://yoyzhou.github.com/</id>
   <author>
     <name><![CDATA[yoyzhou]]></name>
@@ -232,6 +232,12 @@
 <h3 id="section-9">结束语</h3>
 
 <p>本文运用社会网络分析方法，通过中介中心性和群组两个维度，对微博名人的关注网络进行了分析，通过分析我们得出了微博名人中介中心性，并且将微博名人的关注网络划分为了三个群组。</p>
+
+<p>虽然本文作者设想将本文作为<code>大数据</code>来进行分析，但是由于计算资源的有限，只能将分析的节点数一再降低；本文中对名人界定以数据集中被关注数量进行度量，更加准确的度量应该以现实微博中用户的被关注数量。</p>
+
+<p>如何在MapReduce框架下进行社交网络分析，将会是一个很价值的主题。</p>
+
+<p><code>---EOF---</code></p>
 
 ]]></content>
   </entry>
