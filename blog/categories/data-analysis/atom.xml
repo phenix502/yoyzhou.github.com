@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Data Analysis | Tony Chou's Blog]]></title>
   <link href="http://yoyzhou.github.com/blog/categories/data-analysis/atom.xml" rel="self"/>
   <link href="http://yoyzhou.github.com/"/>
-  <updated>2013-05-01T18:21:38+08:00</updated>
+  <updated>2013-05-01T18:55:29+08:00</updated>
   <id>http://yoyzhou.github.com/</id>
   <author>
     <name><![CDATA[yoyzhou]]></name>
@@ -44,11 +44,9 @@
 
 <h4 id="section-4">数据收集</h4>
 
-<p>本文所使用的数据来源于新浪微博的用户关注信息，通过自己编写的微博数据收集工具<a href="/blog/2013/04/08/weibo-scrapy-framework-with-multi-threading/">weibo_scrapy</a>收集，一共收集了30999个新浪微博用户的关注信息，去重后被关注的用户数量为3,940,891位。</p>
+<p>本文所使用的数据来源于新浪微博的用户关注信息，一共收集了30999个新浪微博用户的关注信息，去重后被关注的用户数量为3,940,891位。</p>
 
 <p>以下是收集数据的概述：</p>
-
-<p><strong>数据收集工具</strong>：使用weibo_scrapy收集微博用户的关注数据</p>
 
 <p><strong>数据收集时间</strong>：2013.3.18~2013.4.2</p>
 

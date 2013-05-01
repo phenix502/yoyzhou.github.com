@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Framework | Tony Chou's Blog]]></title>
   <link href="http://yoyzhou.github.com/blog/categories/framework/atom.xml" rel="self"/>
   <link href="http://yoyzhou.github.com/"/>
-  <updated>2013-05-01T18:21:38+08:00</updated>
+  <updated>2013-05-01T18:55:29+08:00</updated>
   <id>http://yoyzhou.github.com/</id>
   <author>
     <name><![CDATA[yoyzhou]]></name>
@@ -330,8 +330,6 @@
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
-
-<p><a href="https://github.com/yoyzhou/weibo_scrapy/blob/master/weibo_following_ntk_scrapy.py">weibo_scrapy/weibo_following_ntk_scrapy.py</a>中提供了一个更详细的完整的例子。weibo_following_ntk_scrapy使用WEIBO_SCRAPY实现了微博用户关注网络的抓取。关于如何从微博页面中抽取关注信息请参看拙作<a href="/blog/2013/03/23/extract-data-with-beautifulsoup-taking-weibo-4-example/">使用Beautiful Soup抽取网页数据，解析微博用户关注信息</a>。</p>
 
 <h3 id="section-4">项目源代码</h3>
 <p>WEIBO_SCRAPY项目的源代码地址：<a href="https://github.com/yoyzhou/weibo_scrapy">weibo_scrapy</a>，<a href="https://github.com/yoyzhou/weibo_scrapy/fork">Fork it</a>。</p>
