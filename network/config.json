@@ -3,19 +3,19 @@
   "version": "1.0",
   "data": "data.json",
   "logo": {
-    "text": "yoyo",
+    "text": "pigdata",
     "file": "",
     "link": ""
   },
   "text": {
-    "title": "kaifu_lee",
+    "title": "微博名人的关注网络",
     "more": "Weibo Users Following Network",
-    "intro": ""
+    "intro": "鼠标停浮在节点上方可显示用户名称，单击节点选择与用户相关联的其他节点，使用鼠标中键进行缩放"
   },
   "legend": {
-    "edgeLabel": "Following",
-    "colorLabel": "Groups",
-    "nodeLabel": "Users"
+    "edgeLabel": "边表示用户的关注关系",
+    "colorLabel": "颜色表示用户群组，颜色相同表示用户属于同一群组",
+    "nodeLabel": "节点表示微博用户，节点的大小表示用户影响力的大小"
   },
   "features": {
     "search": true,
