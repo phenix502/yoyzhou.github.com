@@ -53,6 +53,8 @@ task :generate do
   puts "## Generating Site with Jekyll"
   system "compass compile --css-dir #{source_dir}/stylesheets"
   system "jekyll"
+  puts "Copying addins to public"
+  system "cp -rpf addins/* public/"
 end
 
 desc "Watch the site and regenerate when it changes"
@@ -106,7 +108,9 @@ task :new_post, :title do |t, args|
     post.puts "title: \"#{title.gsub(/&/,'&amp;')}\""
     post.puts "date: #{Time.now.strftime('%Y-%m-%d %H:%M')}"
     post.puts "comments: true"
-    post.puts "categories: "
+    post.puts "categories: [c1, c2, c3]"
+	post.puts "keywords: k1, k2, k3"
+	post.puts "description: "
     post.puts "---"
   end
 end

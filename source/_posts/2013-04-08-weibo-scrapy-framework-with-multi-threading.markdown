@@ -189,7 +189,7 @@ if __name__ == '__main__':
     
 {% endcodeblock %}
 
-[weibo_scrapy/weibo_following_ntk_scrapy.py][weibo_following_ntk_scrapy]中提供了一个更详细的完整的例子。weibo\_following\_ntk\_scrapy使用WEIBO\_SCRAPY实现了微博用户关注网络的抓取。关于如何从微博页面中抽取关注信息请参看拙作[使用Beautiful Soup抽取网页数据，解析微博用户关注信息][following_ntk]。
+
 
 ###项目源代码
 WEIBO\_SCRAPY项目的源代码地址：[weibo_scrapy][weibo_scrapy]，[Fork it][fork]。

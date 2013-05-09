@@ -1,0 +1,53 @@
+{
+  "type": "network",
+  "version": "1.0",
+  "data": "data.json",
+  "logo": {
+    "text": "pigdata",
+    "file": "",
+    "link": ""
+  },
+  "text": {
+    "title": "微博名人的关注网络",
+    "more": "Weibo Users Following Network",
+    "intro": "鼠标停浮在节点上方可显示用户名称，单击节点选择与用户相关联的其他节点，使用鼠标中键进行缩放"
+  },
+  "legend": {
+    "edgeLabel": "边表示用户的关注关系",
+    "colorLabel": "颜色表示用户群组，颜色相同表示用户属于同一群组",
+    "nodeLabel": "节点表示微博用户，节点的大小表示用户影响力的大小"
+  },
+  "features": {
+    "search": true,
+    "groupSelectorAttribute": "Modularity Class",
+    "hoverBehavior": "Dim"
+  },
+  "informationPanel": {
+    "imageAttribute": false,
+    "groupByEdgeDirection": false
+  },
+  "sigma": {
+    "graphProperties": {
+      "minEdgeSize": 0.2,
+      "maxNodeSize": 20,
+      "maxEdgeSize": 0.5,
+      "minNodeSize": 1
+    },
+    "drawingProperties": {
+      "labelThreshold": 10,
+      "hoverFontStyle": "bold",
+      "defaultEdgeType": "curve",
+      "defaultLabelColor": "#000",
+      "defaultLabelHoverColor": "#fff",
+      "defaultLabelSize": 50,
+      "activeFontStyle": "bold",
+      "fontStyle": "bold",
+      "defaultHoverLabelBGColor": "#002147",
+      "defaultLabelBGColor": "#ddd"
+    },
+    "mouseProperties": {
+      "minRatio": 0.75,
+      "maxRatio": 20
+    }
+  }
+}
