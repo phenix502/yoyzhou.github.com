@@ -9,7 +9,7 @@
   <meta name="author" content="yoyzhou">
 
   
-  <meta name="description" content="社交网络分析起源于社会学家使用数学与图论的方法研究社会群组中人与人之间的交互关系，如中心性分析、凝聚子群分析、社会结构分析等，最著名的莫过于美国社会心理学家Stanley Milgram的”六度分离理论”。传统的社会网络分析重点研究的是社会网络分析的概念以及通过社会网络分析研究社会结构对人、 &hellip;">
+  <meta name="description" content="序列化 序列化（serialization）是指将结构化的对象转化为字节流，以便在网络上传输或者写入到硬盘进行永久存储；相对的反序列化（deserialization）是指将字节流转回到结构化对象的过程。 在分布式系统中进程将对象序列化为字节流，通过网络传输到另一进程，另一进程接收到字节流， &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -94,6 +94,299 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/05/09/hadoop-serialization-and-writable-object-1/">Hadoop序列化与Writable接口(一)</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-09T20:49:00+08:00" pubdate data-updated="true">May 9<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/05/09/hadoop-serialization-and-writable-object-1/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h4 id="section">序列化</h4>
+
+<p><strong>序列化</strong>（serialization）是指将结构化的对象转化为字节流，以便在网络上传输或者写入到硬盘进行永久存储；相对的<strong>反序列化</strong>（deserialization）是指将字节流转回到结构化对象的过程。</p>
+
+<p>在分布式系统中进程将对象序列化为字节流，通过网络传输到另一进程，另一进程接收到字节流，通过反序列化转回到结构化对象，以达到进程间通信。在Hadoop中，Mapper，Combiner，Reducer等阶段之间的通信都需要使用序列化与反序列化技术。举例来说，Mapper产生的中间结果（<code>&lt;key: value1, value2...&gt;</code>）需要写入到本地硬盘，这是序列化过程（将结构化对象转化为字节流，并写入硬盘），而Reducer阶段读取Mapper的中间结果的过程则是一个反序列化过程（读取硬盘上存储的字节流文件，并转回为结构化对象），需要注意的是，能够在网络上传输的只能是字节流，Mapper的中间结果在不同主机间洗牌时，对象将经历序列化和反序列化两个过程。</p>
+
+<p>序列化是Hadoop核心的一部分，在Hadoop中，位于org.apache.hadoop.io包中的Writable接口是Hadoop序列化格式的实现。</p>
+
+<h4 id="writable">Writable接口</h4>
+
+<p>Hadoop Writable接口是基于DataInput和DataOutput实现的序列化协议，紧凑（高效使用存储空间），快速（读写数据、序列化与反序列化的开销小）。Hadoop中的键（key）和值（value）必须是实现了Writable接口的对象（键还必须实现WritableComparable，以便进行排序）。</p>
+
+<p>以下是Hadoop（使用的是Hadoop 1.1.2）中Writable接口的声明：</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+<span class="line-number">20</span>
+<span class="line-number">21</span>
+<span class="line-number">22</span>
+<span class="line-number">23</span>
+<span class="line-number">24</span>
+<span class="line-number">25</span>
+<span class="line-number">26</span>
+</pre></td><td class="code"><pre><code class="java"><span class="line"><span class="kn">package</span> <span class="n">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">hadoop</span><span class="o">.</span><span class="na">io</span><span class="o">;</span>
+</span><span class="line">
+</span><span class="line"><span class="kn">import</span> <span class="nn">java.io.DataOutput</span><span class="o">;</span>
+</span><span class="line"><span class="kn">import</span> <span class="nn">java.io.DataInput</span><span class="o">;</span>
+</span><span class="line"><span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
+</span><span class="line">
+</span><span class="line"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Writable</span> <span class="o">{</span>
+</span><span class="line">  <span class="cm">/** </span>
+</span><span class="line"><span class="cm">   * Serialize the fields of this object to &lt;code&gt;out&lt;/code&gt;.</span>
+</span><span class="line"><span class="cm">   * </span>
+</span><span class="line"><span class="cm">   * @param out &lt;code&gt;DataOuput&lt;/code&gt; to serialize this object into.</span>
+</span><span class="line"><span class="cm">   * @throws IOException</span>
+</span><span class="line"><span class="cm">   */</span>
+</span><span class="line">  <span class="kt">void</span> <span class="nf">write</span><span class="o">(</span><span class="n">DataOutput</span> <span class="n">out</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span><span class="o">;</span>
+</span><span class="line">
+</span><span class="line">  <span class="cm">/** </span>
+</span><span class="line"><span class="cm">   * Deserialize the fields of this object from &lt;code&gt;in&lt;/code&gt;.  </span>
+</span><span class="line"><span class="cm">   * </span>
+</span><span class="line"><span class="cm">   * &lt;p&gt;For efficiency, implementations should attempt to re-use storage in the </span>
+</span><span class="line"><span class="cm">   * existing object where possible.&lt;/p&gt;</span>
+</span><span class="line"><span class="cm">   * </span>
+</span><span class="line"><span class="cm">   * @param in &lt;code&gt;DataInput&lt;/code&gt; to deseriablize this object from.</span>
+</span><span class="line"><span class="cm">   * @throws IOException</span>
+</span><span class="line"><span class="cm">   */</span>
+</span><span class="line">  <span class="kt">void</span> <span class="nf">readFields</span><span class="o">(</span><span class="n">DataInput</span> <span class="n">in</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span><span class="o">;</span>
+</span><span class="line"><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<h4 id="writable-1">Writable类</h4>
+
+<p>Hadoop自身提供了多种具体的Writable类，包含了常见的Java基本类型（boolean、byte、short、int、float、long和double等）和集合类型（BytesWritable、ArrayWritable和MapWritable等）。这些类型都位于org.apache.hadoop.io包中。</p>
+
+<p><img src="http://my.safaribooksonline.com/getfile?item=NDljc3NhNzlyOS9hNWRtNzY4dC8vcGlnMTUwczJlcnl0b3JldW9zcmNhb2VwZWNpaHRvL3R0c2xsbW1vcGkwbGdhZ2Uwbjh5aWwwbWUuMzNz" alt="writable-classes" /></p>
+
+<p>(图片来源：safaribooksonline.com)</p>
+
+<h4 id="writable-2">定制Writable类</h4>
+
+<p>虽然Hadoop内建了多种Writable类提供用户选择，Hadoop对Java基本类型的包装Writable类实现的RawComparable接口，使得这些对象不需要反序列化过程，便可以在字节流层面进行排序，从而大大缩短了比较的时间开销，但是当我们需要更加复杂的对象时，Hadoop的内建Writable类就不能满足我们的需求了(需要注意的是Hadoop提供的Writable集合类型并没有实现RawComparable接口，因此也不满足我们的需要)，这时我们就需要定制自己的Writable类，特别将其作为键（key）的时候更应该如此，以求达到更高效的存储和快速的比较。</p>
+
+<p>下面的实例展示了如何定制一个Writable类，一个定制的Writable类首先必须实现Writable或者WritableComparable接口，然后为定制的Writable类编写write(DataOutput out)和readFields(DataInput in)方法，来控制定制的Writable类如何转化为字节流（write方法）和如何从字节流转回为Writable对象。</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+<span class="line-number">20</span>
+<span class="line-number">21</span>
+<span class="line-number">22</span>
+<span class="line-number">23</span>
+<span class="line-number">24</span>
+<span class="line-number">25</span>
+<span class="line-number">26</span>
+<span class="line-number">27</span>
+<span class="line-number">28</span>
+<span class="line-number">29</span>
+<span class="line-number">30</span>
+<span class="line-number">31</span>
+<span class="line-number">32</span>
+<span class="line-number">33</span>
+<span class="line-number">34</span>
+<span class="line-number">35</span>
+<span class="line-number">36</span>
+<span class="line-number">37</span>
+<span class="line-number">38</span>
+<span class="line-number">39</span>
+<span class="line-number">40</span>
+<span class="line-number">41</span>
+<span class="line-number">42</span>
+<span class="line-number">43</span>
+<span class="line-number">44</span>
+<span class="line-number">45</span>
+<span class="line-number">46</span>
+<span class="line-number">47</span>
+<span class="line-number">48</span>
+<span class="line-number">49</span>
+<span class="line-number">50</span>
+<span class="line-number">51</span>
+<span class="line-number">52</span>
+<span class="line-number">53</span>
+<span class="line-number">54</span>
+<span class="line-number">55</span>
+<span class="line-number">56</span>
+<span class="line-number">57</span>
+<span class="line-number">58</span>
+<span class="line-number">59</span>
+<span class="line-number">60</span>
+<span class="line-number">61</span>
+<span class="line-number">62</span>
+<span class="line-number">63</span>
+<span class="line-number">64</span>
+<span class="line-number">65</span>
+<span class="line-number">66</span>
+<span class="line-number">67</span>
+<span class="line-number">68</span>
+<span class="line-number">69</span>
+<span class="line-number">70</span>
+<span class="line-number">71</span>
+<span class="line-number">72</span>
+<span class="line-number">73</span>
+<span class="line-number">74</span>
+<span class="line-number">75</span>
+<span class="line-number">76</span>
+<span class="line-number">77</span>
+<span class="line-number">78</span>
+<span class="line-number">79</span>
+<span class="line-number">80</span>
+<span class="line-number">81</span>
+<span class="line-number">82</span>
+</pre></td><td class="code"><pre><code class="java"><span class="line"><span class="kn">package</span> <span class="n">com</span><span class="o">.</span><span class="na">yoyzhou</span><span class="o">.</span><span class="na">weibo</span><span class="o">;</span>
+</span><span class="line">
+</span><span class="line"><span class="kn">import</span> <span class="nn">java.io.DataInput</span><span class="o">;</span>
+</span><span class="line"><span class="kn">import</span> <span class="nn">java.io.DataOutput</span><span class="o">;</span>
+</span><span class="line"><span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
+</span><span class="line"><span class="kn">import</span> <span class="nn">org.apache.hadoop.io.VLongWritable</span><span class="o">;</span>
+</span><span class="line"><span class="kn">import</span> <span class="nn">org.apache.hadoop.io.Writable</span><span class="o">;</span>
+</span><span class="line">
+</span><span class="line"><span class="cm">/**</span>
+</span><span class="line"><span class="cm"> *This MyWritable class demonstrates how to write a custom Writable class </span>
+</span><span class="line"><span class="cm"> * */</span>
+</span><span class="line"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyWritable</span> <span class="kd">implements</span> <span class="n">Writable</span><span class="o">{</span>
+</span><span class="line">		
+</span><span class="line">		
+</span><span class="line">		<span class="kd">private</span> <span class="n">VLongWritable</span> <span class="n">field1</span><span class="o">;</span>
+</span><span class="line">		<span class="kd">private</span> <span class="n">VLongWritable</span> <span class="n">field2</span><span class="o">;</span>
+</span><span class="line">		
+</span><span class="line">		<span class="kd">public</span> <span class="nf">MyWritable</span><span class="o">(){</span>
+</span><span class="line">			<span class="k">this</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="k">new</span> <span class="n">VLongWritable</span><span class="o">(),</span> <span class="k">new</span> <span class="n">VLongWritable</span><span class="o">());</span>
+</span><span class="line">		<span class="o">}</span>
+</span><span class="line">		
+</span><span class="line">
+</span><span class="line">		
+</span><span class="line">		<span class="kd">public</span> <span class="nf">MyWritable</span><span class="o">(</span><span class="n">VLongWritable</span> <span class="n">fld1</span><span class="o">,</span> <span class="n">VLongWritable</span> <span class="n">fld2</span><span class="o">){</span>
+</span><span class="line">			
+</span><span class="line">			<span class="k">this</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">fld1</span><span class="o">,</span> <span class="n">fld2</span><span class="o">);</span>
+</span><span class="line">			
+</span><span class="line">		<span class="o">}</span>
+</span><span class="line">		
+</span><span class="line">		<span class="kd">public</span> <span class="kt">void</span> <span class="nf">set</span><span class="o">(</span><span class="n">VLongWritable</span> <span class="n">fld1</span><span class="o">,</span> <span class="n">VLongWritable</span> <span class="n">fld2</span><span class="o">){</span>
+</span><span class="line">			<span class="c1">//make sure the smaller field is always put as field1</span>
+</span><span class="line">			<span class="k">if</span><span class="o">(</span><span class="n">fld1</span><span class="o">.</span><span class="na">get</span><span class="o">()</span> <span class="o">&lt;=</span> <span class="n">fld2</span><span class="o">.</span><span class="na">get</span><span class="o">()){</span>
+</span><span class="line">				<span class="k">this</span><span class="o">.</span><span class="na">field1</span> <span class="o">=</span> <span class="n">fld1</span><span class="o">;</span>
+</span><span class="line">				<span class="k">this</span><span class="o">.</span><span class="na">field2</span> <span class="o">=</span> <span class="n">fld2</span><span class="o">;</span>
+</span><span class="line">			<span class="o">}</span><span class="k">else</span><span class="o">{</span>
+</span><span class="line">				
+</span><span class="line">				<span class="k">this</span><span class="o">.</span><span class="na">field1</span> <span class="o">=</span> <span class="n">fld2</span><span class="o">;</span>
+</span><span class="line">				<span class="k">this</span><span class="o">.</span><span class="na">field2</span> <span class="o">=</span> <span class="n">fld1</span><span class="o">;</span>
+</span><span class="line">			<span class="o">}</span>
+</span><span class="line">		<span class="o">}</span>
+</span><span class="line">		
+</span><span class="line">		
+</span><span class="line">		<span class="c1">//How to write and read MyWritable fields from DataOutput and DataInput stream</span>
+</span><span class="line">		<span class="nd">@Override</span>
+</span><span class="line">		<span class="kd">public</span> <span class="kt">void</span> <span class="nf">write</span><span class="o">(</span><span class="n">DataOutput</span> <span class="n">out</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+</span><span class="line">			
+</span><span class="line">			<span class="n">field1</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">out</span><span class="o">);</span>
+</span><span class="line">			<span class="n">field2</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">out</span><span class="o">);</span>
+</span><span class="line">		<span class="o">}</span>
+</span><span class="line">
+</span><span class="line">		<span class="nd">@Override</span>
+</span><span class="line">		<span class="kd">public</span> <span class="kt">void</span> <span class="nf">readFields</span><span class="o">(</span><span class="n">DataInput</span> <span class="n">in</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+</span><span class="line">			
+</span><span class="line">			<span class="n">field1</span><span class="o">.</span><span class="na">readFields</span><span class="o">(</span><span class="n">in</span><span class="o">);</span>
+</span><span class="line">			<span class="n">field2</span><span class="o">.</span><span class="na">readFields</span><span class="o">(</span><span class="n">in</span><span class="o">);</span>
+</span><span class="line">		<span class="o">}</span>
+</span><span class="line">
+</span><span class="line">		<span class="cm">/** Returns true if &lt;code&gt;o&lt;/code&gt; is a MyWritable with the same values. */</span>
+</span><span class="line">		<span class="nd">@Override</span>
+</span><span class="line">		  <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">equals</span><span class="o">(</span><span class="n">Object</span> <span class="n">o</span><span class="o">)</span> <span class="o">{</span>
+</span><span class="line">		    <span class="k">if</span> <span class="o">(!(</span><span class="n">o</span> <span class="k">instanceof</span> <span class="n">MyWritable</span><span class="o">))</span>
+</span><span class="line">		    	<span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+</span><span class="line">		
+</span><span class="line">		    <span class="n">MyWritable</span> <span class="n">other</span> <span class="o">=</span> <span class="o">(</span><span class="n">MyWritable</span><span class="o">)</span><span class="n">o</span><span class="o">;</span>
+</span><span class="line">		    <span class="k">return</span> <span class="n">field1</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">other</span><span class="o">.</span><span class="na">field1</span><span class="o">)</span> <span class="o">&amp;&amp;</span> <span class="n">field2</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">other</span><span class="o">.</span><span class="na">field2</span><span class="o">);</span>
+</span><span class="line">		
+</span><span class="line">		  <span class="o">}</span>
+</span><span class="line">		
+</span><span class="line">		<span class="nd">@Override</span>
+</span><span class="line">		<span class="kd">public</span> <span class="kt">int</span> <span class="nf">hashCode</span><span class="o">(){</span>
+</span><span class="line">			
+</span><span class="line">			<span class="k">return</span> <span class="n">field1</span><span class="o">.</span><span class="na">hashCode</span><span class="o">()</span> <span class="o">*</span> <span class="mi">163</span> <span class="o">+</span> <span class="n">field2</span><span class="o">.</span><span class="na">hashCode</span><span class="o">();</span>
+</span><span class="line">		<span class="o">}</span>
+</span><span class="line">		
+</span><span class="line">		<span class="nd">@Override</span>
+</span><span class="line">		<span class="kd">public</span> <span class="n">String</span> <span class="nf">toString</span><span class="o">()</span> <span class="o">{</span>
+</span><span class="line">			<span class="k">return</span> <span class="n">field1</span><span class="o">.</span><span class="na">toString</span><span class="o">()</span> <span class="o">+</span> <span class="s">&quot;\t&quot;</span> <span class="o">+</span> <span class="n">field2</span><span class="o">.</span><span class="na">toString</span><span class="o">();</span>
+</span><span class="line">		<span class="o">}</span>
+</span><span class="line">		
+</span><span class="line">		
+</span><span class="line">
+</span><span class="line">	<span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>未完待续，下一篇中将介绍Writable对象序列化为字节流时占用的字节长度。</p>
+
+<h4 id="section-1">参考资料</h4>
+
+<p>Tom White, Hadoop: The Definitive Guide, 3rd Edition </p>
+
+<p><code>---To Be Continued---</code></p>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1940,104 +2233,6 @@ Amazon Web Services(AWS)</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/03/23/extract-data-with-beautifulsoup-taking-weibo-4-example/">使用Beautiful Soup抽取网页数据，解析微博用户关注信息</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-03-23T17:14:00+08:00" pubdate data-updated="true">Mar 23<span>rd</span>, 2013</time>
-        
-         | <a href="/blog/2013/03/23/extract-data-with-beautifulsoup-taking-weibo-4-example/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>本文介绍了Beautiful Soup，PYTHON实现的HTML/XML标记的解析器；简要描述了Beautiful Soup的安装以及使用；最后以抽取微博用户关注信息为例详细的演示了如何使用Beautiful Soup。</p>
-
-<h3 id="beautiful-soup">什么是Beautiful Soup</h3>
-<p><a href="http://www.crummy.com/software/BeautifulSoup/">Beautiful Soup</a>是用PYTHON实现的HTML/XML标记的解析器。它提供简单和通用的方法对HTML/XML语法树进行浏览（navigating），搜索（searching）以及修改（searching）。它甚至可以针对不规范的标记生成语法树，可以大大地减少开发人员的时间。</p>
-
-<blockquote>
-  <p>Beautiful Soup is an HTML/XML parser for Python that can turn even invalid markup into a parse tree. It provides simple, idiomatic ways of navigating, searching, and modifying the parse tree. It commonly saves programmers hours or days of work. <cite><a href="http://www.crummy.com/software/BeautifulSoup/bs3/documentation.html">Beautiful Soup</a></cite></p>
-</blockquote>
-
-<h3 id="beautiful-soup-1">安装Beautiful Soup</h3>
-<p>安装Beautiful Soup很简单，如果你已经安装过pip或者easy_install,如果您还没有安装过Python安装工具，建议您参考<a href="/blog/2012/08/12/install-python-setuptools-slash-distribute-for-both-python2-and-python3/">Install Python Setuptools/Distribute for Python2 and Python3</a>。</p>
-
-<div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-</pre></td><td class="code"><pre><code class="bash"><span class="line">sudo easy_install beautifulsoup4
-</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-<p>需要注意的是：BeautifulSoup4支持Python 2.x和3.x，而BeautifulSoup3只支持Python 2.x，Beautiful Soup官网建议大家应该使用BeautifulSoup4而不是BeautifulSoup3。</p>
-
-<blockquote>
-  <p>Beautiful Soup 3 only works on Python 2.x, but Beautiful Soup 4 also works on Python 3.x. Beautiful Soup 4 is faster, has more features, and works with third-party parsers like lxml and html5lib. You should use Beautiful Soup 4 for all new projects.</p>
-</blockquote>
-
-<h3 id="beautiful-soup-2">使用Beautiful Soup</h3>
-<p>首先，导入Beautiful Soup。</p>
-
-<div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-</pre></td><td class="code"><pre><code class="python"><span class="line"><span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-<p>注意如果你使用的是BeautifulSoup3，那么导入语句可能是：</p>
-
-<div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-</pre></td><td class="code"><pre><code class="python"><span class="line"><span class="kn">from</span> <span class="nn">BeautifulSoup</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-<p>然后，使用BeautifulSoup为你生成标记语言的语法树。</p>
-
-<div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-</pre></td><td class="code"><pre><code class="python"><span class="line"><span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s">&#39;my.html&#39;</span><span class="p">))</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-<p>得到了语法树soup之后，就可以调用相应的接口浏览，搜索和修改你的标记文件。比如下面的语句搜索my.html中所有’action-type’是’user_item’的div：</p>
-
-<div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-</pre></td><td class="code"><pre><code class="python"><span class="line"><span class="n">soup</span><span class="o">.</span><span class="n">findAll</span><span class="p">(</span><span class="s">&#39;div&#39;</span><span class="p">,</span> <span class="n">attrs</span><span class="o">=</span><span class="p">{</span><span class="s">&#39;action-type&#39;</span> <span class="p">:</span> <span class="s">&#39;user_item&#39;</span><span class="p">})</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-<p>上面简单介绍了Beautiful Soup的安装和使用，更多Beautiful Soup的文档请参考官方文档<a href="http://www.crummy.com/software/BeautifulSoup/bs3/documentation.html">bs3</a>和<a href="http://www.crummy.com/software/BeautifulSoup/">bs4</a>。下面我们以从WEIBO.COM页面中解析出用户的关注信息为例，介绍Beautiful Soup的使用。</p>
-
-<h3 id="beautiful-soup-3">Beautiful Soup实例：解析微博用户的关注信息</h3>
-<p>社交网络中的关注信息（followings）是用户对什么人/东西感兴趣的一种表达，从关注信息中可以得到用户的兴趣偏好，又因为关注信息有用户自己维护，所以相对于粉丝（followers）信息更能体现个人偏好。以微博来说，关注就是用户关注的人，一般认为用户是根据自己的兴趣爱好出发有选择的关注帐号。</p>
-
-<p>微博中有两种关注，我的关注和他人的关注，由于这两种关注的页面结构不同，所以在解析的时候需要分别对待，但是分析的过程是同理的，只是在抽取数据是的页面标签不一样，使用上面的Beautiful Soup工具，抽取时标签的定位会很容易，这就是使用Beautiful Soup带来的好处。</p>
-
-<h4 id="inspect-element">1.使用浏览器的<code>Inspect Element</code>功能理解页面的结构</h4>
-
-<p>最新版的Chrome和Firefox都自身内置有<code>Inspect Element</code>功能，在编写代码时，可能要经常的使用它来定位要寻找的页面元素。Chrome浏览器<code>Inspect Element</code>的使用请参考<a href="https://developers.google.com/chrome-developer-tools/docs/elements">Chrome Developer Tools - Elements Panel</a>。
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/03/23/extract-data-with-beautifulsoup-taking-weibo-4-example/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -2065,6 +2260,10 @@ Amazon Web Services(AWS)</p>
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/05/09/hadoop-serialization-and-writable-object-1/">Hadoop序列化与Writable接口(一)</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2013/04/29/viz-following-networks-of-weibo-celebrities/">微博名人关注网络的社会网络分析</a>
@@ -2100,10 +2299,6 @@ Amazon Web Services(AWS)</p>
     
       <li class="post">
         <a href="/blog/2013/04/06/the-secret-of-my-career/">《将才》，一本“扎实”的书</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/03/23/extract-data-with-beautifulsoup-taking-weibo-4-example/">使用Beautiful Soup抽取网页数据，解析微博用户关注信息</a>
       </li>
     
   </ul>
