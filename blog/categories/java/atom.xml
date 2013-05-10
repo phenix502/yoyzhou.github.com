@@ -4,7 +4,7 @@
   <title><![CDATA[Category: java | Tony Chou's Blog]]></title>
   <link href="http://yoyzhou.github.com/blog/categories/java/atom.xml" rel="self"/>
   <link href="http://yoyzhou.github.com/"/>
-  <updated>2013-05-11T00:14:11+08:00</updated>
+  <updated>2013-05-11T00:40:32+08:00</updated>
   <id>http://yoyzhou.github.com/</id>
   <author>
     <name><![CDATA[yoyzhou]]></name>
@@ -101,9 +101,180 @@
 
 <p>下面将以实例的方式演示Hadoop Writable对象占用的字节长度以及Writable对象序列化之后字节序列的结构，特别是变长Writable类型和自定义Writable对象。请看下面的代码和程序输出：</p>
 
-<p>Liquid error: bad URI(is not URI?): 127.0.0.1:8087</p>
-
-<p>程序输出：</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kn">package</span> <span class="n">com</span><span class="o">.</span><span class="na">yoyzhou</span><span class="o">.</span><span class="na">example</span><span class="o">;&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="kn">import</span> <span class="nn">java.io.</span><span class="o">&lt;</span><span class="n">em</span><span class="o">&gt;;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">org.apache.hadoop.io.</span><span class="o">&lt;/</span><span class="n">em</span><span class="o">&gt;;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">org.apache.hadoop.util.StringUtils</span><span class="o">;&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="cm">/**</span>
+</span><span class='line'><span class="cm"> * Demos per how many bytes per each built-in Writable type takes and what does</span>
+</span><span class='line'><span class="cm"> * their bytes sequences look like</span>
+</span><span class='line'><span class="cm"> * </span>
+</span><span class='line'><span class="cm"> * @author yoyzhou</span>
+</span><span class='line'><span class="cm"> * </span>
+</span><span class='line'><span class="cm"> */</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">WritableBytesLengthDemo</span> <span class="o">{&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="n">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+</span><span class='line'>
+</span><span class='line'>	<span class="c1">// one billion representations by different Writable object</span>
+</span><span class='line'>	<span class="n">IntWritable</span> <span class="n">int_b</span> <span class="o">=</span> <span class="k">new</span> <span class="n">IntWritable</span><span class="o">(</span><span class="mi">1000000000</span><span class="o">);</span>
+</span><span class='line'>	<span class="n">LongWritable</span> <span class="n">long_b</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LongWritable</span><span class="o">(</span><span class="mi">1000000000</span><span class="o">);</span>
+</span><span class='line'>	<span class="n">VIntWritable</span> <span class="n">vint_b</span> <span class="o">=</span> <span class="k">new</span> <span class="n">VIntWritable</span><span class="o">(</span><span class="mi">1000000000</span><span class="o">);</span>
+</span><span class='line'>	<span class="n">VLongWritable</span> <span class="n">vlong_b</span> <span class="o">=</span> <span class="k">new</span> <span class="n">VLongWritable</span><span class="o">(</span><span class="mi">1000000000</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>	<span class="c1">// serialize writable object to byte array</span>
+</span><span class='line'>	<span class="kt">byte</span><span class="o">[]</span> <span class="n">bs_int_b</span> <span class="o">=</span> <span class="n">serialize</span><span class="o">(</span><span class="n">int_b</span><span class="o">);</span>
+</span><span class='line'>	<span class="kt">byte</span><span class="o">[]</span> <span class="n">bs_long_b</span> <span class="o">=</span> <span class="n">serialize</span><span class="o">(</span><span class="n">long_b</span><span class="o">);</span>
+</span><span class='line'>	<span class="kt">byte</span><span class="o">[]</span> <span class="n">bs_vint_b</span> <span class="o">=</span> <span class="n">serialize</span><span class="o">(</span><span class="n">vint_b</span><span class="o">);</span>
+</span><span class='line'>	<span class="kt">byte</span><span class="o">[]</span> <span class="n">bs_vlong_b</span> <span class="o">=</span> <span class="n">serialize</span><span class="o">(</span><span class="n">vlong_b</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>	<span class="c1">// print byte array in hex string and their length</span>
+</span><span class='line'>	<span class="n">String</span> <span class="n">hex</span> <span class="o">=</span> <span class="n">StringUtils</span><span class="o">.</span><span class="na">byteToHexString</span><span class="o">(</span><span class="n">bs_int_b</span><span class="o">);</span>
+</span><span class='line'>	<span class="n">formatPrint</span><span class="o">(</span><span class="s">&quot;IntWritable&quot;</span><span class="o">,</span> <span class="n">hex</span><span class="o">,</span> <span class="n">bs_int_b</span><span class="o">.</span><span class="na">length</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>	<span class="n">hex</span> <span class="o">=</span> <span class="n">StringUtils</span><span class="o">.</span><span class="na">byteToHexString</span><span class="o">(</span><span class="n">bs_long_b</span><span class="o">);</span>
+</span><span class='line'>	<span class="n">formatPrint</span><span class="o">(</span><span class="s">&quot;LongWritable&quot;</span><span class="o">,</span> <span class="n">hex</span><span class="o">,</span> <span class="n">bs_long_b</span><span class="o">.</span><span class="na">length</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>	<span class="n">hex</span> <span class="o">=</span> <span class="n">StringUtils</span><span class="o">.</span><span class="na">byteToHexString</span><span class="o">(</span><span class="n">bs_vint_b</span><span class="o">);</span>
+</span><span class='line'>	<span class="n">formatPrint</span><span class="o">(</span><span class="s">&quot;VIntWritable&quot;</span><span class="o">,</span> <span class="n">hex</span><span class="o">,</span> <span class="n">bs_vint_b</span><span class="o">.</span><span class="na">length</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>	<span class="n">hex</span> <span class="o">=</span> <span class="n">StringUtils</span><span class="o">.</span><span class="na">byteToHexString</span><span class="o">(</span><span class="n">bs_vlong_b</span><span class="o">);</span>
+</span><span class='line'>	<span class="n">formatPrint</span><span class="o">(</span><span class="s">&quot;VLongWritable&quot;</span><span class="o">,</span> <span class="n">hex</span><span class="o">,</span> <span class="n">bs_vlong_b</span><span class="o">.</span><span class="na">length</span><span class="o">);</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">private</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">formatPrint</span><span class="o">(</span><span class="n">String</span> <span class="n">type</span><span class="o">,</span> <span class="n">String</span> <span class="n">hex</span><span class="o">,</span> <span class="kt">int</span> <span class="n">length</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>
+</span><span class='line'>	<span class="n">String</span> <span class="n">format</span> <span class="o">=</span> <span class="s">&quot;%1$-50s %2$-16s with length: %3$2d%n&quot;</span><span class="o">;</span>
+</span><span class='line'>	<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="n">format</span><span class="o">,</span> <span class="s">&quot;Byte array per &quot;</span> <span class="o">+</span> <span class="n">type</span>
+</span><span class='line'>			<span class="o">+</span> <span class="s">&quot;(1,000,000,000) is:&quot;</span><span class="o">,</span> <span class="n">hex</span><span class="o">,</span> <span class="n">length</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="cm">/**</span>
+</span><span class='line'><span class="cm"> * Utility method to serialize Writable object, return byte array</span>
+</span><span class='line'><span class="cm"> * representing the Writable object</span>
+</span><span class='line'><span class="cm"> * </span>
+</span><span class='line'><span class="cm"> * */</span>
+</span><span class='line'><span class="kd">public</span> <span class="kd">static</span> <span class="kt">byte</span><span class="o">[]</span> <span class="nf">serialize</span><span class="o">(</span><span class="n">Writable</span> <span class="n">writable</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+</span><span class='line'>
+</span><span class='line'>	<span class="n">ByteArrayOutputStream</span> <span class="n">out</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ByteArrayOutputStream</span><span class="o">();</span>
+</span><span class='line'>	<span class="n">DataOutputStream</span> <span class="n">dataOut</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DataOutputStream</span><span class="o">(</span><span class="n">out</span><span class="o">);</span>
+</span><span class='line'>	<span class="n">writable</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">dataOut</span><span class="o">);</span>
+</span><span class='line'>	<span class="n">dataOut</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+</span><span class='line'>
+</span><span class='line'>	<span class="k">return</span> <span class="n">out</span><span class="o">.</span><span class="na">toByteArray</span><span class="o">();</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="cm">/**</span>
+</span><span class='line'><span class="cm"> * Utility method to deserialize input byte array, return Writable object</span>
+</span><span class='line'><span class="cm"> * </span>
+</span><span class='line'><span class="cm"> * */</span>
+</span><span class='line'><span class="kd">public</span> <span class="kd">static</span> <span class="n">Writable</span> <span class="nf">deserialize</span><span class="o">(</span><span class="n">Writable</span> <span class="n">writable</span><span class="o">,</span> <span class="kt">byte</span><span class="o">[]</span> <span class="n">bytes</span><span class="o">)</span>
+</span><span class='line'>		<span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+</span><span class='line'>
+</span><span class='line'>	<span class="n">ByteArrayInputStream</span> <span class="n">in</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ByteArrayInputStream</span><span class="o">(</span><span class="n">bytes</span><span class="o">);</span>
+</span><span class='line'>	<span class="n">DataInputStream</span> <span class="n">dataIn</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DataInputStream</span><span class="o">(</span><span class="n">in</span><span class="o">);</span>
+</span><span class='line'>	<span class="n">writable</span><span class="o">.</span><span class="na">readFields</span><span class="o">(</span><span class="n">dataIn</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>	<span class="n">dataIn</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+</span><span class='line'>	<span class="k">return</span> <span class="n">writable</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">}</span> <span class="o">}</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+程序输出：</p>
 
 <pre><code>Byte array per IntWritable(1,000,000,000) is:      3b9aca00         with length:  4
 Byte array per LongWritable(1,000,000,000) is:     000000003b9aca00 with length:  8
