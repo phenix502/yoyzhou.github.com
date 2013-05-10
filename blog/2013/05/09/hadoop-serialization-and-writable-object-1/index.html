@@ -9,7 +9,7 @@
   <meta name="author" content="yoyzhou">
 
   
-  <meta name="description" content="本文介绍Hadoop序列化以及如何编写定制的Hadoop Writable类，最后分析Hadoop中内建与用户定制的Writable对象的长度。">
+  <meta name="description" content="本文介绍Hadoop序列化以及如何编写定制的Hadoop Writable类，最后分析Hadoop中Writable实例占用的空间大小，以及Writable实例在字节流中的结构。">
   <meta name="keywords" content="hadoop, bigdata, java, writable, mapreduce">
 
   <!-- http://t.co/dKP3o1e -->
@@ -430,6 +430,8 @@
         <a class="basic-alignment left" href="/blog/2013/04/29/viz-following-networks-of-weibo-celebrities/" title="Previous Post: 微博名人关注网络的社会网络分析">&laquo; 微博名人关注网络的社会网络分析</a>
       
       
+        <a class="basic-alignment right" href="/blog/2013/05/10/hadoop-serialization-and-writable-object-2/" title="Next Post: Hadoop序列化与Writable接口(二)">Hadoop序列化与Writable接口(二) &raquo;</a>
+      
     </p>
   </footer>
 </article>
@@ -461,6 +463,10 @@
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/05/10/hadoop-serialization-and-writable-object-2/">Hadoop序列化与Writable接口(二)</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2013/05/09/hadoop-serialization-and-writable-object-1/">Hadoop序列化与Writable接口(一)</a>
@@ -496,10 +502,6 @@
     
       <li class="post">
         <a href="/blog/2013/04/08/weibo-scrapy-framework-with-multi-threading/">基于UID的WEIBO信息抓取框架WEIBO_SCRAPY</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/04/06/the-secret-of-my-career/">《将才》，一本“扎实”的书</a>
       </li>
     
   </ul>

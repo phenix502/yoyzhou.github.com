@@ -4,7 +4,7 @@
   <title><![CDATA[Category: java | Tony Chou's Blog]]></title>
   <link href="http://yoyzhou.github.com/blog/categories/java/atom.xml" rel="self"/>
   <link href="http://yoyzhou.github.com/"/>
-  <updated>2013-05-09T23:48:51+08:00</updated>
+  <updated>2013-05-11T00:14:11+08:00</updated>
   <id>http://yoyzhou.github.com/</id>
   <author>
     <name><![CDATA[yoyzhou]]></name>
@@ -12,6 +12,117 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Hadoop序列化与Writable接口(二)]]></title>
+    <link href="http://yoyzhou.github.com/blog/2013/05/10/hadoop-serialization-and-writable-object-2/"/>
+    <updated>2013-05-10T20:56:00+08:00</updated>
+    <id>http://yoyzhou.github.com/blog/2013/05/10/hadoop-serialization-and-writable-object-2</id>
+    <content type="html"><![CDATA[<p>上一篇文章<a href="/blog/2013/05/09/hadoop-serialization-and-writable-object-1/">Hadoop序列化与Writable接口（一）</a>介绍了Hadoop序列化，Hadoop Writable接口以及如何定制自己的Writable类，在本文中我们继续Hadoop Writable类的介绍，这一次我们关注的是Writable实例占用的空间大小，以及Writable实例在字节流中的结构。</p>
+
+<h4 id="writable">为什么要考虑Writable类的字节长度</h4>
+
+<p>大数据程序还需要考虑序列化对象占用磁盘空间的大小吗？也许你会认为<strong>大数据</strong>不是就是数据量很大吗，那磁盘空间一定是足够足够的大，一个序列化对象仅仅占用几个到几十个字节的空间，相对磁盘空间来说，当然是不需要考虑太多；如果你的磁盘空间不够大，还是不要玩大数据的好。</p>
+
+<p>上面的观点没有什么问题，大数据应用自然需要足够的磁盘空间，但是能够尽量的考虑到不同Writable类占用磁盘空间的大小，高效的利用磁盘空间也未必就是没有必要的，选择适当的Writable类的另一个作用是<strong>通过减少Writable实例的字节数，可加快数据的读取和减少网络的数据传输。</strong></p>
+
+<h4 id="writable-1">Writable类占用的字节长度</h4>
+
+<p>下面的表格显示的是Hadoop对Java基本类型包装后相应的Writable类占用的字节长度：</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Java基本类型</td>
+      <td>Writable实现</td>
+      <td>序列化后字节数 (bytes)</td>
+    </tr>
+    <tr>
+      <td>boolean</td>
+      <td>BooleanWritable</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>byte</td>
+      <td>ByteWritable</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>short</td>
+      <td>ShortWritable</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>int</td>
+      <td>IntWritable</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td>VIntWritable</td>
+      <td>1–5</td>
+    </tr>
+    <tr>
+      <td>float</td>
+      <td>FloatWritable</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <td>long</td>
+      <td>LongWritable</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td>VLongWritable</td>
+      <td>1–9</td>
+    </tr>
+    <tr>
+      <td>double</td>
+      <td>DoubleWritable</td>
+      <td>8</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>不同的Writable类序列化后占用的字数长度是不一样的，需要综合考虑应用中数据特征选择合适的类型。对于整数类型有两种Writable类型可以选择，一种是定长（fixed-length）Writable类型,IntWritable和LongWritable；另一种是变长（variable-length）Writable类型，VIntWritable和VLongWritable。定长类型顾名思义使用固定长度的字节数表示，比如一个IntWritable类型使用4个长度的字节表示一个int；变长类型则根据数值的大小使用相应的字节长度表示，当数值在-127～127之间时使用1个字节表示，在-112～127范围之外的数值使用头一个字节表示该数值的正负符号以及字节长度（zero-compressed encoded integer）。</p>
+
+<p>定长的Writable类型适合数值均匀分布的情形，而变长的Writable类型适合数值分布不均匀的情形，一般情况下变长的Writable类型更节省空间，因为大多数情况下数值是不均匀的，对于整数类型的Writable选择，我建议：</p>
+
+<blockquote>
+  <p>1. 除非对数据的均匀分布很有把握，否则使用变长Writable类型</p>
+</blockquote>
+
+<blockquote>
+  <p>2. 除非数据的取值区间确定在int范围之内，否则为了程序的可扩展性，请选择VLongWritable类型</p>
+</blockquote>
+
+<h4 id="writable-2">Writable实例的字节表示</h4>
+
+<p>下面将以实例的方式演示Hadoop Writable对象占用的字节长度以及Writable对象序列化之后字节序列的结构，特别是变长Writable类型和自定义Writable对象。请看下面的代码和程序输出：</p>
+
+<p>Liquid error: bad URI(is not URI?): 127.0.0.1:8087</p>
+
+<p>程序输出：</p>
+
+<pre><code>Byte array per IntWritable(1,000,000,000) is:      3b9aca00         with length:  4
+Byte array per LongWritable(1,000,000,000) is:     000000003b9aca00 with length:  8
+Byte array per VIntWritable(1,000,000,000) is:     8c3b9aca00       with length:  5
+Byte array per VLongWritable(1,000,000,000) is:    8c3b9aca00       with length:  5
+</code></pre>
+
+<p>从上面的输出我们可以看出：</p>
+
+<p>+ 对1,000,000,000的表示不同的Writable占用了不同字节长度</p>
+
+<p>+ 变长Writable类型并不总是比定长类型更加节省空间</p>
+
+<p><code>---not finished yet---</code></p>
+
+<!-- reference-like links -->
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Hadoop序列化与Writable接口(一)]]></title>
