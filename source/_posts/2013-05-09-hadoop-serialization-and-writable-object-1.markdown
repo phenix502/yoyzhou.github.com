@@ -5,7 +5,7 @@ date: 2013-05-09 20:49
 comments: true
 categories: [hadoop, bigdata, java, writable]
 keywords: hadoop, bigdata, java, writable, mapreduce
-description: 本文介绍Hadoop序列化以及如何编写定制的Hadoop Writable类，最后分析Hadoop中内建与用户定制的Writable对象的长度。
+description: 本文介绍Hadoop序列化以及如何编写定制的Hadoop Writable类，最后分析Hadoop中Writable实例占用的字节长度，以及Writable实例的字节序列的结构。
 ---
 
 ####序列化
@@ -77,83 +77,80 @@ import org.apache.hadoop.io.Writable;
 
 /**
  *This MyWritable class demonstrates how to write a custom Writable class 
- * */
+ *
+ **/
 public class MyWritable implements Writable{
 		
 		
-		private VLongWritable field1;
-		private VLongWritable field2;
+	private VLongWritable field1;
+	private VLongWritable field2;
 		
-		public MyWritable(){
-			this.set(new VLongWritable(), new VLongWritable());
-		}
+	public MyWritable(){
+		this.set(new VLongWritable(), new VLongWritable());
+	}
 		
-
 		
-		public MyWritable(VLongWritable fld1, VLongWritable fld2){
+	public MyWritable(VLongWritable fld1, VLongWritable fld2){
 			
-			this.set(fld1, fld2);
+		this.set(fld1, fld2);
 			
-		}
+	}
 		
-		public void set(VLongWritable fld1, VLongWritable fld2){
-			//make sure the smaller field is always put as field1
-			if(fld1.get() <= fld2.get()){
-				this.field1 = fld1;
-				this.field2 = fld2;
-			}else{
+	public void set(VLongWritable fld1, VLongWritable fld2){
+		//make sure the smaller field is always put as field1
+		if(fld1.get() <= fld2.get()){
+			this.field1 = fld1;
+			this.field2 = fld2;
+		}else{
 				
-				this.field1 = fld2;
-				this.field2 = fld1;
-			}
+			this.field1 = fld2;
+			this.field2 = fld1;
 		}
-		
-		
-		//How to write and read MyWritable fields from DataOutput and DataInput stream
-		@Override
-		public void write(DataOutput out) throws IOException {
+		}
+				
+	//How to write and read MyWritable fields from DataOutput and DataInput stream
+	@Override
+	public void write(DataOutput out) throws IOException {
 			
-			field1.write(out);
-			field2.write(out);
-		}
+		field1.write(out);
+		field2.write(out);
+	}
 
-		@Override
-		public void readFields(DataInput in) throws IOException {
+	@Override
+	public void readFields(DataInput in) throws IOException {
 			
-			field1.readFields(in);
-			field2.readFields(in);
-		}
+		field1.readFields(in);
+		field2.readFields(in);
+	}
 
-		/** Returns true if <code>o</code> is a MyWritable with the same values. */
-		@Override
-		  public boolean equals(Object o) {
-		    if (!(o instanceof MyWritable))
-		    	return false;
+	/** Returns true if <code>o</code> is a MyWritable with the same values. */
+	@Override
+	public boolean equals(Object o) {
+		 if (!(o instanceof MyWritable))
+		    return false;
 		    
 		    MyWritable other = (MyWritable)o;
 		    return field1.equals(other.field1) && field2.equals(other.field2);
 		    
-		  }
-		
-		@Override
-		public int hashCode(){
-			
-			return field1.hashCode() * 163 + field2.hashCode();
-		}
-		
-		@Override
-		public String toString() {
-			return field1.toString() + "\t" + field2.toString();
-		}
-		
-		
-
 	}
+		
+	@Override
+	public int hashCode(){
+			
+		return field1.hashCode() * 163 + field2.hashCode();
+	}
+		
+	@Override
+	public String toString() {
+		return field1.toString() + "\t" + field2.toString();
+	}
+		
+}
 
 {% endcodeblock %}
 
 
-未完待续，下一篇中将介绍Writable对象序列化为字节流时占用的字节长度。
+未完待续，下一篇中将介绍Writable对象序列化为字节流时占用的字节长度以及其字节序列的结构。
 
 
 ####参考资料
