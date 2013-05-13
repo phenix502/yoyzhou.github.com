@@ -9,7 +9,7 @@
   <meta name="author" content="yoyzhou">
 
   
-  <meta name="description" content="本文介绍Hadoop序列化以及如何编写定制的Hadoop Writable类，最后分析Hadoop中Writable实例占用的空间大小，以及Writable实例在字节流中的结构。">
+  <meta name="description" content="本文通过实例介绍了Hadoop Writable类序列化时占用的字节长度，并分析了Writable类序列化后的字节序列的结构。需要注意的是Text类为了节省空间的目的采用了UTF-8的编码，而不是Java Character的UTF-16编码， &hellip;">
   <meta name="keywords" content="hadoop, bigdata, java, writable, mapreduce, 大数据">
 
   <!-- http://t.co/dKP3o1e -->
@@ -122,7 +122,7 @@
   </header>
 
 
-<div class="entry-content"><p>上一篇文章<a href="/blog/2013/05/09/hadoop-serialization-and-writable-object-1/">Hadoop序列化与Writable接口（一）</a>介绍了Hadoop序列化，Hadoop Writable接口以及如何定制自己的Writable类，在本文中我们继续Hadoop Writable类的介绍，这一次我们关注的是Writable实例占用的空间大小，以及Writable实例在字节流中的结构。</p>
+<div class="entry-content"><p>上一篇文章<a href="/blog/2013/05/09/hadoop-serialization-and-writable-object-1/">Hadoop序列化与Writable接口（一）</a>介绍了Hadoop序列化，Hadoop Writable接口以及如何定制自己的Writable类，在本文中我们继续Hadoop Writable类的介绍，这一次我们关注的是Writable实例序列化之后占用的字节长度，以及Writable实例序列化之后的字节序列结构。</p>
 
 <h4 id="writable">为什么要考虑Writable类的字节长度</h4>
 
@@ -201,9 +201,9 @@
   <p>2. 除非数据的取值区间确定在int范围之内，否则为了程序的可扩展性，请选择VLongWritable类型</p>
 </blockquote>
 
-<h4 id="writable-2">Writable实例的字节表示</h4>
+<h4 id="writable-2">整型Writable的字节序列</h4>
 
-<p>下面将以实例的方式演示Hadoop Writable对象占用的字节长度以及Writable对象序列化之后字节序列的结构，特别是变长Writable类型和自定义Writable对象。请看下面的代码和程序输出：</p>
+<p>下面将以实例的方式演示Hadoop整型Writable对象占用的字节长度以及Writable对象序列化之后字节序列的结构，特别是变长整型Writable实例，请看下面的代码和程序输出：</p>
 
 <div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
 <span class="line-number">2</span>
@@ -289,6 +289,8 @@
 <span class="line-number">82</span>
 <span class="line-number">83</span>
 <span class="line-number">84</span>
+<span class="line-number">85</span>
+<span class="line-number">86</span>
 </pre></td><td class="code"><pre><code class="java"><span class="line"><span class="kn">package</span> <span class="n">com</span><span class="o">.</span><span class="na">yoyzhou</span><span class="o">.</span><span class="na">example</span><span class="o">;</span>
 </span><span class="line">
 </span><span class="line"><span class="kn">import</span> <span class="nn">java.io.*</span><span class="o">;</span>
@@ -321,23 +323,25 @@
 </span><span class="line">
 </span><span class="line">		<span class="c1">// print byte array in hex string and their length</span>
 </span><span class="line">		<span class="n">String</span> <span class="n">hex</span> <span class="o">=</span> <span class="n">StringUtils</span><span class="o">.</span><span class="na">byteToHexString</span><span class="o">(</span><span class="n">bs_int_b</span><span class="o">);</span>
-</span><span class="line">		<span class="n">formatPrint</span><span class="o">(</span><span class="s">&quot;IntWritable&quot;</span><span class="o">,</span> <span class="n">hex</span><span class="o">,</span> <span class="n">bs_int_b</span><span class="o">.</span><span class="na">length</span><span class="o">);</span>
+</span><span class="line">		<span class="n">formatPrint</span><span class="o">(</span><span class="s">&quot;IntWritable&quot;</span><span class="o">,</span> <span class="s">&quot;1,000,000,000&quot;</span><span class="o">,</span><span class="n">hex</span><span class="o">,</span> <span class="n">bs_int_b</span><span class="o">.</span><span class="na">length</span><span class="o">);</span>
 </span><span class="line">
 </span><span class="line">		<span class="n">hex</span> <span class="o">=</span> <span class="n">StringUtils</span><span class="o">.</span><span class="na">byteToHexString</span><span class="o">(</span><span class="n">bs_long_b</span><span class="o">);</span>
-</span><span class="line">		<span class="n">formatPrint</span><span class="o">(</span><span class="s">&quot;LongWritable&quot;</span><span class="o">,</span> <span class="n">hex</span><span class="o">,</span> <span class="n">bs_long_b</span><span class="o">.</span><span class="na">length</span><span class="o">);</span>
+</span><span class="line">		<span class="n">formatPrint</span><span class="o">(</span><span class="s">&quot;LongWritable&quot;</span><span class="o">,</span> <span class="s">&quot;1,000,000,000&quot;</span><span class="o">,</span><span class="n">hex</span><span class="o">,</span> <span class="n">bs_long_b</span><span class="o">.</span><span class="na">length</span><span class="o">);</span>
 </span><span class="line">
 </span><span class="line">		<span class="n">hex</span> <span class="o">=</span> <span class="n">StringUtils</span><span class="o">.</span><span class="na">byteToHexString</span><span class="o">(</span><span class="n">bs_vint_b</span><span class="o">);</span>
-</span><span class="line">		<span class="n">formatPrint</span><span class="o">(</span><span class="s">&quot;VIntWritable&quot;</span><span class="o">,</span> <span class="n">hex</span><span class="o">,</span> <span class="n">bs_vint_b</span><span class="o">.</span><span class="na">length</span><span class="o">);</span>
+</span><span class="line">		<span class="n">formatPrint</span><span class="o">(</span><span class="s">&quot;VIntWritable&quot;</span><span class="o">,</span> <span class="s">&quot;1,000,000,000&quot;</span><span class="o">,</span><span class="n">hex</span><span class="o">,</span> <span class="n">bs_vint_b</span><span class="o">.</span><span class="na">length</span><span class="o">);</span>
 </span><span class="line">
 </span><span class="line">		<span class="n">hex</span> <span class="o">=</span> <span class="n">StringUtils</span><span class="o">.</span><span class="na">byteToHexString</span><span class="o">(</span><span class="n">bs_vlong_b</span><span class="o">);</span>
-</span><span class="line">		<span class="n">formatPrint</span><span class="o">(</span><span class="s">&quot;VLongWritable&quot;</span><span class="o">,</span> <span class="n">hex</span><span class="o">,</span> <span class="n">bs_vlong_b</span><span class="o">.</span><span class="na">length</span><span class="o">);</span>
+</span><span class="line">		<span class="n">formatPrint</span><span class="o">(</span><span class="s">&quot;VLongWritable&quot;</span><span class="o">,</span> <span class="s">&quot;1,000,000,000&quot;</span><span class="o">,</span> <span class="n">hex</span><span class="o">,</span> <span class="n">bs_vlong_b</span><span class="o">.</span><span class="na">length</span><span class="o">);</span>
+</span><span class="line">		
+</span><span class="line">		
 </span><span class="line">	<span class="o">}</span>
 </span><span class="line">
-</span><span class="line">	<span class="kd">private</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">formatPrint</span><span class="o">(</span><span class="n">String</span> <span class="n">type</span><span class="o">,</span> <span class="n">String</span> <span class="n">hex</span><span class="o">,</span> <span class="kt">int</span> <span class="n">length</span><span class="o">)</span> <span class="o">{</span>
+</span><span class="line">	<span class="kd">private</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">formatPrint</span><span class="o">(</span><span class="n">String</span> <span class="n">type</span><span class="o">,</span> <span class="n">String</span> <span class="n">param</span><span class="o">,</span> <span class="n">String</span> <span class="n">hex</span><span class="o">,</span> <span class="kt">int</span> <span class="n">length</span><span class="o">)</span> <span class="o">{</span>
 </span><span class="line">
 </span><span class="line">		<span class="n">String</span> <span class="n">format</span> <span class="o">=</span> <span class="s">&quot;%1$-50s %2$-16s with length: %3$2d%n&quot;</span><span class="o">;</span>
 </span><span class="line">		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="n">format</span><span class="o">,</span> <span class="s">&quot;Byte array per &quot;</span> <span class="o">+</span> <span class="n">type</span>
-</span><span class="line">				<span class="o">+</span> <span class="s">&quot;(1,000,000,000) is:&quot;</span><span class="o">,</span> <span class="n">hex</span><span class="o">,</span> <span class="n">length</span><span class="o">);</span>
+</span><span class="line">				<span class="o">+</span> <span class="s">&quot;(&quot;</span><span class="o">+</span> <span class="n">param</span> <span class="o">+</span><span class="s">&quot;) is:&quot;</span><span class="o">,</span> <span class="n">hex</span><span class="o">,</span> <span class="n">length</span><span class="o">);</span>
 </span><span class="line">
 </span><span class="line">	<span class="o">}</span>
 </span><span class="line">
@@ -377,19 +381,131 @@
 
 <p>程序输出：</p>
 
-<pre><code>Byte array per IntWritable(1,000,000,000) is:      3b9aca00         with length:  4
-Byte array per LongWritable(1,000,000,000) is:     000000003b9aca00 with length:  8
-Byte array per VIntWritable(1,000,000,000) is:     8c3b9aca00       with length:  5
-Byte array per VLongWritable(1,000,000,000) is:    8c3b9aca00       with length:  5
+<pre><code>Byte array per IntWritable(1,000,000,000) is:  \     
+3b9aca00         with length:  4
+
+Byte array per LongWritable(1,000,000,000) is: \     
+000000003b9aca00 with length:  8
+
+Byte array per VIntWritable(1,000,000,000) is: \     
+8c3b9aca00       with length:  5
+
+Byte array per VLongWritable(1,000,000,000) is:\    
+8c3b9aca00       with length:  5
 </code></pre>
 
 <p>从上面的输出我们可以看出：</p>
 
 <p>+ 对1,000,000,000的表示不同的Writable占用了不同字节长度</p>
 
-<p>+ 变长Writable类型并不总是比定长类型更加节省空间</p>
+<p>+ 变长Writable类型并不总是比定长类型更加节省空间，当IntWritable占用4个字节、LongWritable占用8个字节时，相应的变长Writable需要一个额外的字节来存放正负信息和字节长度。所以回到前面的整数类型选择的问题上，<strong>选择出最合适的整数Writable类型，我们应该对数值的总体分布有一定的认识</strong>。</p>
 
-<p><code>---not finished yet---</code></p>
+<h4 id="text">Text的字节序列</h4>
+
+<p>可以简单的认为Text类是java.lang.String的Writable类型，但是要注意的是Text类对于Unicode字符采用的是UTF-8编码，而不是使用Java Character类的UTF-16编码。</p>
+
+<p>Java Character类采用遵循Unicode Standard version 4的UTF-16编码<a href="http://docs.oracle.com/javase/6/docs/api/java/lang/Character.html">[1]</a>，每个字符采用定长的16位(两个字节)进行编码，对于代码点高于Basic Multilingual Plane(BMP，代码点U+0000～U+FFFF)的增补字符，采用两个代理字符进行表示。</p>
+
+<p>Text类采用的UTF-8编码，使用变长的1～4个字节对字符进行编码。对于ASCII字符只使用1个字节，而对于High ASCII和多字节字符使用2～4个字节表示，我想Hadoop在设计时选择使用UTF-8而不是String的UTF-16就是基于上面的原因，为了节省字节长度/空间的考虑。</p>
+
+<blockquote>
+  <p>由于Text采用的是UTF-8编码，所以Text类没有提供String那样多的操作，并且在操作Text对象时，比如Indexing和Iteration，一定要注意这个区别，不过我们建议在进行Text操作时，如果可能可以将Text对象先转换成String，再进行操作。</p>
+</blockquote>
+
+<p>Text类的字节序列表示为一个VIntWritable + UTF-8字节流，VIntWritable为整个Text的字符长度，UTF-8字节数组为真正的Text字节流。具体请看下面的代码片段：</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+</pre></td><td class="code"><pre><code class="java"><span class="line"><span class="o">...</span><span class="c1">//omitted per conciseness</span>
+</span><span class="line"><span class="n">Text</span> <span class="n">myText</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Text</span><span class="o">(</span><span class="s">&quot;my text&quot;</span><span class="o">);</span>
+</span><span class="line"><span class="kt">byte</span><span class="o">[]</span> <span class="n">text_bs</span> <span class="o">=</span> <span class="n">serialize</span><span class="o">(</span><span class="n">myText</span><span class="o">);</span>
+</span><span class="line"><span class="n">hex</span> <span class="o">=</span> <span class="n">StringUtils</span><span class="o">.</span><span class="na">byteToHexString</span><span class="o">(</span><span class="n">text_bs</span><span class="o">);</span>
+</span><span class="line"><span class="n">formatPrint</span><span class="o">(</span><span class="s">&quot;Text&quot;</span><span class="o">,</span> <span class="s">&quot;\&quot;my text\&quot;&quot;</span><span class="o">,</span> <span class="n">hex</span><span class="o">,</span> <span class="n">text_bs</span><span class="o">.</span><span class="na">length</span><span class="o">);</span>
+</span><span class="line">		
+</span><span class="line"><span class="n">Text</span> <span class="n">myText2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Text</span><span class="o">(</span><span class="s">&quot;我的文本&quot;</span><span class="o">);</span>
+</span><span class="line"><span class="kt">byte</span><span class="o">[]</span> <span class="n">text2_bs</span> <span class="o">=</span> <span class="n">serialize</span><span class="o">(</span><span class="n">myText2</span><span class="o">);</span>
+</span><span class="line"><span class="n">hex</span> <span class="o">=</span> <span class="n">StringUtils</span><span class="o">.</span><span class="na">byteToHexString</span><span class="o">(</span><span class="n">text2_bs</span><span class="o">);</span>
+</span><span class="line"><span class="n">formatPrint</span><span class="o">(</span><span class="s">&quot;Text&quot;</span><span class="o">,</span> <span class="s">&quot;\&quot;我的文本\&quot;&quot;</span><span class="o">,</span> <span class="n">hex</span><span class="o">,</span> <span class="n">text2_bs</span><span class="o">.</span><span class="na">length</span><span class="o">);</span>
+</span><span class="line"><span class="o">...</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>程序输出：</p>
+
+<pre><code>Byte array per Text("my text") is: \
+ 	076d792074657874 with length:  8
+
+Byte array per Text("我的文本") is: \
+0ce68891e79a84e69687e69cac with length: 13
+</code></pre>
+
+<p>在上面的输出中，首个字节代表的该段Text/文本的长度，在UTF-8编码下“my text”占用的字节长度为7个字节（07），而中文“我的文本”的字节长度是12个字节（0c）。</p>
+
+<h4 id="writable-3">定制Writable类的字节序列</h4>
+
+<p>本节中我们将使用上篇文章中的MyWritable类进行说明，回顾一下，MyWritable是一个由两个VLongWritable类构成的定制化Writable类型。</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+</pre></td><td class="code"><pre><code class="java"><span class="line"><span class="o">...</span><span class="c1">//omitted per conciseness</span>
+</span><span class="line"><span class="n">MyWritable</span> <span class="n">customized</span> <span class="o">=</span> <span class="k">new</span> <span class="n">MyWritable</span><span class="o">(</span><span class="k">new</span> <span class="n">VLongWritable</span><span class="o">(</span><span class="mi">1000</span><span class="o">),</span>
+</span><span class="line"> 						<span class="k">new</span> <span class="nf">VLongWritable</span><span class="o">(</span><span class="mi">1000000000</span><span class="o">));</span>
+</span><span class="line"><span class="kt">byte</span><span class="o">[]</span> <span class="n">customized_bs</span> <span class="o">=</span> <span class="n">serialize</span><span class="o">(</span><span class="n">customized</span><span class="o">);</span>
+</span><span class="line"><span class="n">hex</span> <span class="o">=</span> <span class="n">StringUtils</span><span class="o">.</span><span class="na">byteToHexString</span><span class="o">(</span><span class="n">customized_bs</span><span class="o">);</span>
+</span><span class="line"><span class="n">formatPrint</span><span class="o">(</span><span class="s">&quot;MyWritable&quot;</span><span class="o">,</span> <span class="s">&quot;1000, 1000000000&quot;</span><span class="o">,</span> <span class="n">hex</span><span class="o">,</span> <span class="n">customized_bs</span><span class="o">.</span><span class="na">length</span><span class="o">);</span>
+</span><span class="line"><span class="o">...</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>程序输出：</p>
+
+<pre><code>Byte array per MyWritable(1000, 1000000000) is: \
+8e03e88c3b9aca00 with length:  8
+</code></pre>
+
+<p>从输出我们可以很清楚的看到，定制的Writable类的字节序列实际上就是基本Writable类型的组合，输出“8e03e88c3b9aca00”的前三个字节是1000的VLongWritable的字节序列，“8c3b9aca00”是1000000000VLongWritable的字节序列，这一点可以从我们编写的MyWritable类的write方法中找到答案：</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+</pre></td><td class="code"><pre><code class="java"><span class="line"><span class="o">...</span><span class="c1">//omitted per conciseness</span>
+</span><span class="line"><span class="nd">@Override</span>
+</span><span class="line"><span class="kd">public</span> <span class="kt">void</span> <span class="nf">write</span><span class="o">(</span><span class="n">DataOutput</span> <span class="n">out</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+</span><span class="line">	<span class="n">field1</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">out</span><span class="o">);</span>
+</span><span class="line">	<span class="n">field2</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">out</span><span class="o">);</span>
+</span><span class="line"><span class="o">}</span>
+</span><span class="line"><span class="o">...</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<h4 id="section">总结</h4>
+
+<p>本文通过实例介绍了Hadoop Writable类序列化时占用的字节长度，并分析了Writable类序列化后的字节序列的结构。需要注意的是Text类为了节省空间的目的采用了UTF-8的编码，而不是Java Character的UTF-16编码，自定义的Writable的字节序列与该Writable类的write()方法有关。</p>
+
+<p>最后指出，Writable是Hadoop序列化的核心，理解Hadoop Writable的字节长度和字节序列对于选择合适的Writable对象以及在字节层面操作Writable对象至关重要。</p>
+
+<h4 id="section-1">参考资料</h4>
+
+<p>Tom White, Hadoop: The Definitive Guide, 3rd Edition </p>
+
+<p><a href="/blog/2013/05/09/hadoop-serialization-and-writable-object-1/">Hadoop序列化与Writable接口(一)</a></p>
+
+<p><code>---EOF---</code></p>
 
 <!-- reference-like links -->
 
