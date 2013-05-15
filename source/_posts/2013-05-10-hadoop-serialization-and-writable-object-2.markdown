@@ -8,7 +8,7 @@ keywords: hadoop, bigdata, java, writable, mapreduce, 大数据
 description: 本文通过实例介绍了Hadoop Writable类序列化时占用的字节长度，并分析了Writable类序列化后的字节序列的结构。需要注意的是Text类为了节省空间的目的采用了UTF-8的编码，而不是Java Character的UTF-16编码，自定义的Writable的字节序列与该Writable类的write()方法有关。最后指出，Writable是Hadoop序列化的核心，理解Hadoop Writable的字节长度和字节序列对于选择合适的Writable对象以及在字节层面操作Writable对象至关重要。
 ---
 
-上一篇文章[Hadoop序列化与Writable接口（一）][hw1]介绍了Hadoop序列化，Hadoop Writable接口以及如何定制自己的Writable类，在本文中我们继续Hadoop Writable类的介绍，这一次我们关注的是Writable实例序列化之后占用的字节长度，以及Writable实例序列化之后的字节序列结构。
+上一篇文章[Hadoop序列化与Writable接口（一）][hw1]介绍了Hadoop序列化，Hadoop Writable接口以及如何定制自己的Writable类，在本文中我们继续Hadoop Writable类的介绍，这一次我们关注的是Writable实例序列化之后占用的字节长度，以及Writable实例序列化之后的字节序列的构成。
 
 
 ####为什么要考虑Writable类的字节长度
@@ -33,7 +33,7 @@ long |LongWritable| 8
 |VLongWritable| 1–9
 double|DoubleWritable| 8
 
-不同的Writable类序列化后占用的字数长度是不一样的，需要综合考虑应用中数据特征选择合适的类型。对于整数类型有两种Writable类型可以选择，一种是定长（fixed-length）Writable类型,IntWritable和LongWritable；另一种是变长（variable-length）Writable类型，VIntWritable和VLongWritable。定长类型顾名思义使用固定长度的字节数表示，比如一个IntWritable类型使用4个长度的字节表示一个int；变长类型则根据数值的大小使用相应的字节长度表示，当数值在-127～127之间时使用1个字节表示，在-112～127范围之外的数值使用头一个字节表示该数值的正负符号以及字节长度（zero-compressed encoded integer）。
+不同的Writable类序列化后占用的字数长度是不一样的，需要综合考虑应用中数据特征选择合适的类型。对于整数类型有两种Writable类型可以选择，一种是定长（fixed-length）Writable类型,IntWritable和LongWritable；另一种是变长（variable-length）Writable类型，VIntWritable和VLongWritable。定长类型顾名思义使用固定长度的字节数表示，比如一个IntWritable类型使用4个长度的字节表示一个int；变长类型则根据数值的大小使用相应的字节长度表示，当数值在-112～127之间时使用1个字节表示，在-112～127范围之外的数值使用头一个字节表示该数值的正负符号以及字节长度（zero-compressed encoded integer）。
 
 定长的Writable类型适合数值均匀分布的情形，而变长的Writable类型适合数值分布不均匀的情形，一般情况下变长的Writable类型更节省空间，因为大多数情况下数值是不均匀的，对于整数类型的Writable选择，我建议：
 

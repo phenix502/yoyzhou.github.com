@@ -56,7 +56,7 @@ public interface Writable {
 
 Hadoop自身提供了多种具体的Writable类，包含了常见的Java基本类型（boolean、byte、short、int、float、long和double等）和集合类型（BytesWritable、ArrayWritable和MapWritable等）。这些类型都位于org.apache.hadoop.io包中。
 
-![writable-classes](http://my.safaribooksonline.com/getfile?item=NDljc3NhNzlyOS9hNWRtNzY4dC8vcGlnMTUwczJlcnl0b3JldW9zcmNhb2VwZWNpaHRvL3R0c2xsbW1vcGkwbGdhZ2Uwbjh5aWwwbWUuMzNz)
+![writable-classes](/images/hadoop-writable-class.png)
 
 (图片来源：safaribooksonline.com)
 
@@ -150,7 +150,7 @@ public class MyWritable implements Writable{
 {% endcodeblock %}
 
 
-未完待续，下一篇中将介绍Writable对象序列化为字节流时占用的字节长度以及其字节序列的结构。
+未完待续，下一篇中将介绍Writable对象序列化为字节流时占用的字节长度以及其字节序列的构成。
 
 
 ####参考资料
