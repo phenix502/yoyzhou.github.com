@@ -122,7 +122,7 @@
   </header>
 
 
-<div class="entry-content"><p>上一篇文章<a href="/blog/2013/05/09/hadoop-serialization-and-writable-object-1/">Hadoop序列化与Writable接口（一）</a>介绍了Hadoop序列化，Hadoop Writable接口以及如何定制自己的Writable类，在本文中我们继续Hadoop Writable类的介绍，这一次我们关注的是Writable实例序列化之后占用的字节长度，以及Writable实例序列化之后的字节序列结构。</p>
+<div class="entry-content"><p>上一篇文章<a href="/blog/2013/05/09/hadoop-serialization-and-writable-object-1/">Hadoop序列化与Writable接口（一）</a>介绍了Hadoop序列化，Hadoop Writable接口以及如何定制自己的Writable类，在本文中我们继续Hadoop Writable类的介绍，这一次我们关注的是Writable实例序列化之后占用的字节长度，以及Writable实例序列化之后的字节序列的构成。</p>
 
 <h4 id="writable">为什么要考虑Writable类的字节长度</h4>
 
@@ -189,7 +189,7 @@
   </tbody>
 </table>
 
-<p>不同的Writable类序列化后占用的字数长度是不一样的，需要综合考虑应用中数据特征选择合适的类型。对于整数类型有两种Writable类型可以选择，一种是定长（fixed-length）Writable类型,IntWritable和LongWritable；另一种是变长（variable-length）Writable类型，VIntWritable和VLongWritable。定长类型顾名思义使用固定长度的字节数表示，比如一个IntWritable类型使用4个长度的字节表示一个int；变长类型则根据数值的大小使用相应的字节长度表示，当数值在-127～127之间时使用1个字节表示，在-112～127范围之外的数值使用头一个字节表示该数值的正负符号以及字节长度（zero-compressed encoded integer）。</p>
+<p>不同的Writable类序列化后占用的字数长度是不一样的，需要综合考虑应用中数据特征选择合适的类型。对于整数类型有两种Writable类型可以选择，一种是定长（fixed-length）Writable类型,IntWritable和LongWritable；另一种是变长（variable-length）Writable类型，VIntWritable和VLongWritable。定长类型顾名思义使用固定长度的字节数表示，比如一个IntWritable类型使用4个长度的字节表示一个int；变长类型则根据数值的大小使用相应的字节长度表示，当数值在-112～127之间时使用1个字节表示，在-112～127范围之外的数值使用头一个字节表示该数值的正负符号以及字节长度（zero-compressed encoded integer）。</p>
 
 <p>定长的Writable类型适合数值均匀分布的情形，而变长的Writable类型适合数值分布不均匀的情形，一般情况下变长的Writable类型更节省空间，因为大多数情况下数值是不均匀的，对于整数类型的Writable选择，我建议：</p>
 
@@ -561,6 +561,8 @@ Byte array per Text("我的文本") is: \
         <a class="basic-alignment left" href="/blog/2013/05/09/hadoop-serialization-and-writable-object-1/" title="Previous Post: Hadoop序列化与Writable接口(一)">&laquo; Hadoop序列化与Writable接口(一)</a>
       
       
+        <a class="basic-alignment right" href="/blog/2013/05/13/hadoop-write-ur-own-rawcomparator/" title="Next Post: 使用RawComparator加速Hadoop程序">使用RawComparator加速Hadoop程序 &raquo;</a>
+      
     </p>
   </footer>
 </article>
@@ -592,6 +594,10 @@ Byte array per Text("我的文本") is: \
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/05/13/hadoop-write-ur-own-rawcomparator/">使用RawComparator加速Hadoop程序</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2013/05/10/hadoop-serialization-and-writable-object-2/">Hadoop序列化与Writable接口(二)</a>
@@ -627,10 +633,6 @@ Byte array per Text("我的文本") is: \
     
       <li class="post">
         <a href="/blog/2013/04/14/hadoop-in-action-reading-note/">Hadoop in Action学习笔记</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/04/08/weibo-scrapy-framework-with-multi-threading/">基于UID的WEIBO信息抓取框架WEIBO_SCRAPY</a>
       </li>
     
   </ul>
