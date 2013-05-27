@@ -4,7 +4,7 @@
   <title><![CDATA[Tony Chou's Blog]]></title>
   <link href="http://yoyzhou.github.com/atom.xml" rel="self"/>
   <link href="http://yoyzhou.github.com/"/>
-  <updated>2013-05-27T21:13:00+08:00</updated>
+  <updated>2013-05-27T21:27:31+08:00</updated>
   <id>http://yoyzhou.github.com/</id>
   <author>
     <name><![CDATA[yoyzhou]]></name>
@@ -214,6 +214,8 @@
 <p>[1] Sean Owen etc., Mahout in Action, Manning Publications, 2011</p>
 
 <p>[2] Pang-Ning Tan等, 数据挖掘导论, 人民邮电出版社, 2011 </p>
+
+<p>[3] 文中代码实例的源码地址<a href="https://github.com/yoyzhou/weibo_analysis/blob/master/src/com/yoyzhou/weibo/CoFollowedClustering.java">CoFollowedClustering.java</a></p>
 
 <p><code>---EOF---</code></p>
 
