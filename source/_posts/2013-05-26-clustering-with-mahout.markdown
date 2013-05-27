@@ -159,7 +159,11 @@ KMeansDriver提供了运行K-Means算法的入口，其中的参数包含：
 
 \[2\] Pang-Ning Tan等, 数据挖掘导论, 人民邮电出版社, 2011 
 
+\[3\] 文中代码实例的源码地址[CoFollowedClustering.java][src]
+
 `---EOF---`
 
+
+[src]:https://github.com/yoyzhou/weibo_analysis/blob/master/src/com/yoyzhou/weibo/CoFollowedClustering.java
 
 
