@@ -92,21 +92,25 @@
         <loc>
             http://yoyzhou.github.com/blog/2013/05/09/hadoop-serialization-and-writable-object-1/
         </loc>
-        <lastmod>2013-05-15T21:40:21+08:00</lastmod>
+        <lastmod>2013-05-15T23:54:26+08:00</lastmod>
     </url>
     <url>
         <loc>
             http://yoyzhou.github.com/blog/2013/05/10/hadoop-serialization-and-writable-object-2/
         </loc>
-        <lastmod>2013-05-15T21:40:34+08:00</lastmod>
+        <lastmod>2013-05-15T23:54:23+08:00</lastmod>
     </url>
     <url>
         <loc>http://yoyzhou.github.com/blog/2013/05/13/hadoop-write-ur-own-rawcomparator/</loc>
         <lastmod>2013-05-15T23:43:13+08:00</lastmod>
     </url>
     <url>
+        <loc>http://yoyzhou.github.com/blog/2013/05/26/clustering-with-mahout/</loc>
+        <lastmod>2013-05-27T21:12:44+08:00</lastmod>
+    </url>
+    <url>
         <loc>http://yoyzhou.github.com/</loc>
-        <lastmod>2013-05-15T23:43:13+08:00</lastmod>
+        <lastmod>2013-05-27T21:12:44+08:00</lastmod>
     </url>
     <url>
         <loc>http://yoyzhou.github.com/about/</loc>
@@ -114,10 +118,10 @@
     </url>
     <url>
         <loc>http://yoyzhou.github.com/blog/archives/</loc>
-        <lastmod>2013-05-15T23:43:13+08:00</lastmod>
+        <lastmod>2013-05-27T21:12:44+08:00</lastmod>
     </url>
     <url>
         <loc>http://yoyzhou.github.com/archives/</loc>
-        <lastmod>2013-05-15T23:43:13+08:00</lastmod>
+        <lastmod>2013-05-27T21:12:44+08:00</lastmod>
     </url>
 </urlset>
