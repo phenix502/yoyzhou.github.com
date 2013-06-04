@@ -9,8 +9,7 @@
   <meta name="author" content="yoyzhou">
 
   
-  <meta name="description" content="
-">
+  <meta name="description" content="kramdown (sic, not Kramdown or KramDown, just kramdown) is a free GPL-licensed Ruby library for parsing and converting a superset of Markdown. It is &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -101,6 +100,83 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2012/08/05/add-latex-support-for-octopress/">Add Latex Support for Octopress With Kramdown and MathJax</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-08-05T15:24:00+08:00" pubdate data-updated="true">Aug 5<span>th</span>, 2012</time>
+        
+         | <a href="/blog/2012/08/05/add-latex-support-for-octopress/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><blockquote><p>kramdown (sic, not Kramdown or KramDown, just kramdown) is a free GPL-licensed Ruby library for parsing and converting a superset of Markdown.  It is completely written in Ruby, supports standard Markdown.</p><footer><strong>@kramdown</strong> <cite><a href="http://kramdown.rubyforge.org/index.html">kramdown.rubyforge.org/&hellip;</a></cite></footer></blockquote>
+
+<h2 id="install-kramdown">Install kramdown</h2>
+<p>First of all make sure you have ruby installed on your box:</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">$ ruby --version # or
+</span><span class="line">$ which ruby</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>If command &ldquo;which ruby&rdquo; returns nothing, then you should install it first.</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">$ sudo apt-cache search ruby # to chech out the available ruby package
+</span><span class="line">$ sudo apt-get install ruby[*.*] # to install *.* version of ruby</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>Also you can use <a href="https://rvm.io/">RVM</a>, aka Ruby Version Manager, to install/manage your ruby entries, but actually I am not able to install ruby 1.9.2 approperately following the instruction from Octopress site on my PC which is <em>ubuntu 12.04</em>.</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Install kramdown  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="sh"><span class="line"><span class="nv">$ </span>sudo gem install kramdown
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<h2 id="change-configyml-and-gemfile-to-include-kramdown">Change _config.yml and Gemfile to include kramdown</h2>
+<p>Change markdown engine to kramdown</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Change markdown engine to kramdown _config.yml </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+</pre></td><td class="code"><pre><code class="yaml"><span class="line"><span class="p-Indicator">[</span><span class="nv">...</span><span class="p-Indicator">]</span>
+</span><span class="line"><span class="l-Scalar-Plain">markdown</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">kramdown</span>
+</span><span class="line"><span class="p-Indicator">[</span><span class="nv">...</span><span class="p-Indicator">]</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2012/08/05/add-latex-support-for-octopress/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2012/08/02/welcome/">Welcome</a></h1>
     
     
@@ -163,6 +239,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/06/04/mahout-clustering-with-hadoop/">让Mahout KMeans聚类分析运行在Hadoop上</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/05/26/clustering-with-mahout/">Mahout与聚类分析</a>
       </li>
     
@@ -196,10 +276,6 @@
     
       <li class="post">
         <a href="/blog/2013/04/20/my-first-luckily-and-sad-hadoop-results/">My First Lucky and Sad Hadoop Results</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/04/14/steps-of-programming-hadoop-with-eclipse/">使用Eclipse开发MapReduce程序的步骤</a>
       </li>
     
   </ul>
